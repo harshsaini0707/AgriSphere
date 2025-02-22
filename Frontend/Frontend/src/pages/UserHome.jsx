@@ -17,7 +17,7 @@ const UserHome = () => {
   const getWeather = async()=>{
    try {
     const response = await axios.get(`http://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_Weather_Key}&q=${user.Location || " " }&aqi=no`);
-    console.log(response?.data);
+    //console.log(response?.data);
     setWeatherData(response?.data)
    } catch (error) {
     if(error.response?.status === 401){
@@ -62,7 +62,7 @@ const UserHome = () => {
       <div className="flex flex-col items-center justify-center w-full p-6">
         <div className= " mb-5 bg-white/10 backdrop-blur-xl shadow-2xl border border-white/20 rounded-3xl  p-8 w-[80%] max-w-lg transition-all duration-300 hover:scale-105 ">
         {
-          weatherData ? (
+          weatherData  ? (
             <div className="flex flex-col  text-white">
   <h1 className="font-extrabold text-4xl tracking-wide text-white/95">Weather</h1>
   <p className="text-lg tracking-wider pt-2 opacity-80">Today's Forecast</p>
@@ -71,8 +71,8 @@ const UserHome = () => {
     <h1 className="text-5xl font-bold">{weatherData?.current?.temp_c}°C</h1>
     
     <div className="flex items-center mt-1 ">
-      <img className="h-12 w-12" src={weatherData?.current?.condition?.icon} alt="Weather Icon" />
-      <h2 className="text-xl font-medium pr-4">{weatherData?.current?.condition?.text}</h2>
+      <img className="h-12 w-14 pt-1" src={weatherData?.current?.condition?.icon} alt="Weather Icon" />
+      <h2 className="text-xl font-medium pr-8">{weatherData?.current?.condition?.text}</h2>
     </div>
 
     <h2 className="text-lg font-medium pl-3">Humidity: {weatherData?.current?.humidity}%</h2>

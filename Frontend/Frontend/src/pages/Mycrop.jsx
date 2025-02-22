@@ -17,6 +17,8 @@ const Mycrop = () => {
       const response = await axios.get(import.meta.env.VITE_BASE_URL+"/plantedCrop", {
         withCredentials: true,
       }); 
+      console.log(response?.data?.data);
+      
       setPlantedCrop(response?.data?.data);
     } catch (error) {
       console.log(error.message);
@@ -111,10 +113,14 @@ const Mycrop = () => {
                     <p className="text-gray-600 text-lg">{crop.cropId.about}</p>
 
                     {/* Market & Duration */}
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-3 gap-6">
                       <div className="bg-gray-100 rounded-lg p-4 text-center">
                         <span className="block text-sm text-gray-500">⏳ Duration</span>
                         <span className="text-lg font-semibold">{crop.cropId.duration} days</span>
+                      </div>
+                      <div className="bg-gray-100 rounded-lg p-4 text-center">
+                        <span className="block text-sm text-gray-500">Planted Area</span>
+                        <span className="text-lg font-semibold">{crop?.area} Bigha </span>
                       </div>
                       <div className="bg-amber-100 rounded-lg p-4 text-center">
                         <span className="block text-sm text-amber-600">💰 Today's Price</span>

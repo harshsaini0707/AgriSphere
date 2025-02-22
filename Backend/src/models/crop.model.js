@@ -20,6 +20,10 @@ const cropSchema = new mongoose.Schema({
     type:Date,
     default:Date.now,
 
+  },
+  area:{
+    type:Number,
+    required:true
   }
 },{timestamps:true});
 

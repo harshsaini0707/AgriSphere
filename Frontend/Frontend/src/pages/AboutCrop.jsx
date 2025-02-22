@@ -14,7 +14,8 @@ import {
   Sprout,
   MapPin,
   Gauge,
-  FlaskConical
+  FlaskConical,
+  Bean
 } from "lucide-react";
 import useValidation from "../hooks/useValidation";
 
@@ -22,6 +23,8 @@ const AboutCrop = () => {
   useValidation();
   const [about, setAbout] = useState({});
   const[toast,setToast] = useState(false);
+  const [area,setArea] = useState(false);
+  const [inputArea, setInputArea] = useState(1)
   const req = useParams();
 
   const aboutCrop = async () => {
@@ -31,6 +34,8 @@ const AboutCrop = () => {
       const response = await axios.get(import.meta.env.VITE_BASE_URL+`/aboutCrop/${cropId}`, {
         withCredentials: true,
       });
+      console.log(response?.data?.data);
+      
       setAbout(response?.data?.data);
     } catch (error) {
       console.log(error.message);
@@ -40,7 +45,7 @@ const AboutCrop = () => {
     try {
      if(!cropId) return;
      const response = await axios.post(import.meta.env.VITE_BASE_URL+`/plantCrop/${cropId}`,{
-       cropId
+       cropId, area:inputArea
       },{withCredentials:true})
      
       
@@ -72,6 +77,43 @@ const AboutCrop = () => {
         <span>Crop Added Successfully!</span>
       </div>
     )}
+    {area && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-20">
+              <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+                <h2 className="text-lg font-semibold mb-4 text-center">Enter Planting Area</h2>
+                <input
+                  type="number"
+                  placeholder="Enter Area (in Bigha)"
+                  min="0"
+                  value={inputArea}
+                  onChange={(e) => setInputArea(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                />
+               <h1 className="mt-2 font-semibold">Seed Required :{about?.seedRequired * inputArea}kg in {inputArea} Bigha </h1>
+                <div className="flex justify-between mt-4">
+                  <button
+                    onClick={() => setArea(false)}
+                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() =>{ plantCrop(about._id) 
+              
+               popUp()
+               setToast(true)
+               setInputArea("")
+               setArea(false)
+              }
+                    }
+                    className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+                  >
+                    Confirm
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="bg-white shadow-2xl rounded-3xl overflow-hidden backdrop-blur-sm border border-green-100">
          
             {/* Header Section */}
@@ -221,7 +263,21 @@ const AboutCrop = () => {
                     </div>
                   </div>
                 </div>
+
+                <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 p-8 rounded-xl border border-emerald-200 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-center gap-3">
+                    <div className="bg-emerald-700 p-2 rounded-lg">
+                      <Bean className="text-white" size={24} />
+                    </div>
+                    <div>
+                      <p className="text-sm text-emerald-700 font-medium">States</p>
+                      <p className="text-lg font-bold text-emerald-800">{about?.seedRequired} kg / Bigha</p>
+                    </div>
+                  </div>
+                </div>
               </div>
+
+              
 
               {/* Seasonal Information */}
               <div className="mt-6 grid grid-cols-2 gap-6">
@@ -245,11 +301,7 @@ const AboutCrop = () => {
                   </div>
                 </div>
 <button onClick={()=>{
-   plantCrop(about._id)
-
-   popUp()
-   setToast(true)
-  
+  setArea(true);  
 
 }} className="w-full text-xl  h-12 bg-green-600 text-white ml-52 py-2 rounded-lg font-semibold hover:bg-green-700 transition duration-300">
          Plant

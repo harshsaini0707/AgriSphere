@@ -97,6 +97,12 @@ const HarvestedCrop = () => {
                             {new Date(crop.updatedAt).toLocaleDateString()}
                           </span>
                         </p>
+                        <p className="text-sm">
+                           <span className="font-semibold text-gray-800">Planted Area:</span>{" "}
+                          <span className="text-green-700 font-semibold">
+                            {crop?.area} Bigha
+                          </span>
+                        </p>
                       </div>
                     </div>
 

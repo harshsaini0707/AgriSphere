@@ -41,13 +41,13 @@ const adminLogout = async(req,res)=>{
 }
 const addCrop = async(req,res)=>{
     try {
-        const {cropName,cropPhoto,about,soilType,duration,state,nutrition,optimalConditions,market,waterRequirement,season} = req.body;
+        const {cropName,cropPhoto,about,soilType,duration,state,nutrition,optimalConditions,market,waterRequirement,season,seedRequired} = req.body;
         
-        if(!cropName || !cropPhoto || !about || !soilType || !state || !season || !duration){
+        if(!cropName || !cropPhoto || !about || !soilType || !state || !season || !duration || !seedRequired){
             return res.status(400).json({message:"Missing Field!!"})
         }
         const crop = new adminModel({
-            cropName,cropPhoto,about,soilType,duration,state,nutrition,optimalConditions,market,waterRequirement,season
+            cropName,cropPhoto,about,soilType,duration,state,nutrition,optimalConditions,market,waterRequirement,season,seedRequired
         })
 
         await crop.save();

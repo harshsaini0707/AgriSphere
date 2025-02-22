@@ -92,33 +92,7 @@ const userCropFeed =  async(req,res)=>{
 
 }
 
-const plantCrop = async(req,res)=>{
-  try {
-    if (!req.user || !req.user._id) {
-      return res.status(401).send("User not authenticated");
-    }
-    const loggedInUser = req.user._id;
-    const cropId = req.body.cropId;
 
-    const cropExists = await adminModel.findById(cropId);
-
-    if(!cropExists) return res.status(404).send("Crop Not Found!!");
-
-    const addCrop =  new cropModel({
-      cropId,
-      userId: loggedInUser
-    });
-    await addCrop.save();
-
-    const populatedCrop = await cropModel.findById(addCrop._id).populate("cropId", "cropName cropPhoto duration nutrition optimalConditions");
-
-    return res.status(200).json({message:"Crop  Added Successfully",data:populatedCrop})
-
-    
-  } catch (error) {
-    return res.status(500).send("Error While Planting The Crop!!")
-  }
-}
 const harvestCrop = async (req, res) => {
   try {
     const plantedCropId = req.params.plantedCropId;
@@ -134,7 +108,7 @@ const harvestCrop = async (req, res) => {
 
     const harvestedCrop = await cropModel
       .findById(plantedCropId)
-      .populate("cropId", "cropName cropPhoto duration nutrition optimalConditions");
+      .populate("cropId", "cropName cropPhoto duration nutrition optimalConditions  area");
 
     return res.status(200).json({ message: "Crop Harvested Successfully", data: harvestedCrop });
 
@@ -161,7 +135,7 @@ const plantedCrop = async(req,res)=>{
   try {
     const loggedInUser = req.user._id;
 
-    const findCrop = await cropModel.find({status:false , userId:loggedInUser}).populate("cropId","cropName cropPhoto about soilType duration state nutrition optimalConditions market waterRequirement season");
+    const findCrop = await cropModel.find({status:false , userId:loggedInUser}).populate("cropId","cropName cropPhoto about soilType duration state nutrition optimalConditions market waterRequirement area season ");
 
     if(!findCrop || findCrop.length === 0) return res.status(404).send("No Crop Is Planted!!");
 
@@ -176,7 +150,7 @@ const harvestedCrop = async(req,res)=>{
   try {
     const loggedInUser = req.user._id;
 
-    const findCrop = await cropModel.find({status:true , userId:loggedInUser}).populate("cropId","cropName cropPhoto duration season");
+    const findCrop = await cropModel.find({status:true , userId:loggedInUser}).populate("cropId","cropName cropPhoto duration season area");
 
     if(!findCrop || findCrop.length === 0) return res.status(404).send("No Harveted Crop!!");
 
@@ -186,6 +160,57 @@ const harvestedCrop = async(req,res)=>{
     return res.status(500).send("Error While Viewing Planted Crop");
   }
 }
+const plantCrop = async(req,res)=>{
+  try {
+    if (!req.user || !req.user._id) {
+      return res.status(401).send("User not authenticated");
+    }
+    const loggedInUser = req.user._id;
+    const cropId = req.body.cropId;
+    const area = req.body.area;
+
+    const cropExists = await adminModel.findById(cropId);
+
+    if(!cropExists) return res.status(404).send("Crop Not Found!!");
+
+    const addCrop =  new cropModel({
+      cropId,
+      area:area,
+      userId: loggedInUser
+    });
+    await addCrop.save();
+
+    const populatedCrop = await cropModel.findById(addCrop._id).populate("cropId", "cropName cropPhoto  area duration nutrition optimalConditions");
+
+    return res.status(200).json({message:"Crop  Added Successfully",data:populatedCrop})
+
+    
+  } catch (error) {
+    return res.status(500).send("Error While Planting The Crop!!")
+  }
+}
+
+// const seedArea = async(req,res)=>{
+// try {
+//   if(!req.user){
+//     return res.status(401).send("Unauthorized - Login !!")
+//   }
+//   const cropId = req.params.cropId;
+//   const area = req.body.area;
+
+//   const crop = await adminModel.findById(cropId);
+//   if(!crop) return res.status(404).send("Crop Not Found!!");
+  
+//   const areaCrop = await cropModel({
+//     area:area
+//   })
+
+//   await areaCrop.save();
+//   return res.status(200).json({message:"Crop Area Added Successfully",data:area})
+// } catch (error) {
+//   return res.status(500).send(error.message)
+// }
+// }
 
 
 //Task

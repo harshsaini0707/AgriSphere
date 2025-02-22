@@ -15,6 +15,7 @@ userRouter.patch("/hearvestCrop/:plantedCropId",userProtect,harvestCrop);
 userRouter.get("/aboutCrop/:cropId",userProtect,aboutCrop);
 userRouter.get("/plantedCrop",userProtect,plantedCrop);
 userRouter.get("/harvestCrop",userProtect,harvestedCrop);
+//userRouter.post("/seedArea",userProtect,seedArea)
 
 //Task
 userRouter.post("/addTask",userProtect,addTask); 

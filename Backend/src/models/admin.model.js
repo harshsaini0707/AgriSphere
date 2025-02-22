@@ -29,6 +29,10 @@ const adminSchema = new mongoose.Schema({
         type:[String],
         required:true
     },
+    seedRequired:{
+        type:Number,
+        required:true
+    },
      duration:{
         type:Number,
         required:true

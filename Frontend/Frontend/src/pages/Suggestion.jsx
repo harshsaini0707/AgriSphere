@@ -12,15 +12,18 @@ const Suggestion = () => {
   useValidation();
   const statee = useSelector((store) => store.user.State || "");
   const cropFeed = useSelector((store) => store.crop);
-  const selectedSoil = useSelector((store) => store.suggestion.soil || " "); 
-  const selectedState = useSelector((store) => store.suggestion.state || ""); 
+  const selectedSoil = useSelector((store) => store.suggestion.soil || " ");
+  const selectedState = useSelector((store) => store.suggestion.state || "");
   const dispatch = useDispatch();
   const navigate = useNavigate();
- 
 
-  const [STATE, setState] = useState(selectedState==""? statee :selectedState );
+  const [area, setArea] = useState(false);
+  const [inputArea, setInputArea] = useState(1);
+  const [selectedCrop, setSelectedCrop] = useState(null); // Track selected crop
+
+  const [STATE, setState] = useState(selectedState === "" ? statee : selectedState);
   const [SOIL, setSoil] = useState(selectedSoil || "");
-  const[loading,setLoading]  = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (SOIL) dispatch(selectSoil(SOIL));
@@ -30,23 +33,21 @@ const Suggestion = () => {
     if (STATE) dispatch(selectState(STATE));
   }, [STATE, dispatch]);
 
- 
-
   useEffect(() => {
     const fetchCrops = async () => {
-      if (cropFeed.length > 0){
+      if (cropFeed.length > 0) {
         setLoading(false);
         return;
       }
       try {
-        const response = await axios.get(import.meta.env.VITE_BASE_URL+"/userFeed", {
+        const response = await axios.get(import.meta.env.VITE_BASE_URL + "/userFeed", {
           withCredentials: true,
         });
         dispatch(addCrop(response?.data?.data));
       } catch (error) {
         console.error("Error fetching crops:", error.message);
-      }finally{
-        setLoading(false)
+      } finally {
+        setLoading(false);
       }
     };
     fetchCrops();
@@ -56,8 +57,8 @@ const Suggestion = () => {
     try {
       if (!cropId) return;
       const response = await axios.post(
-        import.meta.env.VITE_BASE_URL+`/plantCrop/${cropId}`,
-        { cropId },
+        import.meta.env.VITE_BASE_URL + `/plantCrop/${cropId}`,
+        { cropId, area: inputArea },
         { withCredentials: true }
       );
       console.log("Planted Crop:", response?.data?.data);
@@ -78,130 +79,134 @@ const Suggestion = () => {
     return stateMatches || soilMatches;
   });
 
-  return(
+  return (
     <div className="flex min-h-screen bg-gradient-to-br from-[#0f766e] via-[#22c55e] to-[#4ade80]">
       <Dashboard />
 
-    {loading ? (
-    <div className="flex justify-center max-w-5xl mx-auto px-8 py-16">
-    <div className="h-36 w-36  mt-44 border-2 border-t-transparent   border-white rounded-full animate-spin duration-100 "></div>
-  </div>
-  
-    ) : (<div className="max-w-5xl mx-auto px-8 py-18">
-        {/* Select Form */}
-        <form>
-          <select value={STATE} onChange={(e) => setState(e.target.value)}>
-          <option value="">All State / Union Territory</option>
-  <option value="Andhra Pradesh">Andhra Pradesh</option>
-  <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-  <option value="Assam">Assam</option>
-  <option value="Bihar">Bihar</option>
-  <option value="Chhattisgarh">Chhattisgarh</option>
-  <option value="Goa">Goa</option>
-  <option value="Gujarat">Gujarat</option>
-  <option value="Haryana">Haryana</option>
-  <option value="Himachal Pradesh">Himachal Pradesh</option>
-  <option value="Jharkhand">Jharkhand</option>
-  <option value="Karnataka">Karnataka</option>
-  <option value="Kerala">Kerala</option>
-  <option value="Madhya Pradesh">Madhya Pradesh</option>
-  <option value="Maharashtra">Maharashtra</option>
-  <option value="Manipur">Manipur</option>
-  <option value="Meghalaya">Meghalaya</option>
-  <option value="Mizoram">Mizoram</option>
-  <option value="Nagaland">Nagaland</option>
-  <option value="Odisha">Odisha</option>
-  <option value="Punjab">Punjab</option>
-  <option value="Rajasthan">Rajasthan</option>
-  <option value="Sikkim">Sikkim</option>
-  <option value="Tamil Nadu">Tamil Nadu</option>
-  <option value="Telangana">Telangana</option>
-  <option value="Tripura">Tripura</option>
-  <option value="Uttar Pradesh">Uttar Pradesh</option>
-  <option value="Uttarakhand">Uttarakhand</option>
-  <option value="West Bengal">West Bengal</option>
-  <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
-  <option value="Chandigarh">Chandigarh</option>
-  <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
-  <option value="Lakshadweep">Lakshadweep</option>
-  <option value="Delhi">Delhi</option>
-  <option value="Puducherry">Puducherry</option>
-  <option value="Ladakh">Ladakh</option>
-  <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-          </select>
-
-          <select value={SOIL} onChange={(e) => setSoil(e.target.value)}>
-            <option value="">Select Soil Type</option>
-            <option value="Alluvial">Alluvial</option>
-            <option value="Black">Black</option>
-            <option value="Red and Yellow">Red and Yellow</option>
-            <option value="Laterite">Laterite</option>
-            <option value="Arid">Arid</option>
-            <option value="Saline">Saline</option>
-            <option value="Forest">Forest</option>
-          </select>
-        </form>
-
-        {/* Display Filtered Crops */}
-        {filteredCrops ? (
-          filteredCrops.map((crop) => (
-            <div
-              key={crop._id}
-              className="mb-6 border-gray-300 border-2 rounded-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300 shadow-xl bg-gray-100 w-full"
+      {loading ? (
+        <div className="flex justify-center max-w-5xl mx-auto px-8 py-16">
+          <div className="h-36 w-36 mt-44 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+        </div>
+      ) : (
+        <div className="max-w-5xl mx-auto px-8 py-18">
+          {/* Select Form */}
+          <form className="flex gap-4 justify-center mb-8">
+            <select
+              value={STATE}
+              onChange={(e) => setState(e.target.value)}
+              className="p-3 rounded-lg bg-white text-black shadow-md focus:ring-2 focus:ring-green-500"
             >
-              <div className="p-6 flex flex-col md:flex-row items-center md:items-start gap-8">
-                {/* Image Section */}
-                <div className="flex-shrink-0">
+              <option value="">All State / Union Territory</option>
+              {[
+                "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
+                "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand",
+                "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
+                "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
+                "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
+                "Uttar Pradesh", "Uttarakhand", "West Bengal", "Delhi",
+              ].map((state) => (
+                <option key={state} value={state}>
+                  {state}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={SOIL}
+              onChange={(e) => setSoil(e.target.value)}
+              className="p-3 rounded-lg bg-white text-black shadow-md focus:ring-2 focus:ring-green-500"
+            >
+              <option value="">Select Soil Type</option>
+              {["Alluvial", "Black", "Red and Yellow", "Laterite", "Arid", "Saline", "Forest"].map(
+                (soil) => (
+                  <option key={soil} value={soil}>
+                    {soil}
+                  </option>
+                )
+              )}
+            </select>
+          </form>
+
+          {/* Display Filtered Crops */}
+          {filteredCrops.length > 0 ? (
+            filteredCrops.map((crop) => (
+              <div
+                key={crop._id}
+                className="mb-6 border-2 border-gray-300 rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-2xl transition-transform transform hover:scale-105"
+              >
+                <div className="p-6 flex flex-col md:flex-row items-center gap-8">
                   <img
                     src={crop.cropPhoto}
                     alt={crop.cropName}
-                    className="w-28 h-28 md:w-40 md:h-40 rounded-full object-cover border-2 border-gray-800 shadow-md hover:border-gray-900 transition-all duration-300"
+                    className="w-32 h-32 rounded-full object-cover border-2 border-gray-800 shadow-md"
                   />
-                </div>
-
-                {/* Crop Details */}
-                <div className="flex-grow space-y-3 text-center md:text-left">
-                  <h2 className="text-2xl md:text-3xl font-semibold text-black tracking-wide">
-                    {crop.cropName}
-                  </h2>
-                  <p className="text-lg text-gray-700">
-                    <span className="text-gray-600 font-medium">Duration:</span>{" "}
-                    {crop.duration} days
-                  </p>
-                  <p className="text-lg text-gray-700">
-                    <span className="text-gray-600 font-medium">States:</span>{" "}
-                    {crop.state.join(", ")}
-                  </p>
-                  <p className="text-md text-gray-700">
-                    <span className="text-gray-600 font-medium">About:</span>{" "}
-                    {crop.about}
-                  </p>
-                </div>
-
-                {/* Buttons */}
-                <div className="flex flex-col gap-5 mt-5 md:ml-8">
-                  <button
-                    onClick={() => navigate(`/aboutCrop/${crop._id}`)}
-                    className="px-7 py-2.5 bg-blue-600 text-white rounded-lg font-medium text-lg hover:bg-blue-700 transform hover:-translate-y-0.5 transition-all duration-200 shadow-md hover:shadow-lg"
-                  >
-                    <Info className="inline mb-1" /> About
-                  </button>
-                  <button
-                    onClick={() => plantCrop(crop._id)}
-                    className="px-7 py-2.5 bg-green-600 text-white rounded-lg font-medium text-lg hover:bg-green-700 transform hover:-translate-y-0.5 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
-                  >
-                    <span className="text-xl">🌱</span> Plant
-                  </button>
+                  <div className="text-center md:text-left space-y-3">
+                    <h2 className="text-3xl font-bold text-gray-900">{crop.cropName}</h2>
+                    <p className="text-lg text-gray-700">Duration: {crop.duration} days</p>
+                    <p className="text-lg text-gray-700">States: {crop.state.join(", ")}</p>
+                    <p className="text-gray-600">{crop.about}</p>
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <button
+                      onClick={() => navigate(`/aboutCrop/${crop._id}`)}
+                      className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition"
+                    >
+                      <Info className="inline-block mr-2" /> About
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectedCrop(crop);
+                        setArea(true);
+                      }}
+                      className="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition"
+                    >
+                      🌱 Plant
+                    </button>
+                  </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <p className="text-gray-600 text-center mt-10 text-xl">
+              No crops found for the selected criteria.
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Planting Area Modal */}
+      {area && selectedCrop && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg w-80">
+            <h2 className="text-lg font-semibold mb-4 text-center">Enter Planting Area</h2>
+            <input
+              type="Number"
+              min="0"
+              placeholder="Area (in Bigha)"
+              value={inputArea}
+              onChange={(e) => setInputArea(e.target.value)}
+              className="w-full p-3 border rounded-lg"
+            />
+            <h1 className="mt-2 font-semibold">
+              Seed Required: {selectedCrop.seedRequired * inputArea}kg in {inputArea} Bigha
+            </h1>
+            <div className="flex justify-between mt-4">
+              <button onClick={() => setArea(false)} className="bg-red-500 text-white px-4 py-2 rounded-lg">
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  plantCrop(selectedCrop._id);
+                  setArea(false);
+                }}
+                className="bg-green-500 text-white px-4 py-2 rounded-lg"
+              >
+                Confirm
+              </button>
             </div>
-          ))
-        ) : (
-          <p className="text-gray-600 text-center mt-10 text-xl">
-            No crops found for the selected criteria.
-          </p>
-        )}
-      </div>)}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
