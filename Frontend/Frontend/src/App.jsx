@@ -13,6 +13,7 @@ import HarvestedCrop from "./pages/HarvestedCrop";
 import AboutCrop from "./pages/AboutCrop";
 import Task from "./pages/Task";
 import UserHome from "./pages/UserHome";
+import Community from "./pages/Community";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
     <Route path="/aboutCrop/:cropId" element={<AboutCrop/>} />4
     <Route path="/task" element={<Task/>} />
     <Route path="/userHome" element={<UserHome/>} />
+    <Route path="/community" element={<Community/>} />
    
   </Routes>
   </BrowserRouter>

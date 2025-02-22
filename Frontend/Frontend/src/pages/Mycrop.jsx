@@ -56,7 +56,7 @@ const Mycrop = () => {
 
   return(
     <div className="flex min-h-screen bg-gradient-to-br from-[#0f766e] via-[#22c55e] to-[#4ade80]">
-      {/* Sidebar */}
+      
       <div className="fixed left-0 top-0 h-full bg-white shadow-xl z-10">
         <Dashboard />
       </div>

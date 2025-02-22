@@ -40,13 +40,13 @@ try {
     { name: 'Task', icon: <CalendarCheck onClick={()=>navigate("/task")} className="w-5 h-5" /> },
     { name: 'Weather', icon: <CloudSun onClick={()=>navigate("/task")} className="w-5 h-5" /> },
     { name: 'Chat', icon: <MessageCircle className="w-5 h-5" /> },
-    { name: 'Community', icon: <Users className="w-5 h-5" /> },
+    { name: 'Community', icon: <Users onClick={()=> navigate("/community")} className="w-5 h-5" /> },
     { name: 'Profile', icon: <User onClick={()=>navigate("/profile")} className="w-5 h-5" /> },
     { name: 'Logout', icon: <LogOut onClick={logout} className="w-5 h-5" /> },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#22c55e] via-[#a3e499] to-[#dcfce7]"> {/* Earthy green gradient */}
+    <div className="min-h-screen max-w-fit bg-gradient-to-br from-[#22c55e] via-[#a3e499] to-[#dcfce7]"> {/* Earthy green gradient */}
       {/* Sidebar */}
       <div className={`
         fixed top-0 left-0 h-full p-4

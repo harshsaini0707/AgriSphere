@@ -75,7 +75,7 @@ const Suggestion = () => {
     const stateMatches = STATE === "" || cropStates.includes(selectedStateLower);
     const soilMatches = SOIL === "" || cropSoilTypes.includes(selectedSoilLower);
 
-    return stateMatches && soilMatches;
+    return stateMatches || soilMatches;
   });
 
   return(
@@ -143,7 +143,7 @@ const Suggestion = () => {
         </form>
 
         {/* Display Filtered Crops */}
-        {filteredCrops.length > 0 ? (
+        {filteredCrops ? (
           filteredCrops.map((crop) => (
             <div
               key={crop._id}

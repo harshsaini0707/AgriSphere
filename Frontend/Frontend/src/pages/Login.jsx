@@ -28,7 +28,7 @@ const Login = () => {
       dispatch(addUser(response?.data?.data));
       setError("");
 
-      return navigate("/dashboard")
+      return navigate("/userHome")
 
     } catch (error) {
       console.log(error.response?.data?.message);
