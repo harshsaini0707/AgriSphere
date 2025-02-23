@@ -14,6 +14,7 @@ import AboutCrop from "./pages/AboutCrop";
 import Task from "./pages/Task";
 import UserHome from "./pages/UserHome";
 import Community from "./pages/Community";
+import LandingPage from "./pages/LandingPage";
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
    <Provider store={Store}>
   <BrowserRouter basename="/">
   <Routes>
- 
+     <Route path="/" element={<LandingPage/>} />
     <Route path="/dashboard" element={<Dashboard/>} />
     <Route path="/login" element={<Login/>}  />
     <Route path="/signup"  element={<Singup/>} />

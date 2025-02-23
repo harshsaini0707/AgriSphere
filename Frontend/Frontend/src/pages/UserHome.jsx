@@ -77,6 +77,13 @@ const UserHome = () => {
 
     <h2 className="text-lg font-medium pl-3">Humidity: {weatherData?.current?.humidity}%</h2>
   </div>
+  <div className="border-t justify-center items-center ml-28 pt-4 border-white  w-1/2 mt-4"> </div>
+  <h1 onClick={
+       ()=>{
+        const weather = document.getElementById('weather');
+       weather?.scrollIntoView({ behavior: 'smooth' });
+       }
+  } className="ml-36 hover:cursor-pointer">Weekly ForeCast - </h1>
 </div>
 
           ) :(
@@ -112,7 +119,11 @@ const UserHome = () => {
             </div>
           )}
         </div>
+        <div id="weather" className="mt-7  bg-white/10 backdrop-blur-xl shadow-2xl border border-white/20 rounded-3xl p-8 w-[80%] max-w-lg transition-transform duration-300 hover:scale-105">
+<h1>Weekly Forecast</h1>
       </div>
+      </div>
+     
     </div>
   );
 };

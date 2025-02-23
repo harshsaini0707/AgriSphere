@@ -93,20 +93,20 @@ const AboutCrop = () => {
                 <div className="flex justify-between mt-4">
                   <button
                     onClick={() => setArea(false)}
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                    className="bg-red-500  cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={() =>{ plantCrop(about._id) 
-              
+                      
                popUp()
                setToast(true)
                setInputArea("")
                setArea(false)
               }
                     }
-                    className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+                    className="bg-green-500  cursor-pointer text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
                   >
                     Confirm
                   </button>
@@ -114,7 +114,7 @@ const AboutCrop = () => {
               </div>
             </div>
           )}
-          <div className="bg-white shadow-2xl rounded-3xl overflow-hidden backdrop-blur-sm border border-green-100">
+          <div className="bg-white/40 shadow-2xl rounded-3xl overflow-hidden backdrop-blur-sm border border-green-100">
          
             {/* Header Section */}
             <div className="bg-gradient-to-r from-green-600 to-green-500 p-8 relative overflow-hidden">
@@ -138,7 +138,7 @@ const AboutCrop = () => {
                     <img
                       src={about.cropPhoto}
                       alt={about.cropName}
-                      className="w-64 h-64 object-cover rounded-2xl shadow-lg transform transition-all duration-300 group-hover:scale-105"
+                      className="w-64 h-64 object-cover rounded-2xl shadow-lg transform transition-all duration-300 group-hover:scale-105 opacity-98"
                     />
                     <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
@@ -265,13 +265,13 @@ const AboutCrop = () => {
                 </div>
 
                 <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 p-8 rounded-xl border border-emerald-200 hover:shadow-lg transition-all duration-300">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 ">
                     <div className="bg-emerald-700 p-2 rounded-lg">
                       <Bean className="text-white" size={24} />
                     </div>
                     <div>
-                      <p className="text-sm text-emerald-700 font-medium">States</p>
-                      <p className="text-lg font-bold text-emerald-800">{about?.seedRequired} kg / Bigha</p>
+                      <p className="text-sm text-emerald-700 font-medium">Seed Requirement</p>
+                      <p className="text-lg font-bold text-emerald-800">{about?.seedRequired}kg / Bigha</p>
                     </div>
                   </div>
                 </div>
@@ -303,7 +303,7 @@ const AboutCrop = () => {
 <button onClick={()=>{
   setArea(true);  
 
-}} className="w-full text-xl  h-12 bg-green-600 text-white ml-52 py-2 rounded-lg font-semibold hover:bg-green-700 transition duration-300">
+}} className="w-full  cursor-pointer text-xl  h-12 bg-green-600 text-white ml-52 py-2 rounded-lg font-semibold hover:bg-green-700 transition duration-300">
          Plant
 </button>
 

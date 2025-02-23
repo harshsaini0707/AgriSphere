@@ -76,7 +76,7 @@ const Suggestion = () => {
     const stateMatches = STATE === "" || cropStates.includes(selectedStateLower);
     const soilMatches = SOIL === "" || cropSoilTypes.includes(selectedSoilLower);
 
-    return stateMatches || soilMatches;
+    return stateMatches && soilMatches;
   });
 
   return (
@@ -88,15 +88,15 @@ const Suggestion = () => {
           <div className="h-36 w-36 mt-44 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
         </div>
       ) : (
-        <div className="max-w-5xl mx-auto px-8 py-18">
+        <div className="max-w-5xl mx-auto py-10 ">
           {/* Select Form */}
-          <form className="flex gap-4 justify-center mb-8">
+          <form className="flex gap-4 cursor-pointer ml-10 justify-center mb-8 ">
             <select
               value={STATE}
               onChange={(e) => setState(e.target.value)}
-              className="p-3 rounded-lg bg-white text-black shadow-md focus:ring-2 focus:ring-green-500"
+              className="p-3 rounded-lg bg-white/70  hover:cursor-pointer   text-black focus:ring-0  shadow-md "
             >
-              <option value="">All State / Union Territory</option>
+              <option className="border-0 cursor-pointer  bg-gray-300 font-mono" value="">All State / Union Territory</option>
               {[
                 "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
                 "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand",
@@ -105,7 +105,7 @@ const Suggestion = () => {
                 "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
                 "Uttar Pradesh", "Uttarakhand", "West Bengal", "Delhi",
               ].map((state) => (
-                <option key={state} value={state}>
+                <option  className="border-0 cursor-pointer  bg-gray-300 font-mono" key={state} value={state}>
                   {state}
                 </option>
               ))}
@@ -114,12 +114,12 @@ const Suggestion = () => {
             <select
               value={SOIL}
               onChange={(e) => setSoil(e.target.value)}
-              className="p-3 rounded-lg bg-white text-black shadow-md focus:ring-2 focus:ring-green-500"
+              className="p-3  cursor-pointer  rounded-lg bg-white/70  text-black shadow-md focus:ring-2 focus:ring-green-500"
             >
-              <option value="">Select Soil Type</option>
+              <option value="" className="border-0 cursor-pointer  bg-gray-300 font-mono">Select Soil Type</option>
               {["Alluvial", "Black", "Red and Yellow", "Laterite", "Arid", "Saline", "Forest"].map(
                 (soil) => (
-                  <option key={soil} value={soil}>
+                  <option className=" cursor-pointer  border-0 bg-gray-300 font-mono" key={soil} value={soil}>
                     {soil}
                   </option>
                 )
@@ -132,7 +132,7 @@ const Suggestion = () => {
             filteredCrops.map((crop) => (
               <div
                 key={crop._id}
-                className="mb-6 border-2 border-gray-300 rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-2xl transition-transform transform hover:scale-105"
+                className="mb-6 border-2 ml-28 border-gray-400 rounded-xl overflow-hidden shadow-lg bg-white/73 hover:shadow-2xl transition-transform duration-300 transform hover:scale-102"
               >
                 <div className="p-6 flex flex-col md:flex-row items-center gap-8">
                   <img
@@ -140,25 +140,25 @@ const Suggestion = () => {
                     alt={crop.cropName}
                     className="w-32 h-32 rounded-full object-cover border-2 border-gray-800 shadow-md"
                   />
-                  <div className="text-center md:text-left space-y-3">
+                  <div className="text-center md:text-left w-2/3 space-y-3">
                     <h2 className="text-3xl font-bold text-gray-900">{crop.cropName}</h2>
                     <p className="text-lg text-gray-700">Duration: {crop.duration} days</p>
                     <p className="text-lg text-gray-700">States: {crop.state.join(", ")}</p>
-                    <p className="text-gray-600">{crop.about}</p>
+                    <p className="text-gray-600">About: {crop.about}</p>
                   </div>
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-4 ">
                     <button
                       onClick={() => navigate(`/aboutCrop/${crop._id}`)}
-                      className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 transition"
+                      className="bg-blue-600 flex cursor-pointer text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition hover:scale-103 duration-300"
                     >
-                      <Info className="inline-block mr-2" /> About
+                      <Info className="inline-block mr-2  " /> About
                     </button>
                     <button
                       onClick={() => {
                         setSelectedCrop(crop);
                         setArea(true);
                       }}
-                      className="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition"
+                      className="bg-green-600 cursor-pointer text-white px-5 py-3 rounded-lg hover:bg-green-700 transition hover:scale-103 duration-300"
                     >
                       🌱 Plant
                     </button>
@@ -191,7 +191,7 @@ const Suggestion = () => {
               Seed Required: {selectedCrop.seedRequired * inputArea}kg in {inputArea} Bigha
             </h1>
             <div className="flex justify-between mt-4">
-              <button onClick={() => setArea(false)} className="bg-red-500 text-white px-4 py-2 rounded-lg">
+              <button onClick={() => setArea(false)} className="bg-red-500  cursor-pointer text-white px-4 py-2 rounded-lg">
                 Cancel
               </button>
               <button
@@ -199,7 +199,7 @@ const Suggestion = () => {
                   plantCrop(selectedCrop._id);
                   setArea(false);
                 }}
-                className="bg-green-500 text-white px-4 py-2 rounded-lg"
+                className="bg-green-500  cursor-pointer text-white px-4 py-2 rounded-lg"
               >
                 Confirm
               </button>
