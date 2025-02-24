@@ -122,6 +122,7 @@ const LandingPage = () => {
       </div>
 
       {/* Services Section */}
+      
       <div id="services" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-8 py-13 bg-gray-200">
         {services.map((service) => (
           <div

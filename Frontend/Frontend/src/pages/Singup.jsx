@@ -26,6 +26,7 @@ const dispatch = useDispatch();
       console.log(response?.data?.data);
       dispatch(addUser(response?.data?.data))
       setError("")
+      navigate("/profile")
       
     } catch (error) {
       console.log(error?.response?.data);

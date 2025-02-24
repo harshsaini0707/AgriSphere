@@ -39,7 +39,7 @@ const signup = async(req,res)=>{
         return res.status(500).json(error.message);  
     }
     
-    }
+}
 
 
 const login = async(req,res)=>{

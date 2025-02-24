@@ -74,7 +74,7 @@ const AboutCrop = () => {
      toast && (
       <div className="fixed top-5 right-5 flex font-bold items-center bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-300 ease-in-out animate-fade z-10">
         <CheckCircle className="mr-2" size={20} />
-        <span>Crop Added Successfully!</span>
+        <span>Crop Planted!!</span>
       </div>
     )}
     {area && (
@@ -89,7 +89,7 @@ const AboutCrop = () => {
                   onChange={(e) => setInputArea(e.target.value)}
                   className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
-               <h1 className="mt-2 font-semibold">Seed Required :{about?.seedRequired * inputArea}kg in {inputArea} Bigha </h1>
+               <h1 className="mt-2 font-semibold">Seed Required :~{about?.seedRequired * inputArea}kg in {inputArea} Bigha </h1>
                 <div className="flex justify-between mt-4">
                   <button
                     onClick={() => setArea(false)}
@@ -181,7 +181,7 @@ const AboutCrop = () => {
                     </div>
                     <div>
                       <p className="text-sm text-cyan-700 font-medium">Water Requirement</p>
-                      <p className="text-lg font-bold text-cyan-800">{about?.waterRequirement?.join("-")}L</p>
+                      <p className="text-lg font-bold text-cyan-800">{about?.waterRequirement?.join("-")}Days</p>
                     </div>
                   </div>
                 </div>

@@ -103,7 +103,7 @@ const Suggestion = () => {
                 "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
                 "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
                 "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
-                "Uttar Pradesh", "Uttarakhand", "West Bengal", "Delhi",
+                "Uttar Pradesh", "Uttarakhand", "West Bengal", "Delhi", "Jammu & Kashmir"
               ].map((state) => (
                 <option  className="border-0 cursor-pointer  bg-gray-300 font-mono" key={state} value={state}>
                   {state}
@@ -117,7 +117,7 @@ const Suggestion = () => {
               className="p-3  cursor-pointer  rounded-lg bg-white/70  text-black shadow-md focus:ring-2 focus:ring-green-500"
             >
               <option value="" className="border-0 cursor-pointer  bg-gray-300 font-mono">Select Soil Type</option>
-              {["Alluvial", "Black", "Red and Yellow", "Laterite", "Arid", "Saline", "Forest"].map(
+              {["Alluvial", "Black", "Red" ,"Yellow", "Laterite", "Arid", "Saline", "Forest"].map(
                 (soil) => (
                   <option className=" cursor-pointer  border-0 bg-gray-300 font-mono" key={soil} value={soil}>
                     {soil}
@@ -188,7 +188,7 @@ const Suggestion = () => {
               className="w-full p-3 border rounded-lg"
             />
             <h1 className="mt-2 font-semibold">
-              Seed Required: {selectedCrop.seedRequired * inputArea}kg in {inputArea} Bigha
+              Seed Required: ~{selectedCrop.seedRequired * inputArea}kg in {inputArea} Bigha
             </h1>
             <div className="flex justify-between mt-4">
               <button onClick={() => setArea(false)} className="bg-red-500  cursor-pointer text-white px-4 py-2 rounded-lg">
