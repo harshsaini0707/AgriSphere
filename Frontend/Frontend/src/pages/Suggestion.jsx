@@ -132,7 +132,7 @@ const Suggestion = () => {
             filteredCrops.map((crop) => (
               <div
                 key={crop._id}
-                className="mb-6 border-2 ml-28 border-gray-400 rounded-xl overflow-hidden shadow-lg bg-white/73 hover:shadow-2xl transition-transform duration-300 transform hover:scale-102"
+                className="mb-6 px-3 border-2 ml-28 border-gray-400 rounded-xl overflow-hidden shadow-lg bg-white/73 hover:shadow-2xl transition-transform duration-300 transform hover:scale-102"
               >
                 <div className="p-6 flex flex-col md:flex-row items-center gap-8">
                   <img
@@ -143,22 +143,22 @@ const Suggestion = () => {
                   <div className="text-center md:text-left w-2/3 space-y-3">
                     <h2 className="text-3xl font-bold text-gray-900">{crop.cropName}</h2>
                     <p className="text-lg text-gray-700">Duration: {crop.duration} days</p>
-                    <p className="text-lg text-gray-700">States: {crop.state.join(", ")}</p>
-                    <p className="text-gray-600">About: {crop.about}</p>
+                    <p className="text-lg text-gray-700 ">States: {crop.state.join(", ")}</p>
+                    <p className="text-gray-600 truncate ">About: {crop.about}</p>
                   </div>
                   <div className="flex flex-col gap-4 ">
                     <button
                       onClick={() => navigate(`/aboutCrop/${crop._id}`)}
-                      className="bg-blue-600 flex cursor-pointer text-white px-5 py-3 rounded-lg hover:bg-blue-700 transition hover:scale-103 duration-300"
+                      className="bg-blue-600 flex cursor-pointer text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition hover:scale-103 duration-300"
                     >
-                      <Info className="inline-block mr-2  " /> About
+                      <Info className="inline-block mr-2 " /> About
                     </button>
                     <button
                       onClick={() => {
                         setSelectedCrop(crop);
                         setArea(true);
                       }}
-                      className="bg-green-600 cursor-pointer text-white px-5 py-3 rounded-lg hover:bg-green-700 transition hover:scale-103 duration-300"
+                      className="bg-green-600 cursor-pointer text-white  py-3 rounded-lg hover:bg-green-700 transition hover:scale-103 duration-300"
                     >
                       🌱 Plant
                     </button>

@@ -9,11 +9,11 @@ const cors = require("cors");
 const adminRoute = require("./routes/admin.routes");
 
 
-// http://localhost:5173
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin:"https://agrisphere-backend.onrender.com" ,
+    origin: ["http://localhost:5173", "http://localhost:8080", "https://agrisphere.onrender.com"] ,
     credentials:true,
 }))
 

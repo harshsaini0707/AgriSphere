@@ -109,8 +109,8 @@ const Mycrop = () => {
 
                   {/* Crop Details */}
                   <div className="p-3 space-y-4">
-                    <h1 className="text-3xl font-bold text-gray-900">{crop.cropId.cropName}</h1>
-                    <p className="text-gray-600 text-lg">{crop.cropId.about}</p>
+                    <h1 className="text-3xl font-bold px-2w text-gray-900">{crop.cropId.cropName}</h1>
+                    {/* <p className="text-gray-600 text-lg">{crop.cropId.about}</p> */}
 
                     {/* Market & Duration */}
                     <div className="grid grid-cols-3 gap-6">
