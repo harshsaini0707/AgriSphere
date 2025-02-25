@@ -16,7 +16,7 @@ const UserHome = () => {
 
   const getWeather = async()=>{
    try {
-    const response = await axios.get(`http://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_Weather_Key}&q=${user.Location || " " }&aqi=no`);
+    const response = await axios.get(`https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_Weather_Key}&q=${user.Location || " " }&aqi=no`);
     //console.log(response?.data);
     setWeatherData(response?.data)
    } catch (error) {
