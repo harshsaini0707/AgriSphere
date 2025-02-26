@@ -6,6 +6,9 @@ const bcrypt = require("bcrypt");
 const adminLogin = async(req,res)=>{
     try {
         const{email,password}  = req.body;
+        if(!email || !password){
+            return res.status(404).json({data:"Enter Details!!"})
+        }
 
         if(email == process.env.ADMIN_EMAIL && password == process.env.ADMIN_PASSWORD){
             
@@ -18,9 +21,9 @@ const adminLogin = async(req,res)=>{
                 httpOnly:true,
                 secure: process.env.NODE_ENV === "production", // Use secure cookies in production
             })
-            return res.status(200).send("Login Successfull!!")
+            return res.status(200).json("Login Successfull!!")
         }else{
-            return res.status(404).send("Invalid Credentials!!")
+            return res.status(404).json({data:"Invalid Credentials"})
         }
 
     } catch (error) {
@@ -113,6 +116,17 @@ const feed = async(req,res)=>{
         return res.status(500).send("Error In Crop Feed!!");
     }
 }
+const aboutCrop = async(req,res)=>{
+    try {
+        const {cropId} = req.params;
+        const about =  await adminModel.findById(cropId);
+        if(!about) return res.status(404).send("Crop Not Found!!");
+
+        return res.status(200).json({data:about})
+    } catch (error) {
+        return res.status(500).send("Error In Crop Find!!");
+    }
+}
 
 
-module.exports = {addCrop,editCrop,deleteCrop,feed,adminLogin,adminLogout}
+module.exports = {addCrop,editCrop,deleteCrop,feed,adminLogin,adminLogout,aboutCrop}
