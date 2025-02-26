@@ -97,7 +97,7 @@ const Feed = () => {
        </div>
            
         {filterCrop && filterCrop?.map((data) => (
-   <div key={data._id} className="bg-white flex flex-col  shadow-lg rounded-2xl p-6 w-fit mx-10 ">
+   <div key={data._id} className="bg-white flex flex-col hover:scale-103 transform transition-all duration-300 delay-100 shadow-lg rounded-2xl p-6 w-fit mx-10 ">
       <div className="flex  space-x-4 ">
         <img
           src={data?.cropPhoto}
