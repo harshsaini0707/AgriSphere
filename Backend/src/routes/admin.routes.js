@@ -9,7 +9,7 @@ adminRoute.post("/admin/logout",adminLogout)
 adminRoute.post("/add/crop",adminProtect,addCrop);
 adminRoute.get("/about/:cropId",adminProtect,aboutCrop);
 adminRoute.patch("/edit/crop/:cropId",adminProtect,editCrop);
-adminRoute.delete("/delete/:cropId",adminProtect,deleteCrop);
+adminRoute.delete("/crop/delete/:cropId",adminProtect,deleteCrop);
 adminRoute.get("/crop/feed",adminProtect,feed);
 
 

@@ -1,14 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router';
-import { toast } from 'react-toastify';
 
 const Edit = () => {
     const req = useParams();
     const cropId = req.cropId;
-// price abiut demand
+    const navigate = useNavigate();
+
     const [cropData, setCropData] = useState("");
     const [name, setName] = useState("");
     const [cropphoto, setPhoto] = useState("");
@@ -23,6 +23,7 @@ const Edit = () => {
     const[temp,setTemp] = useState("");
     const[harvest,setHarvest] = useState("");
     const[plant,setPlant] = useState("");
+
     const[price,setPrice] = useState("");
     const[about,setAbout] = useState("");
     const[demand,setDemand] = useState("");
@@ -87,14 +88,14 @@ const Edit = () => {
             }
           },{withCredentials:true});
 
-        if(response){
- toast.success('Crop Update!', {
+  
+ toast.success('Crop Updated!', {
           position: 'top-right',
-          autoClose: 2000,
+          autoClose: 3000,
         });
-        }
+     
     } catch (error) {
-       console.log(error.message);
+       console.log(error);
          toast.error("Error While Updating Crop", {
                 position: 'top-right',
                 autoClose: 3000,
@@ -103,18 +104,20 @@ const Edit = () => {
    }
    const deleteCrop = async()=>{
     try {
-        const response = await axios.delete(import.meta.env.VITE_BASE_URL+`/delete/${cropId}`,{
+        const response = await axios.delete(import.meta.env.VITE_BASE_URL+`/crop/delete/${cropId}`,{
             withCredentials:true
         })
-        if(response){
+     
             toast.success("Crop Deleted!",{
              position:"top-right",
              duration:3000   
             })
-        }
+          
+            navigate("/feed")
+      
         
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
         toast.error("Error While Deleting Crop!",{
             position:"top-right",
             duration:3000
@@ -130,6 +133,7 @@ const Edit = () => {
 
             {/** Edit Section */}
             <div className='max-w-screen flex-auto space-y-4 bg-amber-500 justify-center items-center py-10'>
+               <ToastContainer/>
                 <div className='flex flex-col mx-14 rounded-2xl hover:scale-101 transition-all transform delay-100 duration-300 bg-blue-100'>
                     <div className='flex flex-col mt-10 '>
                         <div className='flex flex-row ml-20 items-center space-x-8 mx-10 ' >
@@ -245,8 +249,8 @@ const Edit = () => {
 
   {/**button */}
   <div className='flex space-x-10 justify-center mt-3 mb-8'>
-<button className='py-3 bg-green-500 px-14  text-lg font-semibold text-white rounded-lg  hover:bg-green-600 duration-300 delay-75 transition-all transform hover:scale-103 '>Save Changes</button>
-<button className='py-3 bg-red-500 px-14  text-lg font-semibold text-white rounded-lg  hover:bg-red-600 duration-300 delay-75 transition-all transform hover:scale-103'>Delete Crop</button>
+<button onClick={editCrop} className='py-3 bg-green-500 px-14  text-lg font-semibold text-white rounded-lg  hover:bg-green-600 duration-300 delay-75 transition-all transform hover:scale-103 '>Save Changes</button>
+<button onClick={deleteCrop} className='py-3 bg-red-500 px-14  text-lg font-semibold text-white rounded-lg  hover:bg-red-600 duration-300 delay-75 transition-all transform hover:scale-103'>Delete Crop</button>
 
                 </div>
                 </div>
