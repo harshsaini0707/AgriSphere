@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SideBar from '../components/SideBar';
 
 const Edit = () => {
     const req = useParams();
@@ -129,7 +130,7 @@ const Edit = () => {
     return (
         <div className='min-h-screen w-full bg-emerald-50 flex'>
             {/** SideBar */}
-            <div className='min-w-1/4 flex-auto min-h-screen bg-green-400'></div>
+           <SideBar/>
 
             {/** Edit Section */}
             <div className='max-w-screen flex-auto space-y-4 bg-amber-500 justify-center items-center py-10'>

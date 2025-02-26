@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { Eye } from 'lucide-react';
+import SideBar from '../components/SideBar';
 
 const Feed = () => {
 
@@ -48,11 +49,10 @@ const Feed = () => {
 
     })
   return (
-    <div className='min-h-screen w-full bg-emerald-50 flex '>
+    <div className='min-h-screen w-full bg-amber-500 flex '>
         {/**SideBar */}
-      <div className='min-w-1/4  hover:w-0  flex-auto min-h-screen bg-green-400'>
-        
-        </div>  
+  <SideBar/>
+
         {/**Feed */}
        
         <div  className="max-w-screen flex-auto space-y-4 bg-amber-500   justify-center items-center py-10">
