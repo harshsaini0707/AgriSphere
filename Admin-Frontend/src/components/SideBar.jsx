@@ -31,11 +31,11 @@ const SideBar = () => {
     }
   return (
   
-    <div className='min-w-1/7 flex flex-col rounded-r-xl  flex-auto min-h-screen bg-green-300'>
+    <div className='max-w-1/7 flex flex-col rounded-r-xl  flex-auto min-h-screen bg-green-300'>
     <div className='flex justify-center mt-3'>
       <h1 className='font-bold text-2xl'>AGRISPHERE</h1>
     </div>
-    <div className='flex flex-col gap-7 mx-2 items-start mt-20'>
+    <div className='flex flex-col gap-7 mx-2 items-start mt-20 '>
       <div onClick={()=>navigate("/addCrop")} className='flex gap-2'>
         <CirclePlus size={30} />
         <h1 className='text-lg  sm:hidden hidden md:block lg:block xl:block'>Add Crop</h1>
@@ -44,7 +44,7 @@ const SideBar = () => {
         <TextSearch size={30} />
         <h1 className='text-lg sm:hidden hidden md:block lg:block xl:block'>All Crops</h1>
       </div>
-      <div className='flex gap-2'>
+      <div className='flex gap-2 '>
         <UserRoundPlus size={30} />
         <h1 className='text-lg sm:hidden hidden md:block lg:block xl:block'>Add Member</h1>
       </div>

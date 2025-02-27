@@ -52,10 +52,9 @@ const Feed = () => {
     <div className='min-h-screen w-full bg-amber-500 flex '>
         {/**SideBar */}
   <SideBar/>
-
         {/**Feed */}
        
-        <div  className="max-w-screen flex-auto space-y-4 bg-amber-500   justify-center items-center py-10">
+        <div  className="flex-auto space-y-4 bg-amber-500   justify-center items-center py-10">
        
        <div className=''>
        <form className="flex gap-4 cursor-pointer justify-center mb-8 ">

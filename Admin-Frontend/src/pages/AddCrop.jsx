@@ -52,9 +52,9 @@ const AddCrop = () => {
     };
 
     return (
-        <div className='min-h-screen w-full bg-amber-500 flex'>
+        <div className='min-h-screen  bg-amber-500 flex'>
           <SideBar/>
-            <div className='min-w-screen flex-auto space-y-4 bg-amber-500 justify-center items-center py-10'>
+            <div className=' flex-auto space-y-4 bg-amber-500 justify-center items-center py-10'>
                 <div className='flex flex-col font-semibold space-y-4 mx-14 rounded-2xl bg-blue-100 p-5'>
            <div className='flex space-x-2'>
            <label>Crop Name :</label>
