@@ -7,6 +7,7 @@ const authRouter = require("./routes/auth.routes");
 const userRouter = require("./routes/user.routes");
 const cors = require("cors");
 const adminRoute = require("./routes/admin.routes");
+const sellerRoute = require("./routes/seller.routes");
 
 
 
@@ -21,6 +22,7 @@ app.use(cors({
 app.use("/",authRouter);
 app.use("/",userRouter);
 app.use("/",adminRoute);
+app.use("/",sellerRoute);
 
 MONOGO_CONNECT().then(()=>{
     console.log("DB Connected Sucessfully!!");
