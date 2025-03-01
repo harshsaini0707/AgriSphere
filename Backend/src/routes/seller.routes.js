@@ -1,6 +1,6 @@
 const express = require("express");
 const userProtect = require("../middlewares/userProtect.middleware");
-const {listCrop , editListedItem , deleteItem, getItem} = require("../controllers/seller.controller");
+const {listCrop , editListedItem , deleteItem, getItem, allOrders, updateOrder} = require("../controllers/seller.controller");
 
 const sellerRoute =  express.Router();
 
@@ -9,6 +9,7 @@ sellerRoute.patch("/editItem/:itemId",userProtect,editListedItem);
 sellerRoute.delete("/deleteItem/:itemId",userProtect,deleteItem);
 sellerRoute.get("/getItem",userProtect,getItem);
 
+sellerRoute.get("/allOrders", userProtect,allOrders);
+sellerRoute.patch("/orderStatus/:orderid",userProtect,updateOrder);
 
-// buy functinality add buyer click on uy buuton it add to seller and also ask for delivery time and status
 module.exports = sellerRoute;

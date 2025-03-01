@@ -1,3 +1,5 @@
+const { find, findById } = require("../models/crop.model");
+const { OrderModel } = require("../models/order.model");
 const { Seller } = require("../models/sellerItem.model");
 const { all } = require("../routes/seller.routes");
 
@@ -125,9 +127,66 @@ const getItem  = async(req,res)=>{
 }
 
 
+const allOrders = async(req,res)=>{
+    try {
+        if(!req.user || !req.user._id){
+            return res.status(401).send(`Unauthorized User - Please Login!`)
+        }
+        const loggedInUser = req.user._id;
+
+        const order = await OrderModel.find({sellerId:loggedInUser})
+        .populate("buyerId","firstName lastName email profilePhoto ")
+        .populate("itemId","cropName cropPhoto cropType season")
+        .sort({orderDate:-1})
+
+        if(!order || order.length === 0 ){
+            return res.status(404).send(`Currently no order placed!!`)
+        }
+
+        return res.status(200).json({message:"Placed Order",size:order.length,data:order});
+
+
+        
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
+const updateOrder = async(req,res)=>{
+    try {
+       if(!req.user || !req.user._id){
+        return res.status(401).send(`Unauthorized User - Please Login!`)
+       } 
+       const{status }= req.body;
+
+       const loggedInUser = req.user._id;
+       const orderid = req.params.orderId;
+
+       if(!orderid) return res.status(404).send(`Order Id not found!!`)
+       const order = await OrderModel.findById({_id:orderid});
+
+       if(!order) return res.status(404).send(`No order found by this id!!`)
+
+        const validStatuses = ["Pending", "Shipped", "Delivered","Cancelled"];
+       if (!validStatuses.includes(status)) {
+           return res.status(400).send(`Invalid status! Use one of: ${validStatuses.join(", ")}`);
+       }
+
+       
+        order.status = status;
+
+        await order.save();
+
+       return res.status(201).send(`Order Status Changed Successfully!!`) 
+    } catch (error) {
+        return res.status(500).send(error.meassge)
+    }
+}
 
 
 
 
 
-module.exports = { listCrop , editListedItem ,deleteItem , getItem}
+
+
+module.exports = { listCrop , editListedItem ,deleteItem , getItem ,allOrders , updateOrder}

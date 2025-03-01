@@ -1,4 +1,6 @@
 const { cartModel } = require("../models/cart.model");
+const { findById } = require("../models/crop.model");
+const { OrderModel } = require("../models/order.model");
 const { Seller } = require("../models/sellerItem.model");
 
 const allListedItems = async(req,res)=>{
@@ -113,7 +115,64 @@ const removeItem = async (req, res) => {
     }
 };
 
+const buyItem = async(req,res)=>{
+    try {
+        if(!req.user || !req.user._id){
+            return res.status(401).send(`Unauthorized User - Please Login!`);
+        }
+        const itemId = req.params.itemId;
+        const{quantity} =req.body;
 
-//  Buy 
+        const loggedInUser = req.user._id;
+        if(!quantity || quantity<=0){
+            return res.status(400).send(`Quantity Invalid!`);
+        }
+        const item = await Seller.findById(itemId);
+        if(!item) return res.status(404).send(`Item not found!!`);
 
-module.exports = {allListedItems , addToCart , cartList , removeItem}
+        if(quantity > item.quantity) return res.status(400).send(`Requested quantity exceeds aviable stock!`);
+        
+        const totalPrice = quantity*item.price;
+
+        const order = new OrderModel({
+            sellerId:item.sellerId,
+            buyerId:loggedInUser,
+            itemId:itemId,
+            quantity:quantity,
+            totalPrice:totalPrice,    
+
+        })
+        await order.save();
+
+        await cartModel.findOneAndDelete({itemId , buyerId:loggedInUser});
+        return res.status(201).json({message:"Order placed Successfully!!",data:order});
+
+
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
+const buyerOrder =  async(req,res)=>{
+    try {
+        if(!req.user || !req.user._id){
+            return res.status(401).send(`Unauthorized User - Please Login!`);
+        }
+        const loggedInUser = req.user._id;
+
+        const order =  await OrderModel.find({buyerId: loggedInUser})
+        .populate("itemId","cropName cropPhoto price cropType season about")
+        .sort({orderDate:-1})
+        
+        if(!order || order.length === 0) return res.status(404).send(`No Order Placed !`);
+
+        return res.status(200).json({message:"All Orders", size:order.length , data:order})
+
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
+
+
+
+module.exports = {allListedItems , addToCart , cartList , removeItem , buyItem , buyerOrder}
