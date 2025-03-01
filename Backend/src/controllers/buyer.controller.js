@@ -142,6 +142,8 @@ const buyItem = async(req,res)=>{
             totalPrice:totalPrice,    
 
         })
+        item.quantity -=quantity;
+        
         await order.save();
 
         await cartModel.findOneAndDelete({itemId , buyerId:loggedInUser});
