@@ -1,6 +1,12 @@
 const express = require("express");
 const userProtect = require("../middlewares/userProtect.middleware");
-const { allListedItems } = require("../controllers/seller.controller");
-const sellerRoute = express.Router();
+const {allListedItems , addToCart, cartList, removeItem } = require("../controllers/buyer.controller");
 
-sellerRoute.get("/itemFeed",userProtect,allListedItems);
+const buyerRoute = express.Router();
+
+buyerRoute.get("/itemFeed",userProtect,allListedItems);
+buyerRoute.post("/addToCart/:itemId",userProtect,addToCart);
+buyerRoute.get("/getCartItem",userProtect,cartList);
+buyerRoute.delete("/deleteCartItem/:itemId",userProtect,removeItem);
+
+module.exports = buyerRoute

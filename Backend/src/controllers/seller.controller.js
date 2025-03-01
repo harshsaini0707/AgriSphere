@@ -130,4 +130,4 @@ const getItem  = async(req,res)=>{
 
 
 
-module.exports = { listCrop , editListedItem ,deleteItem , getItem , allListedItems}
+module.exports = { listCrop , editListedItem ,deleteItem , getItem}

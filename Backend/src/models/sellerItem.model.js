@@ -17,7 +17,7 @@ const cropSchema  = new mongoose.Schema({
     sellerId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
-        ref:"adminModel"
+        ref:"User"
     },
     availability:{
         type:Boolean,
