@@ -69,13 +69,13 @@ const HarvestedCrop = () => {
                   {/* Crop Image */}
                   <div className="relative">
                     <img
-                      src={crop.cropId.cropPhoto}
-                      alt={crop.cropId.cropName}
+                      src={crop?.cropId?.cropPhoto}
+                      alt={crop?.cropId?.cropName}
                       className="w-full h-56 object-cover rounded-t-2xl"
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
                       <h2 className="text-2xl font-bold text-white tracking-wide">
-                        {crop.cropId.cropName}
+                        {crop?.cropId?.cropName}
                       </h2>
                     </div>
                   </div>
@@ -88,13 +88,13 @@ const HarvestedCrop = () => {
                         <p className="text-sm">
                           <span className="font-semibold text-gray-800">Planted:</span>{" "}
                           <span className="text-blue-700 font-semibold">
-                            {new Date(crop.plantedAt).toLocaleDateString()}
+                            {new Date(crop?.plantedAt).toLocaleDateString()}
                           </span>
                         </p>
                         <p className="text-sm">
                            <span className="font-semibold text-gray-800">Harvested:</span>{" "}
                           <span className="text-green-700 font-semibold">
-                            {new Date(crop.updatedAt).toLocaleDateString()}
+                            {new Date(crop?.updatedAt).toLocaleDateString()}
                           </span>
                         </p>
                         <p className="text-sm">
@@ -111,7 +111,7 @@ const HarvestedCrop = () => {
                       <p className="text-sm">
                          <span className="font-semibold text-gray-800">Duration:</span>{" "}
                         <span className="text-purple-700 font-semibold">
-                          {crop.cropId.duration} days
+                          {crop?.cropId?.duration} days
                         </span>
                       </p>
                     </div>
@@ -123,7 +123,7 @@ const HarvestedCrop = () => {
                         <p className="text-sm">
                            <span className="font-semibold text-gray-800">Planting Season:</span>{" "}
                           <span className="text-green-800 font-semibold">
-                            {crop.cropId.season.planting}
+                            {crop?.cropId?.season?.planting}
                           </span>
                         </p>
                       </div>
@@ -132,7 +132,7 @@ const HarvestedCrop = () => {
                         <p className="text-sm">
                            <span className="font-semibold text-gray-800 ">Harvest Season:</span>{" "}
                           <span className="text-orange-700 font-semibold">
-                            {crop.cropId.season.harvesting}
+                            {crop?.cropId?.season?.harvesting}
                           </span>
                         </p>
                       </div>

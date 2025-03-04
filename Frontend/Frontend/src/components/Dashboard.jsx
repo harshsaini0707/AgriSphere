@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Home, MessageCircle, Users, User, ChevronLeft } from 'lucide-react';
-import { Sprout ,Tractor ,CalendarCheck ,ListCollapse,LayoutDashboard ,LogOut ,Leaf,CloudSun} from 'lucide-react';
+import { Sprout ,Tractor,ShoppingBag ,CalendarCheck ,ListCollapse,LayoutDashboard ,LogOut ,Leaf,CloudSun} from 'lucide-react';
 import axios from "axios"
 import { useDispatch, useSelector } from 'react-redux';
 import { removeUser } from '../store/UserSlice';
@@ -41,6 +41,7 @@ try {
   
     { name: 'Chat', icon: <MessageCircle className="w-5 h-5" /> },
     { name: 'Community', icon: <Users onClick={()=> navigate("/community")} className="w-5 h-5" /> },
+    { name: 'Market Place', icon: <ShoppingBag onClick={()=> navigate("/market")} className="w-5 h-5" /> },
     { name: 'Profile', icon: <User onClick={()=>navigate("/profile")} className="w-5 h-5" /> },
     { name: 'Logout', icon: <LogOut onClick={logout} className="w-5 h-5" /> },
   ];

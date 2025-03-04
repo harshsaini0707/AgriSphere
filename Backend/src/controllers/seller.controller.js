@@ -160,7 +160,9 @@ const updateOrder = async(req,res)=>{
        const{status }= req.body;
 
        const loggedInUser = req.user._id;
-       const orderid = req.params.orderId;
+       const orderid = req.params.orderid;
+    //    console.log(orderid);
+       
 
        if(!orderid) return res.status(404).send(`Order Id not found!!`)
        const order = await OrderModel.findById({_id:orderid});

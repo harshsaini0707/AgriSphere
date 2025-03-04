@@ -1,5 +1,4 @@
 const { cartModel } = require("../models/cart.model");
-const { findById } = require("../models/crop.model");
 const { OrderModel } = require("../models/order.model");
 const { Seller } = require("../models/sellerItem.model");
 
@@ -115,45 +114,65 @@ const removeItem = async (req, res) => {
     }
 };
 
-const buyItem = async(req,res)=>{
+const buyItem = async (req, res) => {
     try {
-        if(!req.user || !req.user._id){
-            return res.status(401).send(`Unauthorized User - Please Login!`);
+        if (!req.user || !req.user._id) {
+            return res.status(401).send('Unauthorized User - Please Login!');
         }
-        const itemId = req.params.itemId;
-        const{quantity} =req.body;
+
+        const itemId = req.params.ItemId;
+        if (!itemId) {
+            return res.status(400).send('Item ID is required!');
+        }
+        const {address} = req.body;
+
+        if(!address){
+            return res.status(400).send('Address Is Required!'); 
+        }
+
+        const { quantity } = req.body;
+
+        if (!quantity || quantity <= 0) {
+            return res.status(400).send('Quantity Invalid!');
+        }
 
         const loggedInUser = req.user._id;
-        if(!quantity || quantity<=0){
-            return res.status(400).send(`Quantity Invalid!`);
-        }
-        const item = await Seller.findById(itemId);
-        if(!item) return res.status(404).send(`Item not found!!`);
 
-        if(quantity > item.quantity) return res.status(400).send(`Requested quantity exceeds aviable stock!`);
-        
-        const totalPrice = quantity*item.price;
+        const item = await Seller.findOne({ _id: itemId }); // Fix the item lookup
+
+        if (!item) {
+            return res.status(404).send('Item not found!');
+        }
+
+        if (quantity > item.quantity) {
+            return res.status(400).send('Requested quantity exceeds available stock!');
+        }
+
+        const totalPrice = quantity * item.price;
 
         const order = new OrderModel({
-            sellerId:item.sellerId,
-            buyerId:loggedInUser,
-            itemId:itemId,
-            quantity:quantity,
-            totalPrice:totalPrice,    
+            sellerId: item.sellerId,
+            buyerId: loggedInUser,
+            itemId: itemId,
+            quantity: quantity,
+            totalPrice: totalPrice,
+            address:address
+        });
 
-        })
-        item.quantity -=quantity;
-        
+        item.quantity -= quantity;
+
         await order.save();
+        await item.save(); // Save the updated item quantity
 
-        await cartModel.findOneAndDelete({itemId , buyerId:loggedInUser});
-        return res.status(201).json({message:"Order placed Successfully!!",data:order});
+        await cartModel.findOneAndDelete({ itemId, buyerId: loggedInUser });
 
-
+        return res.status(201).json({ message: 'Order placed Successfully!!', data: order });
     } catch (error) {
         return res.status(500).send(error.message);
     }
-}
+};
+
+
 
 const buyerOrder =  async(req,res)=>{
     try {
