@@ -194,6 +194,22 @@ const buyerOrder =  async(req,res)=>{
     }
 }
 
+const aboutItem= async(req,res)=>{
+    try {  
+        const ItemId = req.params.ItemId;
+            
+        if(!ItemId) return res.status(404).send(`ItemId Required!!`);
+
+        const item = await Seller.findById(ItemId);
+        
+        if(!item) return res.status(404).send(`Item Not Exist!`);
+
+        return res.status(200).json({message:`About Item`,data:item});
+
+    } catch (error) {
+       return res.status(500).send(error.message); 
+    }
+}
 
 
-module.exports = {allListedItems , addToCart , cartList , removeItem , buyItem , buyerOrder}
+module.exports = {allListedItems , addToCart , cartList , removeItem , buyItem , buyerOrder,aboutItem}

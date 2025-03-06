@@ -15,6 +15,8 @@ import Task from "./pages/Task";
 import UserHome from "./pages/UserHome";
 import Community from "./pages/Community";
 import LandingPage from "./pages/LandingPage";
+import MarketDashBoard from "./pages/Market/MarketDashBoard";
+import AboutItem from "./pages/Market/AboutItem";
 
 
 function App() {
@@ -32,10 +34,12 @@ function App() {
     <Route path="/suggestion" element={<Suggestion/>} />
     <Route path="/mycrop" element={<Mycrop/>} />
     <Route path="/harvestedCrop" element={<HarvestedCrop/>} />
-    <Route path="/aboutCrop/:cropId" element={<AboutCrop/>} />4
+    <Route path="/aboutCrop/:cropId" element={<AboutCrop/>} />
     <Route path="/task" element={<Task/>} />
     <Route path="/userHome" element={<UserHome/>} />
     <Route path="/community" element={<Community/>} />
+    <Route path="/market" element={<MarketDashBoard/> } />
+    <Route path="/aboutProduct/:ItemId" element={<AboutItem/>} />
    
   </Routes>
   </BrowserRouter>
