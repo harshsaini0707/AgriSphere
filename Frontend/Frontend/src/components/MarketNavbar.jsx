@@ -7,10 +7,13 @@ import { FaBoxOpen } from "react-icons/fa6";
 import { FaList } from "react-icons/fa";
 import { SiGooglestreetview } from "react-icons/si";
 import { LuLogOut } from "react-icons/lu";
+import { useNavigate } from 'react-router';
+import { MdHome } from "react-icons/md";
 
 const MarketNavbar = () => {
   const user = useSelector((store) => store.user || "");
   useValidation();
+  const navigate = useNavigate();
   
   const [click, setClick] = useState(false);
 
@@ -32,12 +35,13 @@ const MarketNavbar = () => {
         {/* Navigation Links */}
         <div className="hidden md:flex pl-130 space-x-8">
           <h1
+            onClick={()=>navigate("/market")}
             className="text-white text-lg  flex items-center gap-2 hover:text-green-300 transition duration-300 font-medium cursor-pointer"
           >
             <FaBoxOpen size={27}/>
             Marketplace
           </h1>
-          <h1
+          <h1 onClick={()=>navigate("/cart")}
             className="text-white text-lg hover:text-green-300 transition duration-300 font-medium flex items-center cursor-pointer"
           >
             <ShoppingCart className="mr-2" size={27} />
@@ -65,6 +69,12 @@ const MarketNavbar = () => {
                 className=" px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 transition flex  items-center duration-300 cursor-pointer"
               >
              <FaList size={16} className='mr-2'/>   All Orders
+              </h1>
+              <h1
+                onClick={()=>navigate("/userHome")}
+                className="flex items-center px-3 font-semibold py-2 hover:bg-green-200 transition duration-300 cursor-pointer"
+              >
+              <MdHome size={25} className='mr-1' />  AgriSphere
               </h1>
               <h1
                 className="flex items-center px-4 font-semibold py-2 text-red-500 hover:bg-red-100 transition duration-300 cursor-pointer"

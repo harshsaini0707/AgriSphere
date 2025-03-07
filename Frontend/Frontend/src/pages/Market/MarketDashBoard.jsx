@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const MarketDashBoard = () => {
   const [feed, setFeed] = useState([]);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   const buyerFeed = async () => {
@@ -34,8 +35,11 @@ const MarketDashBoard = () => {
       position: 'top-right',
       autoClose: 2000,
     });
-
   };
+
+  const filteredFeed = search
+    ? feed.filter((item) => item.cropName.toLowerCase().includes(search.toLowerCase()))
+    : feed;
 
   return (
     <div>
@@ -53,13 +57,16 @@ const MarketDashBoard = () => {
             <option value='Many'>Many</option>
           </select>
 
-          <input type='text' className='w-3xl outline-2 px-2 h-8' placeholder='Search here..' />
+          <input type='text' value={search} onChange={(e) => setSearch(e.target.value)} className='w-3xl outline-2 px-2 h-8' placeholder='Search here..' />
         </div>
 
         {/* Product */}
         <div className='flex flex-wrap gap-6 justify-center mt-14'>
-          {feed &&
-            feed.map((data) => (
+          {
+            filteredFeed.length ===0 && <div className='flex mt-18'><h1 className='font-bold text-3xl  '>Item Not Found !!</h1></div>
+          }
+          {filteredFeed &&
+            filteredFeed.map((data) => (
               <div
                 key={data._id}
                 onClick={() => navigate(`/aboutProduct/${data?._id}`)}

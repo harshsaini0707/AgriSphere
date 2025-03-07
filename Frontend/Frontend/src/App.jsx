@@ -17,6 +17,7 @@ import Community from "./pages/Community";
 import LandingPage from "./pages/LandingPage";
 import MarketDashBoard from "./pages/Market/MarketDashBoard";
 import AboutItem from "./pages/Market/AboutItem";
+import Cart from "./pages/Market/Cart"
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
     <Route path="/community" element={<Community/>} />
     <Route path="/market" element={<MarketDashBoard/> } />
     <Route path="/aboutProduct/:ItemId" element={<AboutItem/>} />
+    <Route path="/cart" element={<Cart/>} />
    
   </Routes>
   </BrowserRouter>
