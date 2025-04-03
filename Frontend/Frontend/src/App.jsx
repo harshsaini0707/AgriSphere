@@ -18,6 +18,13 @@ import LandingPage from "./pages/LandingPage";
 import MarketDashBoard from "./pages/Market/MarketDashBoard";
 import AboutItem from "./pages/Market/AboutItem";
 import Cart from "./pages/Market/Cart"
+import Seller from "./pages/Market/Seller";
+import Chat from "./pages/Chat";
+import ListCrop from "./pages/Market/ListCrop";
+import SellerListedCrop from "./pages/Market/SellerListedCrop";
+import SellerNewOrders from "./pages/Market/SellerNewOrders";
+import EditItemStatus from "./pages/Market/EditItemStatus";
+import SellerOrderHistory from "./pages/Market/SellerOrderHistory";
 
 
 function App() {
@@ -42,7 +49,13 @@ function App() {
     <Route path="/market" element={<MarketDashBoard/> } />
     <Route path="/aboutProduct/:ItemId" element={<AboutItem/>} />
     <Route path="/cart" element={<Cart/>} />
-   
+    <Route path="/seller" element={<Seller/>} />
+    <Route path="/chat" element={<Chat/>} />
+    <Route path="/listCrop" element={<ListCrop/>} />
+    <Route path="/sellerCrops" element={<SellerListedCrop/>} />
+    <Route path="/Neworders" element={<SellerNewOrders/>}/>
+    <Route path="/editStatus" element={<EditItemStatus/>} />
+    <Route path="/orderHistory" element={<SellerOrderHistory/>} />
   </Routes>
   </BrowserRouter>
   </Provider>

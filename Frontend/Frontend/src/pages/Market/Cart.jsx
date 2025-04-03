@@ -9,6 +9,7 @@ const Cart = () => {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   
+  
   const navigate = useNavigate();
   
   const cartFeed = async() => {
@@ -32,6 +33,21 @@ const Cart = () => {
       setLoading(false);
     }
   };
+
+  const delelteItem = async (itemId)=>{
+    try {
+      const response = await axios.delete(import.meta.env.VITE_BASE_URL+`/deleteCartItem/${itemId}` , {
+        withCredentials:true
+      })
+      console.log(response);
+      cartFeed();
+      
+    } catch (error) {
+      if(error?.response?.status === 401){
+        return navigate("/login")
+      }
+    }
+  }
   
 
 
@@ -92,7 +108,7 @@ const Cart = () => {
                           <p className="text-lg font-medium text-gray-900 mt-1">₹{item?.price}</p>
                         </div>
                         <button 
-                          
+                          onClick={()=>delelteItem(item._id)}
                           className="flex items-center text-red-600 hover:text-red-800 transition-colors"
                         >
                           <Trash size={18} className="mr-1" />

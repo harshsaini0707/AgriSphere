@@ -39,7 +39,7 @@ try {
     { name: 'Harvested Crop', icon: <Tractor onClick={()=>navigate("/harvestedCrop")} className="w-5 h-5" /> },
     { name: 'Task', icon: <CalendarCheck onClick={()=>navigate("/task")} className="w-5 h-5" /> },
   
-    { name: 'Chat', icon: <MessageCircle className="w-5 h-5" /> },
+    { name: 'Chat', icon: <MessageCircle onClick={()=>navigate("/chat")} className="w-5 h-5" /> },
     { name: 'Community', icon: <Users onClick={()=> navigate("/community")} className="w-5 h-5" /> },
     { name: 'Market Place', icon: <ShoppingBag onClick={()=> navigate("/market")} className="w-5 h-5" /> },
     { name: 'Profile', icon: <User onClick={()=>navigate("/profile")} className="w-5 h-5" /> },

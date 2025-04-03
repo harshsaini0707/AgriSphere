@@ -9,7 +9,7 @@ sellerRoute.patch("/editItem/:itemId",userProtect,editListedItem);
 sellerRoute.delete("/deleteItem/:itemId",userProtect,deleteItem);
 sellerRoute.get("/getItem",userProtect,getItem);
 
-sellerRoute.get("/allOrders", userProtect,allOrders);
-sellerRoute.patch("/orderStatus/:orderid",userProtect,updateOrder);
+sellerRoute.get("/allOrders", userProtect,allOrders); {/*work*/}
+sellerRoute.patch("/orderStatus/:orderid",userProtect,updateOrder); {/*work*/}
 
 module.exports = sellerRoute;

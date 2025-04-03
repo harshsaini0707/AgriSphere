@@ -8,11 +8,11 @@ const cropSchema  = new mongoose.Schema({
     },
     cropPhoto:{
         type:String,
-        validate(value){
-            if(!validator.isURL(value)){
-                throw new Error(`Invalid Image Type`)
-            }
-        }
+        // validate(value){
+        //     if(!validator.isURL(value)){
+        //         throw new Error(`Invalid Image Type`)
+        //     }
+        // }
     },
     sellerId:{
         type:mongoose.Schema.Types.ObjectId,

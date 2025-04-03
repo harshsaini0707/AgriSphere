@@ -139,8 +139,8 @@ const allOrders = async(req,res)=>{
         .populate("itemId","cropName cropPhoto cropType season")
         .sort({orderDate:-1})
 
-        if(!order || order.length === 0 ){
-            return res.status(404).send(`Currently no order placed!!`)
+        if(order.length === 0 ){
+            return res.json({data:`Currently no order placed!!`})
         }
 
         return res.status(200).json({message:"Placed Order",size:order.length,data:order});
@@ -169,7 +169,7 @@ const updateOrder = async(req,res)=>{
 
        if(!order) return res.status(404).send(`No order found by this id!!`)
 
-        const validStatuses = ["Pending", "Shipped", "Delivered","Cancelled"];
+        const validStatuses = ["Pending", "Shipped", "Delivered","Cancelled","Confirm"];
        if (!validStatuses.includes(status)) {
            return res.status(400).send(`Invalid status! Use one of: ${validStatuses.join(", ")}`);
        }
