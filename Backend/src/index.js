@@ -9,6 +9,7 @@ const cors = require("cors");
 const adminRoute = require("./routes/admin.routes");
 const sellerRoute = require("./routes/seller.routes");
 const buyerRoute = require("./routes/buyer.routes");
+const paymentRouter = require("./routes/payment.routes");
 
 
 app.use(express.json());
@@ -23,7 +24,14 @@ app.use("/",authRouter);
 app.use("/",userRouter);
 app.use("/",adminRoute);
 app.use("/",sellerRoute);
-app.use("/",buyerRoute)
+app.use("/",buyerRoute);
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`);
+    next();
+  });
+  
+app.use("/",paymentRouter);
+
 
 MONOGO_CONNECT().then(()=>{
     console.log("DB Connected Sucessfully!!");

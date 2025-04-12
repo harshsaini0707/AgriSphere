@@ -11,7 +11,67 @@ const Cart = () => {
   
   
   const navigate = useNavigate();
-  
+
+  const handleBuy = async()=>{
+    try {
+      const order = await axios.post(import.meta.env.VITE_BASE_URL+"/paymentCreate",{
+        total
+      } , {withCredentials:true})
+      console.log(order);
+      
+
+      //open razorpay dialog box
+      const {amount , keyId , notes , currency , orderId} = order?.data;
+
+      const options = {
+        key: keyId, // Replace with your Razorpay key_id
+        amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: currency,
+        name: "AgriSphere",
+        description: 'Make Farming Easy!!',
+        order_id: orderId, // This is the order_id created in the backend
+        prefill: {
+          name: notes?.firstName + " "+notes?.lastName,
+          email: notes?.email,
+          
+        },
+        theme: {
+          color: '#F37254'
+        },
+        handler: function(response) {
+          // This function runs after successful payment
+          console.log("Payment successful:", response);
+          // Call your API to update payment status
+          updatePaymentStatus(orderId, response.razorpay_payment_id);
+        }
+      };
+
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
+    } catch (error) {
+      if(error?.order?.status === 401) return navigate("/login");
+
+      console.log(error);
+      
+    }
+  }
+  const updatePaymentStatus = async(orderId, paymentId) => {
+    try {
+      const response = await axios.post(
+        import.meta.env.VITE_BASE_URL + "/payment/update-status",
+        { orderId, paymentId },
+        { withCredentials: true }
+      );
+      console.log("Payment status updated:", response.data);
+      cartFeed();
+      // Redirect to order confirmation or orders page
+    //  navigate("/orders");
+    } catch (error) {
+      console.error("Error updating payment:", error);
+    }
+  };
+
   const cartFeed = async() => {
     setLoading(true);
     try {
@@ -50,7 +110,7 @@ const Cart = () => {
   }
   
 
-
+const cartfilter = cart.filter((item)=>item.buyStatus === false)
   
   useEffect(() => {
     cartFeed();
@@ -74,7 +134,7 @@ const Cart = () => {
       <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-6">Your Cart</h1>
         
-        {cart.length === 0 ? (
+        {cartfilter.length === 0 ? (
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
             <h2 className="text-xl font-medium text-gray-600 mb-4">Your cart is empty</h2>
             <button 
@@ -89,7 +149,7 @@ const Cart = () => {
             {/* Cart Items */}
             <div className="bg-white rounded-lg shadow-md overflow-hidden  flex-grow">
               <div className="divide-y divide-gray-200">
-                {cart.map((item) => (
+                {cartfilter?.map((item) => (
                   <div key={item._id} className="flex flex-col sm:flex-row p-6 hover:bg-gray-50 transition-colors">
                     <div className="flex-shrink-0 sm:mr-6 mb-4 sm:mb-0 flex justify-center">
                       <img 
@@ -144,7 +204,7 @@ const Cart = () => {
                   <p className="text-lg font-bold">₹{total}</p>
                 </div>
                 <button 
-                 
+                  onClick={()=>handleBuy()}
                   className="mt-6 w-full bg-green-600 text-white py-3 px-4 rounded-md hover:bg-green-700 transition-colors font-semibold"
                 >
                   Place Order
