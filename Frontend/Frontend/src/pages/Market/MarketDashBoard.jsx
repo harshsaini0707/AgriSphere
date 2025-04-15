@@ -47,15 +47,15 @@ const MarketDashBoard = () => {
       <div className='bg-gray-100 min-h-screen scroll-smooth'>
         <ToastContainer />
 
-        <div className='flex gap-75 items-center justify-center pt-8'>
-          <select className='w-40 outline-2 h-8 focus:outline-3 font-mono'>
+        <div className='flex  items-start justify-start pt-8 ml-24'>
+          {/* <select className='w-40 outline-2 h-8 focus:outline-3 font-mono'>
             <option value='' selected hidden>Category</option>
             <option value='All'>All</option>
             <option value='Data'>DATA</option>
             <option value='Oil'>Oil</option>
             <option value='TO'>To</option>
             <option value='Many'>Many</option>
-          </select>
+          </select> */}
 
           <input type='text' value={search} onChange={(e) => setSearch(e.target.value)} className='w-3xl outline-2 px-2 h-8' placeholder='Search here..' />
         </div>

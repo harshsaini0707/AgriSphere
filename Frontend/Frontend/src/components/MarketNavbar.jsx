@@ -10,6 +10,7 @@ import { LuLogOut } from "react-icons/lu";
 import { useNavigate } from 'react-router';
 import { MdHome } from "react-icons/md";
 import { StepBack } from "lucide-react";
+import axios from 'axios';
 
 const MarketNavbar = () => {
   const user = useSelector((store) => store.user || "");
@@ -19,6 +20,20 @@ const MarketNavbar = () => {
   const [click, setClick] = useState(false);
 
   const [buyer, setBuyer] = useState(true);
+
+  const logout = async() =>{
+    try {
+      const data  = await axios.post(import.meta.env.VITE_BASE_URL+"/logout",{},{
+        withCredentials:true
+      })
+      navigate("/login");
+      
+    } catch (error) {
+      console.log(error);
+      
+    }
+      }
+    
 
   return (
     <nav className="sticky top-0 z-50 bg-green-600 shadow-lg">
@@ -80,25 +95,27 @@ const MarketNavbar = () => {
             <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl overflow-hidden">
               {buyer ? (
                 <>
-                  <h1 className="flex items-center px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 transition duration-300 cursor-pointer">
+                  {/* <h1 className="flex items-center px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 transition duration-300 cursor-pointer">
                     <SiGooglestreetview size={16} className='mr-2' /> Order Status
                   </h1>
                   <h1 className="px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 transition flex items-center duration-300 cursor-pointer">
                     <FaList size={16} className='mr-2' /> All Orders
-                  </h1>
+                  </h1> */}
                   <h1
                     onClick={() => navigate("/userHome")}
                     className="flex items-center px-3 font-semibold py-2 hover:bg-green-200 transition duration-300 cursor-pointer"
                   >
                     <MdHome size={25} className='mr-1' /> AgriSphere
                   </h1>
-                  <h1 className="flex items-center px-4 font-semibold py-2 text-red-500 hover:bg-red-100 transition duration-300 cursor-pointer">
+                  <h1
+                      onClick={logout}
+                  className="flex items-center px-4 font-semibold py-2 text-red-500 hover:bg-red-100 transition duration-300 cursor-pointer">
                     <LuLogOut size={18} className='mr-2' /> Logout
                   </h1>
                 </>
               ) : (
                 <>
-                  <h1 className="flex items-center px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 transition duration-300 cursor-pointer">
+                  {/* <h1 className="flex items-center px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 transition duration-300 cursor-pointer">
                     <SiGooglestreetview size={16} className='mr-2' /> New Orders
                   </h1>
                   <h1 className="px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 transition flex items-center duration-300 cursor-pointer">
@@ -109,14 +126,16 @@ const MarketNavbar = () => {
                     className="flex items-center px-3 font-semibold py-2 hover:bg-green-200 transition duration-300 cursor-pointer"
                   >
                     <MdHome size={25} className='mr-1' /> Change Order Status
-                  </h1>
+                  </h1> */}
                   <h1
                     onClick={() => navigate("/userHome")}
                     className="flex items-center px-3 font-semibold py-2 hover:bg-green-200 transition duration-300 cursor-pointer"
                   >
-                    <MdHome size={25} className='mr-1' /> AgriSphere
+                    <MdHome size={25} className='mr-1' />  AgriSphere
                   </h1>
-                  <h1 className="flex items-center px-4 font-semibold py-2 text-red-500 hover:bg-red-100 transition duration-300 cursor-pointer">
+                  <h1 
+                  onClick={logout}
+                  className="flex items-center px-4 font-semibold py-2 text-red-500 hover:bg-red-100 transition duration-300 cursor-pointer">
                     <LuLogOut size={18} className='mr-2' /> Logout
                   </h1>
                 </>

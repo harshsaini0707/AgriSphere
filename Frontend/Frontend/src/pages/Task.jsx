@@ -150,7 +150,7 @@ const Task = () => {
   const filteredTask = myTask.filter((task) => !task.deleted);
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-[#0f766e] via-[#22c55e] to-[#4ade80]">
+    <div className="flex min-h-screen bg-[#2c2c2c]">
       <Dashboard />
       <div className="flex-1 p-8 flex justify-center">
         <div className="w-full max-w-2xl space-y-4">

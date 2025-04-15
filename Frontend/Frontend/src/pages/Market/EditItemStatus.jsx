@@ -18,6 +18,7 @@ const EditItemStatus = () => {
                 { withCredentials: true }
             );
             console.log(response?.data?.data);
+            fetchNewOrders();
         } catch (error) {
             if (error?.response?.status === 401) {
                 return navigate("/login");

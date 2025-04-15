@@ -12,9 +12,9 @@ const Seller = () => {
         <div  onClick={()=>navigate("/listCrop")}className="bg-amber-300 p-6 rounded-2xl text-center text-lg font-semibold cursor-pointer hover:shadow-xl hover:scale-102 duration-300">
           List New Crop
         </div>
-        <div className="bg-blue-300 p-6 rounded-2xl text-center text-lg font-semibold cursor-pointer hover:shadow-xl hover:scale-102 duration-300">
+        {/* <div className="bg-blue-300 p-6 rounded-2xl text-center text-lg font-semibold cursor-pointer hover:shadow-xl hover:scale-102 duration-300">
           Edit Listed Crop
-        </div>
+        </div> */}
         <div
         onClick={()=>navigate("/sellerCrops")}
         

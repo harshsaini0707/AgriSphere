@@ -77,7 +77,7 @@ const Profile = () => {
   }, [user]);
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-[#0f766e] via-[#22c55e] to-[#4ade80]">
+    <div className="flex min-h-screen bg-[#2c2c2c]">
       <Dashboard />
       {loading ? (
           <div className="flex justify-center w-full p-8 ml-10 animate-pulse">

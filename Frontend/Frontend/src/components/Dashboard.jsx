@@ -40,7 +40,7 @@ try {
     { name: 'Task', icon: <CalendarCheck onClick={()=>navigate("/task")} className="w-5 h-5" /> },
   
     { name: 'Chat', icon: <MessageCircle onClick={()=>navigate("/chat")} className="w-5 h-5" /> },
-    { name: 'Community', icon: <Users onClick={()=> navigate("/community")} className="w-5 h-5" /> },
+    // { name: 'Community', icon: <Users onClick={()=> navigate("/community")} className="w-5 h-5" /> },
     { name: 'Market Place', icon: <ShoppingBag onClick={()=> navigate("/market")} className="w-5 h-5" /> },
     { name: 'Profile', icon: <User onClick={()=>navigate("/profile")} className="w-5 h-5" /> },
     { name: 'Logout', icon: <LogOut onClick={logout} className="w-5 h-5" /> },
@@ -72,7 +72,7 @@ try {
             <div key={index} className="relative group">
               <a className={`
                 flex items-center px-4 py-3 text-white transition-all duration-300
-                rounded-xl hover:bg-white/30 hover:text-[#16a345]  
+                rounded-xl hover:bg-white/30 hover:text-white hover:font-semibold   
                 ${isCollapsed ? 'justify-center' : ''}
               `}>
                 {item.icon}

@@ -57,7 +57,7 @@ const Mycrop = () => {
   };
 
   return(
-    <div className="flex min-h-screen bg-gradient-to-br from-[#0f766e] via-[#22c55e] to-[#4ade80]">
+    <div className="flex min-h-screen bg-[#2c2c2c]">
       
       <div className="fixed left-0 top-0 h-full bg-white shadow-xl z-10">
         <Dashboard />
@@ -66,8 +66,8 @@ const Mycrop = () => {
       {/* Main Content */}
       <main className="flex-1 pl-[120px] pr-10 py-10">
         <div className="max-w-[1600px]">
-          <h1 className="text-5xl font-extrabold text-green-900 text-center mb-12 tracking-wide">
-            🌱 My Planted Crops
+          <h1 className="text-5xl font-extrabold text-gray-200 text-center mb-12 tracking-wide">
+            🌱 Planted Crops
           </h1>
 
           {/* Crops Grid */}

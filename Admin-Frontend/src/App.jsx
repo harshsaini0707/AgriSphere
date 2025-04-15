@@ -17,7 +17,6 @@ function App() {
     <Route path="/feed" element={<Feed/>} />
     <Route path="/Edit/:cropId" element={<Edit/> } />
    </Routes>
-
    </BrowserRouter>
 
    </>

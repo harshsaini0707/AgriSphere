@@ -8,6 +8,9 @@ const Cart = () => {
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
+
+  const[address , setAddress] = useState("");
+  const[maxQty , setMaxqty] = useState(0);
   
   
   const navigate = useNavigate();
@@ -84,6 +87,7 @@ const Cart = () => {
       
       const totalPrice = response?.data?.data.reduce((sum, item) => sum + item?.totalPrice, 0);
       setTotal(totalPrice);
+      setMaxqty(response?.data?.data?.itemId?.quantity )
     } catch (error) {
       if(error.response?.status === 401){
         return navigate("/login");
@@ -109,6 +113,23 @@ const Cart = () => {
     }
   }
   
+  const EditItem = async(ItemId)=>{
+    try {
+      const response = await axios.post(import.meta.env.VITE_BASE_URL+`/buyItem/${ItemId}`,{
+                      quantity:quantity,
+                      address : address
+                  },{withCredentials:true})
+
+      
+      
+    } catch (error) {
+      if(error?.response?.status === 401){
+        return navigate("/login")
+      }
+      console.log(error);
+      
+    }
+  }
 
 const cartfilter = cart.filter((item)=>item.buyStatus === false)
   
@@ -164,7 +185,8 @@ const cartfilter = cart.filter((item)=>item.buyStatus === false)
                       <p className="text-gray-600 mt-1">Seller: {item?.sellerId?.firstName} {item?.sellerId?.lastName}</p>
                       <div className="flex flex-wrap justify-between items-end mt-4">
                         <div>
-                          <p className="text-sm text-gray-600">Quantity: {item?.quantity}</p>
+                         
+                          <p className="text-sm text-gray-600">Quantity: {item?.quantity} </p>
                           <p className="text-lg font-medium text-gray-900 mt-1">₹{item?.price}</p>
                         </div>
                         <button 
@@ -198,6 +220,10 @@ const cartfilter = cart.filter((item)=>item.buyStatus === false)
                     <p className="text-gray-600">Delivery Charges</p>
                     <p className="text-green-600 font-medium">Free</p>
                   </div>
+                </div>
+                <div >
+                <textarea  value={address} onChange={(e)=>setAddress(e.target.value)} placeholder='Please Enter Your Address'  className='p-3 w-full outline-1 outline-green-400 rounded-md min-h-10'>
+                </textarea>
                 </div>
                 <div className="flex justify-between pt-4">
                   <p className="text-lg font-semibold">Total</p>

@@ -4,7 +4,7 @@ import ChatComponent from '../components/ChatComponent' // Import the new compon
 
 const Chat = () => {
   return (
-    <div className='flex min-h-screen bg-gradient-to-br from-[#0f766e] via-[#22c55e] to-[#4ade80]'>
+    <div className='flex min-h-screen bg-[#2c2c2c]'>
         <Dashboard/>
 
         <div className='flex-1 flex items-center justify-center p-4'>

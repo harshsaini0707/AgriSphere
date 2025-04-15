@@ -31,7 +31,7 @@ const HarvestedCrop = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-[#0f766e] via-[#22c55e] to-[#4ade80]">
+    <div className="flex min-h-screen bg-[#2e2e2e]">
       {/* Sidebar */}
       <div className="  left-0 top-0 h-full bg-white shadow-xl z-10">
         <Dashboard />
@@ -40,7 +40,7 @@ const HarvestedCrop = () => {
       {/* Main Content */}
       <main className="flex-1 pl-[100px] pr-6">
         <div className="max-w-[1400px] mx-auto py-10">
-          <h1 className="text-5xl font-extrabold text-gray-900 text-center mb-12 tracking-wide">
+          <h1 className="text-5xl font-extrabold text-white text-center mb-12 tracking-wide">
             🌾 Harvested Crops
           </h1>
 

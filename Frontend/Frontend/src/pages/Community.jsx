@@ -3,7 +3,7 @@ import Dashboard from '../components/Dashboard'
 
 const Community = () => {
   return (
-    <div className="flex min-h-screen  bg-gradient-to-br from-[#0f766e] via-[#22c55e] to-[#4ade80]">
+    <div className="flex min-h-screen  bg-[#2c2c2c]">
     <div className='fixed left-0 top-0 h-full bg-white shadow-xl z-10'>
         <Dashboard/> 
     </div>

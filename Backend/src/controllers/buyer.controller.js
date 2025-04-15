@@ -45,7 +45,7 @@ const addToCart = async(req,res)=>{
            
         }
 
-        const cartItemExists = await cartModel.findOne({itemId , buyerId : loggedInUser});
+        const cartItemExists = await cartModel.findOne({itemId , buyerId : loggedInUser , buyStatus : false});
         if(cartItemExists){
             return res.status(400).json({message:"Item is Already In Your Cart!!",data:`Item is Already In Your Cart!!`});
             
@@ -81,8 +81,8 @@ const cartList = async(req,res)=>{
         }
         const loggedInUser = req.user._id;
 
-        const cartList = await cartModel.find({buyerId:loggedInUser}).populate("itemId", "cropName cropPhoto availability cropType about season")
-        .populate("sellerId","firstName lastName email");
+        const cartList = await cartModel.find({buyerId:loggedInUser}).populate("itemId", "cropName cropPhoto availability cropType about season quantity")
+        .populate("sellerId","firstName lastName email ");
         if(!cartList) return res.status(400).send(`Error while fetching user data`);
         if(cartList.length === 0) return res.status(404).send(`Empty Cart!`)
 
@@ -130,13 +130,13 @@ const buyItem = async (req, res) => {
         if (!itemId) {
             return res.status(400).send('Item ID is required!');
         }
-        const {address} = req.body;
+        const {address , quantity} = req.body;
 
         if(!address){
             return res.status(400).send('Address Is Required!'); 
         }
 
-        const { quantity } = req.body;
+       
 
         if (!quantity || quantity <= 0) {
             return res.status(400).send('Quantity Invalid!');
@@ -214,6 +214,17 @@ const aboutItem= async(req,res)=>{
 
     } catch (error) {
        return res.status(500).send(error.message); 
+    }
+}
+const orderStatus = async(req,res)=>{
+    try {
+        if(!req.user || !req.user._id){
+            return res.status(404).send("Unauthorized User -- Please Login!")
+        }
+        const loggedInUser = req.user._id;
+        
+    } catch (error) {
+      return  res.status(500).send(error)  
     }
 }
 
