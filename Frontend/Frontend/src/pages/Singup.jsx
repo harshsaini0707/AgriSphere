@@ -59,7 +59,7 @@ const dispatch = useDispatch();
                 <input
                   type="text"
                   value={firstName}
-                  onChange={(e)=>setFirstName(e.target.value)}
+                  onChange={(e)=>setFirstName(e.target.value.trim())}
                   className="w-full px-4 py-3 font-mono rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
                   placeholder="Enter your First Name"
                 />
@@ -71,7 +71,7 @@ const dispatch = useDispatch();
                 </label>
                 <input
                   value={lastName}
-                  onChange={(e)=>setLastname(e.target.value)}
+                  onChange={(e)=>setLastname(e.target.value.trim())}
                   type="text"
                   className="w-full px-4 font-mono py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
                   placeholder="Enter your Last Name"
@@ -84,7 +84,7 @@ const dispatch = useDispatch();
                 </label>
                 <input
                 value={email}
-                onChange={(e)=>setEmail(e.target.value)}
+                onChange={(e)=>setEmail(e.target.value.trim())}
                   type="email"
                   className="w-full px-4 py-3 font-mono rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
                   placeholder="Enter your Email"
@@ -97,7 +97,7 @@ const dispatch = useDispatch();
                 </label>
                 <input
                   value={password}
-                  onChange={(e)=>setPassword(e.target.value)}
+                  onChange={(e)=>setPassword(e.target.value.trim())}
                   type="password"
                   className="w-full px-4 py-3 font-mono rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
                   placeholder="Enter your Password"
@@ -160,7 +160,7 @@ const dispatch = useDispatch();
                 </label>
                 <input
                   value={Location}
-                  onChange={(e)=>setLocation(e.target.value)}
+                  onChange={(e)=>setLocation(e.target.value.trim())}
                   type="text"
                   className="w-full px-4 font-mono py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
                   placeholder="Please Enter Correct Location Spelling"

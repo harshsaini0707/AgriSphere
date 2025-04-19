@@ -246,7 +246,7 @@ const Profile = () => {
                   <input className="w-full px-4 py-3 border rounded-lg" value={lastName} onChange={(e) => setLastname(e.target.value)} />
                   <input className="w-full px-4 py-3 border rounded-lg" value={State} onChange={(e) => setState(e.target.value)} />
                   <input className="w-full px-4 py-3 border rounded-lg" value={Location} onChange={(e) => setLocation(e.target.value)} />
-                  <input type="number" className="w-full px-4 py-3 border rounded-lg" value={age} onChange={(e) => setAge(e.target.value)} />
+                  <input type="number" className="w-full px-4 py-3 border rounded-lg" min={2} max={100} value={age} onChange={(e) => setAge(e.target.value)} />
                 </div>
               )}
             </div>

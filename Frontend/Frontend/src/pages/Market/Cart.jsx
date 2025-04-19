@@ -89,10 +89,10 @@ const Cart = () => {
         withCredentials: true
       });
       
-      //console.log(response?.data?.data);
+      console.log(response?.data?.data);
       setCart(response?.data?.data);
 
-      const filteredItems = allItems.filter(item => item.buyStatus === false);
+      const filteredItems = response?.data?.data.filter(item => item.buyStatus === false);
       const totalPrice = filteredItems.reduce((sum, item) => sum + item?.totalPrice, 0);
       setTotal(totalPrice);
 

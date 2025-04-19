@@ -52,10 +52,6 @@ const cartSchema = new mongoose.Schema({
     address: {
         type: String
     },
-    removeItem:{
-        type:Boolean,
-        default:false
-    }
 },{timestamps:true});
 
 const cartModel = mongoose.model("cartModel",cartSchema);

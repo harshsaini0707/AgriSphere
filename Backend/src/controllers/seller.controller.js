@@ -110,18 +110,22 @@ const deleteItem = async(req,res)=>{
 
 const getItem  = async(req,res)=>{
     try {
-        if(!req.user || !req.user._id){
-            return res.status(401).send("Unauthorized User - Please Login !!");
-        }
         const loggedInUser = req.user._id;
 
-        const user = await Seller.find({sellerId : loggedInUser});
-        if(!user) return res.status(500).send(`No User Existed With The Given Credentials!!`)
-        if(user.length == 0) return res.status(404).send(`No Item is Listed!!`) 
-
-        return res.status(201).json({message:`All Listed Item`,size:user.length , data:user});
-        
-    } catch (error) {
+        const user = await Seller.find({ sellerId: loggedInUser });
+      
+        if (!user) return res.status(500).send(`No User Existed With The Given Credentials!!`);
+        if (user.length === 0) return res.status(404).send(`No Item is Listed!!`);
+      
+      
+        const listedCrops = await Seller.find({ sellerId: loggedInUser }).sort({ createdAt: 1 });
+      
+        return res.status(201).json({
+          message: `All Listed Item`,
+          size: listedCrops.length,
+          data: listedCrops,
+        });
+      } catch (error) {
        return res.status(500).send(`Error While Getting Item List`+error.message) 
     }
 }
