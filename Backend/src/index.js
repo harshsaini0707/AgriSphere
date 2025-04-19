@@ -15,7 +15,7 @@ const paymentRouter = require("./routes/payment.routes");
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: ["http://localhost:5173", "http://localhost:8080" ,"https://agri-sphere-bnfc4zbdn-harsh-sainis-projects.vercel.app"] ,
+    origin: "*" ,
     credentials:true,
 }))
 
