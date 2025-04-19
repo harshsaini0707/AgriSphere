@@ -13,14 +13,15 @@ const Signup = () => {
   const[Location , setLocation] =  useState('');
   const[State, setState] = useState('')
   const[err,setError] =useState("");
+  const[loading,setLoading] = useState(false);
 
   const navigate = useNavigate();
 const dispatch = useDispatch();
 
   const signup = async()=>{
+    setLoading(true)
     try {
-    
-
+  
       const response = await axios.post(import.meta.env.VITE_BASE_URL+"/signup",{
         firstName,lastName,email,password,Location:Location,State:State
       },{withCredentials:true})
@@ -28,11 +29,13 @@ const dispatch = useDispatch();
       console.log(response?.data?.data);
       dispatch(addUser(response?.data?.data))
       setError("")
-      navigate("/profile")
+      navigate("/userHome")
       
     } catch (error) {
       console.log(error?.response?.data);
       setError(error?.response?.data);
+    }finally{
+      setLoading(false)
     }
   }
   return (
@@ -166,13 +169,23 @@ const dispatch = useDispatch();
               </div>
      {err ? <h1 className="font-bold text-red-500 text-start">{err}</h1>:""}
 
-              <button
-                
-                onClick={signup}
-                className="w-full text-lg font-mono bg-[#30bc6a] hover:bg-[#19a854] text-white py-3 px-4 rounded-lg focus:ring-4 focus:ring-green-200 transition duration-150 font-medium"
-              >
-                SignUp
-              </button>
+     <button
+  onClick={signup}
+  disabled={loading}
+  className="w-full text-lg font-mono bg-[#30bc6a] hover:bg-[#19a854] text-white py-3 px-4 rounded-lg focus:ring-4 focus:ring-green-200 transition duration-150 font-medium flex items-center justify-center gap-2 disabled:opacity-50"
+>
+  {loading ? (
+    <>
+      <svg className="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+      </svg>
+      Signing up...
+    </>
+  ) : (
+    "SignUp"
+  )}
+</button>
 
               
               <div className="text-center text-sm text-gray-600 mt-4">
