@@ -6,7 +6,7 @@ require("dotenv").config();
 const signup = async(req,res)=>{
     try {
 
-        const {firstName , lastName , email , password } = req.body;
+        const {firstName , lastName , email , password , Location , State} = req.body;
 
         ValidateData(req);
 
@@ -16,7 +16,9 @@ const signup = async(req,res)=>{
             firstName,
             lastName,
             email,
-            password:hashPassword
+            password:hashPassword,
+            Location:Location,
+            State:State
         })
 
         const newUser =  await user.save();

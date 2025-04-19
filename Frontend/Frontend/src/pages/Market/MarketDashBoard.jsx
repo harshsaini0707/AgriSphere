@@ -48,6 +48,33 @@ const MarketDashBoard = () => {
     console.log('Added to cart:', product);
   };
 
+  const addToCart = async(ItemId)=>{
+          try {
+              const response = await axios.post(import.meta.env.VITE_BASE_URL+`/addToCart/${ItemId}`,{
+                  quantity:1
+              },{withCredentials:true})
+  
+              console.log(response?.data?.data);
+  
+              toast.success(`Added to Cart!`,{
+                  position:"top-right",
+                  autoClose:3000
+              })
+              
+              
+          } catch (error) {
+              if(error.response?.status === 401){
+                  return navigate("/login") 
+              }
+              console.log(error.response?.data?.data);
+              toast.error(error.response?.data?.data,{
+                  position:"top-right",
+                  autoClose:3000
+              })
+              
+          }
+      }
+
   const filteredFeed = search
     ? feed.filter((item) =>
         item.cropName.toLowerCase().includes(search.toLowerCase())
@@ -119,7 +146,7 @@ const MarketDashBoard = () => {
                   <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
                     <span className="text-lg font-bold text-emerald-600">₹{data?.price}</span>
                     <button
-                      onClick={(e) => handleAddToCart(e, data)}
+                      onClick={() => addToCart(data._id)}
                       className="bg-emerald-500 hover:bg-emerald-600 text-white p-2 rounded-full transition-colors duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-emerald-400 shadow-md"
                       aria-label="Add to cart"
                     >

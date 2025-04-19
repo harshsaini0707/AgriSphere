@@ -10,6 +10,8 @@ const Signup = () => {
   const[lastName , setLastname] = useState("");
   const[email , setEmail] = useState("");
   const[password , setPassword] = useState("");
+  const[Location , setLocation] =  useState('');
+  const[State, setState] = useState('')
   const[err,setError] =useState("");
 
   const navigate = useNavigate();
@@ -17,10 +19,10 @@ const dispatch = useDispatch();
 
   const signup = async()=>{
     try {
-     event.preventDefault();
+    
 
       const response = await axios.post(import.meta.env.VITE_BASE_URL+"/signup",{
-        firstName,lastName,email,password
+        firstName,lastName,email,password,Location:Location,State:State
       },{withCredentials:true})
 
       console.log(response?.data?.data);
@@ -46,7 +48,7 @@ const dispatch = useDispatch();
             </div>
 
          
-            <form className="space-y-5">
+          
               <div>
                 <label className="text-sm font-medium text-gray-700 block mb-2">
                   First Name
@@ -98,6 +100,70 @@ const dispatch = useDispatch();
                   placeholder="Enter your Password"
                 />
               </div>
+              <div>
+  <label className="text-sm font-medium text-gray-700 block mb-2">
+    State / Union Territory
+  </label>
+  <select
+    value={State}
+    required
+    onChange={(e) => setState(e.target.value)}
+    className="w-full px-4 font-mono py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
+  >
+    <option value="">Select your State / UT</option>
+    <option value="Andhra Pradesh">Andhra Pradesh</option>
+    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+    <option value="Assam">Assam</option>
+    <option value="Bihar">Bihar</option>
+    <option value="Chhattisgarh">Chhattisgarh</option>
+    <option value="Goa">Goa</option>
+    <option value="Gujarat">Gujarat</option>
+    <option value="Haryana">Haryana</option>
+    <option value="Himachal Pradesh">Himachal Pradesh</option>
+    <option value="Jharkhand">Jharkhand</option>
+    <option value="Karnataka">Karnataka</option>
+    <option value="Kerala">Kerala</option>
+    <option value="Madhya Pradesh">Madhya Pradesh</option>
+    <option value="Maharashtra">Maharashtra</option>
+    <option value="Manipur">Manipur</option>
+    <option value="Meghalaya">Meghalaya</option>
+    <option value="Mizoram">Mizoram</option>
+    <option value="Nagaland">Nagaland</option>
+    <option value="Odisha">Odisha</option>
+    <option value="Punjab">Punjab</option>
+    <option value="Rajasthan">Rajasthan</option>
+    <option value="Sikkim">Sikkim</option>
+    <option value="Tamil Nadu">Tamil Nadu</option>
+    <option value="Telangana">Telangana</option>
+    <option value="Tripura">Tripura</option>
+    <option value="Uttar Pradesh">Uttar Pradesh</option>
+    <option value="Uttarakhand">Uttarakhand</option>
+    <option value="West Bengal">West Bengal</option>
+    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+    <option value="Chandigarh">Chandigarh</option>
+    <option value="Dadra and Nagar Haveli and Daman and Diu">Dadra and Nagar Haveli and Daman and Diu</option>
+    <option value="Delhi">Delhi</option>
+    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+    <option value="Ladakh">Ladakh</option>
+    <option value="Lakshadweep">Lakshadweep</option>
+    <option value="Puducherry">Puducherry</option>
+  </select>
+</div>
+
+
+              <div>
+                <label className="text-sm font-medium text-gray-700 block mb-2">
+                  Location
+                </label>
+                <input
+                  value={Location}
+                  onChange={(e)=>setLocation(e.target.value)}
+                  type="text"
+                  className="w-full px-4 font-mono py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
+                  placeholder="Please Enter Correct Location Spelling"
+                  required
+                />
+              </div>
      {err ? <h1 className="font-bold text-red-500 text-start">{err}</h1>:""}
 
               <button
@@ -118,7 +184,7 @@ const dispatch = useDispatch();
                   Login
                 </Link>
               </div>
-            </form>
+         
           </div>
         </div>
 

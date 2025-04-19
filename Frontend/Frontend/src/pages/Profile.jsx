@@ -16,44 +16,42 @@ const Profile = () => {
   const [Location, setLocation] = useState('');
   const [photo, setPhoto] = useState('');
   const [age, setAge] = useState('');
+  const[Data , setData] = useState([])
   const [isEditing, setIsEditing] = useState(false);
   const[loading,setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        if(user){
-          setLoading(false);
-          return;
-        }
         const response = await axios.get(import.meta.env.VITE_BASE_URL+'/profile', {
           withCredentials: true,
         });
+        //console.log("lelo "+ response?.data?.data);
+        setData(response?.data)
+        
         dispatch(addUser(response?.data?.data));
+        setLoading(false)
       } catch (error) {
         console.error('Error fetching profile:', error);
       }
     };
     fetchProfile();
-  }, [dispatch]);
+  }, []);
 
   const editProfile = async () => {
     try {
-      if(user){
-        setLoading(false);
-        return;
-      }
+    
       const response = await axios.patch(
         import.meta.env.VITE_BASE_URL+"/edit/profile",
         { firstName, lastName, Location,State, age },
         { withCredentials: true }
       );
       
-      //console.log("Profile updated successfully:", response.data.data);
+    //  console.log("Profile updated successfully:", response.data.data);
   
     
       dispatch(addUser(response?.data?.data));
-      
+      setLoading(false)
   
       
     } catch (error) {
@@ -76,6 +74,11 @@ const Profile = () => {
     }
   }, [user]);
 
+  //console.log("data" +user);
+
+  console.log("leleo" + Data);
+  
+  
   return (
     <Dashboard>
     <div className="flex min-h-screen bg-[#ece3e3e9]">
@@ -218,14 +221,14 @@ const Profile = () => {
                     <MapPin className="w-5 h-5 text-green-600" />
                     <div>
                       <p className="text-sm font-medium text-gray-500">State</p>
-                      <p className="text-lg font-semibold text-gray-800">{State}</p>
+                      <p className="text-lg font-semibold text-gray-800">{user?.State}</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4 p-4 bg-gray-100 rounded-lg hover:bg-green-100">
                     <MapPin className="w-5 h-5 text-green-600" />
                     <div>
                       <p className="text-sm font-medium text-gray-500">Location</p>
-                      <p className="text-lg font-semibold text-gray-800">{Location}</p>
+                      <p className="text-lg font-semibold text-gray-800">{user?.Location}</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4 p-4 bg-gray-100 rounded-lg hover:bg-green-100">

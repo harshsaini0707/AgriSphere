@@ -10,8 +10,11 @@ const bcrypt = require("bcrypt")
 const profile = async(req,res)=>{
     try {
         
-        const loggedInUser = req.user;
-        return res.status(200).json({data:loggedInUser})
+        const loggedInUser = req.user._id;
+
+        const profileData = await User.findById(req.user._id);
+
+        return res.status(200).json({data:profileData})
 
     } catch (error) {
         return res.status(500).json({message:error.message})  

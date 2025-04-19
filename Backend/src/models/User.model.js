@@ -32,11 +32,11 @@ const userSchema = new mongoose.Schema({
     },
     State:{
         type:String,
-        
-         
+        required:true
     },
     Location:{
         type:String,
+        required:true
         
     },
     profilePhoto:{

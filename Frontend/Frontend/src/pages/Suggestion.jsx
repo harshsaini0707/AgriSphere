@@ -95,7 +95,7 @@ const Suggestion = () => {
             </div>
           ) : (
             <>
-              {/* Filter Section */}
+              
               <div className="bg-white p-6 rounded-xl shadow-lg mb-8">
                 <div className="flex items-center mb-4">
                   <Filter size={20} className="text-green-600 mr-2" />

@@ -52,6 +52,9 @@ const Cart = () => {
 
       const rzp = new window.Razorpay(options);
       rzp.open();
+
+      cartFeed();
+
     } catch (error) {
       if(error?.order?.status === 401) return navigate("/login");
 
@@ -236,7 +239,7 @@ const cartfilter = cart.filter((item)=>item.buyStatus === false)
                   Place Order
                 </button>
                 <button 
-                  onClick={() => navigate("/market")}
+                  onClick={() => navigate("/marketplace")}
                   className="mt-3 w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 rounded-md hover:bg-gray-50 transition-colors font-medium"
                 >
                   Continue Shopping
