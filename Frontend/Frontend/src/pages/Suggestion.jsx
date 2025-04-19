@@ -81,7 +81,7 @@ const Suggestion = () => {
 
   return (
     <Dashboard>
-    <div className="flex min-h-screen  bg-[#ece3e3e9]">
+    <div className="flex min-h-screen  bg-gray-300">
       <div className="flex-1">
         <div className="max-w-6xl mx-auto py-8 px-6">
           <div className="mb-10">

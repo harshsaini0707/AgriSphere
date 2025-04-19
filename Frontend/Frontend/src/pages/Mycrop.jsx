@@ -55,7 +55,7 @@ const Mycrop = () => {
 
   return (
     <Dashboard>
-    <div className="flex min-h-screen bg-[#ece3e3e9]">
+    <div className="flex min-h-screen bg-gray-300">
     
       <div className="fixed left-0 top-0 h-full bg-gray-200 shadow-lg z-10">
       

@@ -46,15 +46,13 @@ const Dashboard = ({ children }) => {
     { name: 'My Crop', icon: <Sprout className="w-6 h-6" />, route: "/mycrop" },
     { name: 'Harvested Crop', icon: <Tractor className="w-6 h-6" />, route: "/harvestedCrop" },
     { name: 'Task', icon: <CalendarCheck className="w-6 h-6" />, route: "/task" },
-    { name: 'Chat', icon: <MessageCircle className="w-6 h-6" />, route: "/chat" },
-    { name: 'Community', icon: <Users className="w-6 h-6" />, route: "/community" },
     { name: 'MarketPlace', icon: <ShoppingBag  className="w-6 h-6" />, route: "/marketplace" },
     { name: 'Profile', icon: <User className="w-6 h-6" />, route: "/profile" },
     { name: 'Logout', icon: <LogOut onClick={logout} className="w-6 h-6" />, action: logout },
   ];
 
   return (
-    <div className="flex min-h-screen bg-[#ece3e3e9]">
+    <div className="flex min-h-screen bg-gray-300">
      
       <aside className={`fixed top-0 left-0 h-full bg-gradient-to-b from-green-800 to-green-950 shadow-lg transition-all duration-300 z-20 ${isCollapsed ? 'w-16' : 'w-64'}`}>
         

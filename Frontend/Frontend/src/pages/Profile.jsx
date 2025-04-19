@@ -27,7 +27,7 @@ const Profile = () => {
           withCredentials: true,
         });
         //console.log("lelo "+ response?.data?.data);
-        setData(response?.data)
+        setData(response?.data?.data)
         
         dispatch(addUser(response?.data?.data));
         setLoading(false)
@@ -76,12 +76,12 @@ const Profile = () => {
 
   //console.log("data" +user);
 
-  console.log("leleo" + Data);
+ // console.log("leleo" + Data);
   
   
   return (
     <Dashboard>
-    <div className="flex min-h-screen bg-[#ece3e3e9]">
+    <div className="flex min-h-screen bg-gray-300">
       
       {loading ? (
           <div className="flex justify-center w-full p-8 ml-10 animate-pulse">

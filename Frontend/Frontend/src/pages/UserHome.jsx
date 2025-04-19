@@ -52,7 +52,7 @@ const UserHome = () => {
   }, [location]);
 
   return (
-    <div className="flex min-h-screen bg-[#ece3e3e9]"> 
+    <div className="flex min-h-screen bg-gray-300"> 
       <Dashboard />
       <div className="flex flex-col items-center justify-center w-full p-6">
         {/* Weather Card */}
