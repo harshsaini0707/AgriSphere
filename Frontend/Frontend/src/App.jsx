@@ -45,12 +45,10 @@ function App() {
     <Route path="/aboutCrop/:cropId" element={<AboutCrop/>} />
     <Route path="/task" element={<Task/>} />
     <Route path="/userHome" element={<UserHome/>} />
-    <Route path="/community" element={<Community/>} />
     <Route path="/marketplace" element={<MarketDashBoard/> } />
     <Route path="/aboutProduct/:ItemId" element={<AboutItem/>} />
     <Route path="/cart" element={<Cart/>} />
     <Route path="/seller" element={<Seller/>} />
-    <Route path="/chat" element={<Chat/>} />
     <Route path="/listCrop" element={<ListCrop/>} />
     <Route path="/sellerCrops" element={<SellerListedCrop/>} />
     <Route path="/Neworders" element={<SellerNewOrders/>}/>

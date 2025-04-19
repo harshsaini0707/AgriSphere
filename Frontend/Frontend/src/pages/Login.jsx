@@ -94,7 +94,7 @@ const Login = () => {
 
            
             <button
-  onClick={signup}
+  onClick={login}
   disabled={loading}
   className="w-full text-lg font-mono bg-[#30bc6a] hover:bg-[#19a854] text-white py-3 px-4 rounded-lg focus:ring-4 focus:ring-green-200 transition duration-150 font-medium flex items-center justify-center gap-2 disabled:opacity-50"
 >

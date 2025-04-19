@@ -94,7 +94,7 @@ const Dashboard = ({ children }) => {
         </nav>
 
        
-        <div className="p-4 flex items-center border-t border-gray-900 mt-auto">
+        <div className="p-4 flex items-center border-t border-gray-900 mb-0">
           <img
             src={user?.profilePhoto}
             alt="User"
