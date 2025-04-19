@@ -29,7 +29,7 @@ const Dashboard = ({ children }) => {
 
   const logout = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/logout", {}, {
+      const response = await axios.post(import.meta.env.VITE_BASE_URL+"/logout", {}, {
         withCredentials: true
       });
       console.log(response?.data?.message);
@@ -50,14 +50,14 @@ const Dashboard = ({ children }) => {
     { name: 'Community', icon: <Users className="w-6 h-6" />, route: "/community" },
     { name: 'MarketPlace', icon: <ShoppingBag  className="w-6 h-6" />, route: "/marketplace" },
     { name: 'Profile', icon: <User className="w-6 h-6" />, route: "/profile" },
-    { name: 'Logout', icon: <LogOut className="w-6 h-6" />, action: logout },
+    { name: 'Logout', icon: <LogOut onClick={logout} className="w-6 h-6" />, action: logout },
   ];
 
   return (
     <div className="flex min-h-screen bg-[#ece3e3e9]">
-      {/* Sidebar */}
+     
       <aside className={`fixed top-0 left-0 h-full bg-gradient-to-b from-green-800 to-green-950 shadow-lg transition-all duration-300 z-20 ${isCollapsed ? 'w-16' : 'w-64'}`}>
-        {/* Logo and collapse button */}
+        
         <div className="p-4 flex items-center justify-between">
           {!isCollapsed && (
             <h1 className="text-xl font-bold text-white">AgriSphere</h1>
@@ -70,7 +70,7 @@ const Dashboard = ({ children }) => {
           </button>
         </div>
 
-        {/* Navigation */}
+       
         <nav className="mt-4">
           {navItems.map((item, index) => (
             <div key={index} className="relative group">
@@ -95,7 +95,7 @@ const Dashboard = ({ children }) => {
           ))}
         </nav>
 
-        {/* User Profile */}
+       
         <div className="p-4 flex items-center border-t border-gray-900 mt-auto">
           <img
             src={user?.profilePhoto}
