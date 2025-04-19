@@ -41,7 +41,7 @@ const dispatch = useDispatch();
           <div className="bg-white w-full max-w-md p-8 rounded-xl shadow-lg">
             
             <div className="text-center mb-6">
-              <h1 className="text-3xl font-bold text-gray-900">REGISTER NOW!</h1>
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">REGISTER NOW!</h1>
               <p className="text-gray-500 mt-2">Please enter your details</p>
             </div>
 
@@ -55,7 +55,7 @@ const dispatch = useDispatch();
                   type="text"
                   value={firstName}
                   onChange={(e)=>setFirstName(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
+                  className="w-full px-4 py-3 font-mono rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
                   placeholder="Enter your First Name"
                 />
               </div>
@@ -68,7 +68,7 @@ const dispatch = useDispatch();
                   value={lastName}
                   onChange={(e)=>setLastname(e.target.value)}
                   type="text"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
+                  className="w-full px-4 font-mono py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
                   placeholder="Enter your Last Name"
                 />
               </div>
@@ -81,7 +81,7 @@ const dispatch = useDispatch();
                 value={email}
                 onChange={(e)=>setEmail(e.target.value)}
                   type="email"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
+                  className="w-full px-4 py-3 font-mono rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
                   placeholder="Enter your Email"
                 />
               </div>
@@ -94,7 +94,7 @@ const dispatch = useDispatch();
                   value={password}
                   onChange={(e)=>setPassword(e.target.value)}
                   type="password"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
+                  className="w-full px-4 py-3 font-mono rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
                   placeholder="Enter your Password"
                 />
               </div>
@@ -103,9 +103,9 @@ const dispatch = useDispatch();
               <button
                 
                 onClick={signup}
-                className="w-full bg-[#30bc6a] hover:bg-[#19a854] text-white py-3 px-4 rounded-lg focus:ring-4 focus:ring-green-200 transition duration-150 font-medium"
+                className="w-full text-lg font-mono bg-[#30bc6a] hover:bg-[#19a854] text-white py-3 px-4 rounded-lg focus:ring-4 focus:ring-green-200 transition duration-150 font-medium"
               >
-                Sign Up
+                SignUp
               </button>
 
               

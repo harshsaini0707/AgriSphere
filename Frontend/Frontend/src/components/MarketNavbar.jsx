@@ -4,11 +4,9 @@ import { ShoppingCart } from 'lucide-react';
 import useValidation from '../hooks/useValidation';
 import { MdSell } from "react-icons/md";
 import { FaBoxOpen } from "react-icons/fa6";
-import { FaList } from "react-icons/fa";
-import { SiGooglestreetview } from "react-icons/si";
+import { MdHome } from "react-icons/md";
 import { LuLogOut } from "react-icons/lu";
 import { useNavigate } from 'react-router';
-import { MdHome } from "react-icons/md";
 import { StepBack } from "lucide-react";
 import axios from 'axios';
 
@@ -18,130 +16,142 @@ const MarketNavbar = () => {
   const navigate = useNavigate();
 
   const [click, setClick] = useState(false);
+  const [isBuyer, setIsBuyer] = useState(true); // Renamed for clarity
 
-  const [buyer, setBuyer] = useState(true);
-
-  const logout = async() =>{
+  const logout = async () => {
     try {
-      const data  = await axios.post(import.meta.env.VITE_BASE_URL+"/logout",{},{
-        withCredentials:true
-      })
+      await axios.post(import.meta.env.VITE_BASE_URL + "/logout", {}, {
+        withCredentials: true
+      });
       navigate("/login");
-      
     } catch (error) {
-      console.log(error);
-      
+      console.error("Logout failed:", error);
     }
-      }
-    
+  };
 
   return (
-    <nav className="sticky top-0 z-50 bg-green-600 shadow-lg">
-      <div className="container mx-auto  flex items-center justify-between h-20">
-        <div className="flex items-center gap-14">
-         <button 
-         onClick={()=>navigate(-1)}
-         className='flex  items-center justify-center gap-2 '>
-         <StepBack size={27} color='white' className='mt-1'/>
-         <h1 className="text-3xl font-extrabold text-white tracking-wider">
+    <nav className="sticky top-0 z-50 bg-emerald-600 shadow-md transition-colors duration-300">
+      <div className="container mx-auto flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+        {/* Left Section */}
+        <div className="flex items-center space-x-4 sm:space-x-6">
+          <button
+            onClick={() => navigate(-1)}
+            className="flex items-center justify-center text-white hover:text-emerald-200 focus:outline-none transition duration-200"
+          >
+            <StepBack size={24} />
+            <span className="ml-2 font-semibold text-lg hidden sm:inline"></span>
+         
+          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-wider">
             AgriMarket
           </h1>
-         </button>
-          <h1
-            onClick={() => {
-              setBuyer(false);
-              navigate("/seller");
-             
-            }}
-            className="text-white hover:text-green-300 flex items-center gap-2 transition duration-300 font-semibold text-lg cursor-pointer"
-          >
-            <MdSell onClick={()=>setBuyer(false)} size={27} />
-            Seller
-          </h1>
+          </button>
         </div>
 
-        <div className="hidden md:flex pl-130 space-x-8">
-          <h1
+        {/* Middle Section (Hidden on smaller screens) */}
+        <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
+          <button
             onClick={() => {
-              navigate("/market");
-              setBuyer(true);
+              setIsBuyer(true);
+              navigate("/marketplace");
             }}
-            className="text-white text-lg flex items-center gap-2 hover:text-green-300 transition duration-300 font-medium cursor-pointer"
+            className={`flex items-center text-white hover:text-emerald-200 focus:outline-none transition duration-200 font-medium ${isBuyer ? 'font-semibold' : ''}`}
           >
-            <FaBoxOpen size={27} />
+            <FaBoxOpen size={20} className="mr-2" />
             Marketplace
-          </h1>
-          <h1
+          </button>
+          <button
             onClick={() => {
-              navigate("/cart");
-              setBuyer(true);
+              setIsBuyer(false);
+              navigate("/seller");
             }}
-            className="text-white text-lg hover:text-green-300 transition duration-300 font-medium flex items-center cursor-pointer"
+            className={`flex items-center text-white hover:text-emerald-200 focus:outline-none transition duration-200 font-medium ${!isBuyer ? 'font-semibold' : ''}`}
           >
-            <ShoppingCart className="mr-2" size={27} />
+            <MdSell size={20} className="mr-2" />
+            Seller
+          </button>
+          <button
+            onClick={() => {
+              setIsBuyer(true);
+              navigate("/cart");
+            }}
+            className="flex items-center text-white hover:text-emerald-200 focus:outline-none transition duration-200 font-medium"
+          >
+            <ShoppingCart size={20} className="mr-2" />
             Cart
-          </h1>
+          </button>
         </div>
 
+        {/* Right Section (Profile Dropdown) */}
         <div className="relative">
-          <img
+          <button
             onClick={() => setClick(!click)}
-            src={user.profilePhoto}
-            alt="User Profile"
-            className="rounded-full w-12 h-12 border-2 border-white hover:border-green-300 cursor-pointer transition duration-300"
-          />
+            className="focus:outline-none"
+          >
+            <img
+              src={user.profilePhoto}
+              alt="User Profile"
+              className="rounded-full w-10 h-10 border-2 border-white hover:border-emerald-200 transition duration-200 cursor-pointer"
+            />
+          </button>
 
           {click && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl overflow-hidden">
-              {buyer ? (
-                <>
-                  {/* <h1 className="flex items-center px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 transition duration-300 cursor-pointer">
-                    <SiGooglestreetview size={16} className='mr-2' /> Order Status
-                  </h1>
-                  <h1 className="px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 transition flex items-center duration-300 cursor-pointer">
-                    <FaList size={16} className='mr-2' /> All Orders
-                  </h1> */}
-                  <h1
-                    onClick={() => navigate("/userHome")}
-                    className="flex items-center px-3 font-semibold py-2 hover:bg-green-200 transition duration-300 cursor-pointer"
-                  >
-                    <MdHome size={25} className='mr-1' /> AgriSphere
-                  </h1>
-                  <h1
-                      onClick={logout}
-                  className="flex items-center px-4 font-semibold py-2 text-red-500 hover:bg-red-100 transition duration-300 cursor-pointer">
-                    <LuLogOut size={18} className='mr-2' /> Logout
-                  </h1>
-                </>
-              ) : (
-                <>
-                  {/* <h1 className="flex items-center px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 transition duration-300 cursor-pointer">
-                    <SiGooglestreetview size={16} className='mr-2' /> New Orders
-                  </h1>
-                  <h1 className="px-4 py-2 font-semibold text-gray-800 hover:bg-green-100 transition flex items-center duration-300 cursor-pointer">
-                    <FaList size={16} className='mr-2' /> Placed Orders
-                  </h1>
-                  <h1
-                    onClick={() => navigate("/userHome")}
-                    className="flex items-center px-3 font-semibold py-2 hover:bg-green-200 transition duration-300 cursor-pointer"
-                  >
-                    <MdHome size={25} className='mr-1' /> Change Order Status
-                  </h1> */}
-                  <h1
-                    onClick={() => navigate("/userHome")}
-                    className="flex items-center px-3 font-semibold py-2 hover:bg-green-200 transition duration-300 cursor-pointer"
-                  >
-                    <MdHome size={25} className='mr-1' />  AgriSphere
-                  </h1>
-                  <h1 
-                  onClick={logout}
-                  className="flex items-center px-4 font-semibold py-2 text-red-500 hover:bg-red-100 transition duration-300 cursor-pointer">
-                    <LuLogOut size={18} className='mr-2' /> Logout
-                  </h1>
-                </>
-              )}
+            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-xl overflow-hidden">
+              <h3 className="px-4 py-2 font-semibold text-gray-700 text-sm">
+                {user.name}
+              </h3>
+              <hr className="border-gray-200" />
+              <button
+                onClick={() => navigate("/userHome")}
+                className="flex items-center px-4 py-2 text-gray-700 hover:bg-emerald-100 focus:outline-none transition duration-200 w-full text-left"
+              >
+                <MdHome size={18} className="mr-2" />
+                AgriSphere
+              </button>
+              <button
+                onClick={logout}
+                className="flex items-center px-4 py-2 text-red-500 hover:bg-red-100 focus:outline-none transition duration-200 w-full text-left"
+              >
+                <LuLogOut size={18} className="mr-2" />
+                Logout
+              </button>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* Mobile Navigation (Visible on smaller screens) */}
+      <div className="md:hidden bg-emerald-700 py-2">
+        <div className="container mx-auto flex justify-around px-4 sm:px-6 lg:px-8">
+          <button
+            onClick={() => {
+              setIsBuyer(true);
+              navigate("/market");
+            }}
+            className={`flex flex-col items-center text-white hover:text-emerald-200 focus:outline-none transition duration-200 font-medium text-sm ${isBuyer ? 'font-semibold' : ''}`}
+          >
+            <FaBoxOpen size={20} />
+            <span className="mt-1">Market</span>
+          </button>
+          <button
+            onClick={() => {
+              setIsBuyer(false);
+              navigate("/seller");
+            }}
+            className={`flex flex-col items-center text-white hover:text-emerald-200 focus:outline-none transition duration-200 font-medium text-sm ${!isBuyer ? 'font-semibold' : ''}`}
+          >
+            <MdSell size={20} />
+            <span className="mt-1">Sell</span>
+          </button>
+          <button
+            onClick={() => {
+              setIsBuyer(true);
+              navigate("/cart");
+            }}
+            className="flex flex-col items-center text-white hover:text-emerald-200 focus:outline-none transition duration-200 font-medium text-sm"
+          >
+            <ShoppingCart size={20} />
+            <span className="mt-1">Cart</span>
+          </button>
         </div>
       </div>
     </nav>

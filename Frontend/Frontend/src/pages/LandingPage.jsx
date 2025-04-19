@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, MessageSquare, Sprout, ClipboardList, CloudSun, Info } from 'lucide-react'; // Lucide icons
+import { Users, MessageSquare, Sprout, ClipboardList, CloudSun, Info, ShoppingCart } from 'lucide-react';
 import BgImg from '../assets/2.jpg';
 import { useNavigate } from 'react-router';
 
@@ -10,14 +10,15 @@ const services = [
     icon: <Users size={24} />,
     color: 'bg-blue-500',
     about:
-      'The Community feature in AGRISPHERE lets farmers create and join groups, connect with farmers worldwide, and share knowledge and experiences. It’s a space for collaboration, where farmers discuss techniques, solve challenges, and grow together through collective wisdom.',
+      "The Community feature in AGRISPHERE lets farmers create and join groups, connect with farmers worldwide, and share knowledge and experiences. It's a space for collaboration, where farmers discuss techniques, solve challenges, and grow together through collective wisdom.",
   },
   {
     id: 2,
-    title: 'Assistant',
+    title: 'AI Assistant',
     icon: <MessageSquare size={24} />,
     color: 'bg-green-500',
-    about:"The Assistant feature in AGRISPHERE connects farmers with expert mentors for guidance. Farmers can upload photos of crops, and the assistant provides tailored advice based on the images. It also helps solve a wide range of farming-related issues, offering quick and accurate support."},
+    about: "The AI Assistant in AgriSphere empowers farmers with instant, expert-level guidance. Farmers can receive personalized advice, get solutions to farming challenges, and access accurate, real-time support across a wide range of agricultural topics."
+  },
   {
     id: 3,
     title: 'Crop Suggestion',
@@ -48,50 +49,57 @@ const services = [
     icon: <Info size={24} />,
     color: 'bg-teal-500',
     about:
-      'Get essential details about different crops, including harvest time, water needs, fertilizer recommendations,seeds ,temprature and ideal planting seasons and more.',
+      'Get essential details about different crops, including harvest time, water needs, fertilizer recommendations, seeds, temperature and ideal planting seasons and more.',
   },
+  {
+    id: 7,
+    title: 'Marketplace',
+    icon: <ShoppingCart size={24} />,
+    color: 'bg-yellow-500',
+    about: "The Marketplace in AgriSphere allows farmers to buy and sell agriculture-related products with ease. From seeds and tools to fresh produce and fertilizers, the platform connects local sellers and buyers, helping them trade efficiently and securely."
+  }
 ];
 
 const LandingPage = () => {
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  
   return (
-    <div className="min-h-screen w-full flex flex-col bg-gray-100">
-      {/* Navbar */}
-      <nav className="fixed top-0 w-full  shadow-lg backdrop-blur-3xl z-50">
-        <div className="flex items-center justify-between h-16 px-8">
-          <h1  className="text-2xl font-bold text-green-500 tracking-wide">AGRISPHERE</h1>
-          <div className="hidden sm:flex space-x-8 text-lg font-medium text-gray-800">
+    <div className="min-h-screen w-full flex flex-col bg-gradient-to-b from-gray-50 to-green-50">
+
+      <nav className="fixed top-0 w-full shadow-md bg-white/90 backdrop-blur-md z-50">
+        <div className="container mx-auto flex items-center justify-between h-16 px-8">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent tracking-wide">AGRISPHERE</h1>
+          <div className="hidden sm:flex space-x-10 text-lg font-medium">
             <a 
-                onClick={() => {
-                    const servicesSection = document.getElementById('services');
-                    servicesSection?.scrollIntoView({ behavior: 'smooth' });
-                  }} 
-            className="hover:text-green-500  text-cyan-500 transition">
+              onClick={() => {
+                const servicesSection = document.getElementById('services');
+                servicesSection?.scrollIntoView({ behavior: 'smooth' });
+              }} 
+              className="hover:text-green-500 text-gray-700 transition duration-300 border-b-2 border-transparent hover:border-green-500 cursor-pointer">
               Our Services
             </a>
             <a 
-                onClick={() => {
-                    const servicesSection = document.getElementById('about');
-                    servicesSection?.scrollIntoView({ behavior: 'smooth' });
-                  }} 
-            className="hover:text-green-500  text-cyan-500  transition">
+              onClick={() => {
+                const servicesSection = document.getElementById('about');
+                servicesSection?.scrollIntoView({ behavior: 'smooth' });
+              }} 
+              className="hover:text-green-500 text-gray-700 transition duration-300 border-b-2 border-transparent hover:border-green-500 cursor-pointer">
               About Us
             </a>
             <a 
-                onClick={() => {
-                    const servicesSection = document.getElementById('contact');
-                    servicesSection?.scrollIntoView({ behavior: 'smooth' });
-                  }} 
-            className="hover:text-green-500  text-cyan-500 transition">
+              onClick={() => {
+                const servicesSection = document.getElementById('contact');
+                servicesSection?.scrollIntoView({ behavior: 'smooth' });
+              }} 
+              className="hover:text-green-500 text-gray-700 transition duration-300 border-b-2 border-transparent hover:border-green-500 cursor-pointer">
               Contact Us
             </a>
           </div>
-          <div className="sm:flex space-x-4">
-            <button  onClick={()=>navigate("/login")} className="px-4 py-2 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition">
+          <div className="sm:flex space-x-4 hidden">
+            <button onClick={() => navigate("/login")} className="px-6 py-3 bg-green-500 text-white rounded-lg shadow-lg hover:bg-green-600 transition duration-300 font-medium ">
               Login
             </button>
-            <button onClick={()=>navigate("/signup")}  className="px-4 py-2 bg-white text-green-500 border-2 border-green-500 rounded-lg shadow-md hover:bg-green-500 hover:text-white transition">
+            <button onClick={() => navigate("/signup")} className="px-6 py-3 bg-white text-green-500 border-2 border-green-500 rounded-lg shadow-md hover:bg-green-50 hover:text-green-600 hover:border-green-600 transition duration-300 font-medium">
               Sign Up
             </button>
           </div>
@@ -99,45 +107,53 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <div className="relative flex flex-col items-center justify-center h-screen pt-12">
-        <img src={BgImg} alt="Landing Page" className="absolute top-0 left-0 w-full h-full object-cover opacity-90" />
-        <div className="absolute top-0 left-0 w-full h-full bg-black/50"></div>
-        <div className="relative text-center text-white z-10">
-          <h1 className="text-5xl font-extrabold tracking-wider drop-shadow-lg">Welcome to AGRISPHERE</h1>
-          <p className="text-xl mt-4 font-medium drop-shadow-md">Empowering Farmers. Growing the Future.</p>
-          <div className="mt-8 space-x-4">
-            <button onClick={()=>navigate("/login")} className="px-6 py-3 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 transition">
+      <div className="relative flex flex-col items-center justify-center h-screen pt-20 overflow-hidden">
+        <img src={BgImg} alt="Landing Page" className="absolute top-0 left-0 w-full h-full object-cover" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/60 to-green-900/50"></div>
+        <div className="relative text-center text-white z-10 max-w-3xl px-6">
+          <h1 className="text-5xl md:text-6xl font-extrabold tracking-wider drop-shadow-xl mb-6">
+            Welcome to <span className="text-green-400">AGRISPHERE</span>
+          </h1>
+          <p className="text-xl md:text-2xl mt-6 font-medium drop-shadow-md">Empowering Farmers. Growing the Future.</p>
+          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
+            <button onClick={() => navigate("/login")} className="px-8 py-4 bg-green-500 text-white rounded-full shadow-xl hover:bg-green-600 transition duration-300 transform hover:scale-105 font-medium">
               Get Started
             </button>
             <button
-             onClick={() => {
-          const servicesSection = document.getElementById('services');
-          servicesSection?.scrollIntoView({ behavior: 'smooth' });
-        }} 
-            className="px-6 py-3 bg-transparent border-2 border-white text-white rounded-lg hover:bg-white hover:text-green-500 transition">
+              onClick={() => {
+                const servicesSection = document.getElementById('services');
+                servicesSection?.scrollIntoView({ behavior: 'smooth' });
+              }} 
+              className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-full hover:bg-white hover:text-green-600 transition duration-300 transform hover:scale-105 font-medium">
               Learn More
             </button>
           </div>
         </div>
+        <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-green-900/20 to-transparent"></div>
       </div>
 
       {/* Services Section */}
-      
-      <div id="services" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-8 py-13 bg-gray-200">
-        {services.map((service) => (
-          <div
-            key={service.id}
-            className="flex flex-col p-8 rounded-lg shadow-lg bg-white/50 hover:scale-105 transition-transform duration-300"
-          >
-            <div className="flex items-center">
-              <div className={`p-4 rounded-full ${service.color} text-white`}>
-                {service.icon}
+      <div id="services" className="container mx-auto py-16">
+        <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">Our <span className="text-green-500">Services</span></h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-8">
+          {services.map((service) => (
+            <div
+              key={service.id}
+              className="flex flex-col rounded-2xl shadow-xl bg-white hover:shadow-2xl transition-all duration-300 overflow-hidden group"
+            >
+              <div className={`h-2 w-full ${service.color}`}></div>
+              <div className="p-8">
+                <div className="flex items-center mb-4">
+                  <div className={`p-3 rounded-lg ${service.color} text-white group-hover:scale-110 transition-transform duration-300`}>
+                    {service.icon}
+                  </div>
+                  <h3 className="text-2xl ml-4 font-bold text-gray-800">{service.title}</h3>
+                </div>
+                <p className="mt-4 text-gray-600 leading-relaxed">{service.about}</p>
               </div>
-              <h1 className="text-2xl ml-4 font-bold text-gray-800">{service.title}</h1>
             </div>
-            <p className="mt-4 font-normal text-gray-700">{service.about}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

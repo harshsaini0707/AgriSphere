@@ -77,8 +77,9 @@ const Profile = () => {
   }, [user]);
 
   return (
-    <div className="flex min-h-screen bg-[#2c2c2c]">
-      <Dashboard />
+    <Dashboard>
+    <div className="flex min-h-screen bg-[#ece3e3e9]">
+      
       {loading ? (
           <div className="flex justify-center w-full p-8 ml-10 animate-pulse">
           <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg overflow-hidden">
@@ -249,6 +250,7 @@ const Profile = () => {
         </div>
       ))}
     </div>
+    </Dashboard>
   );
 };
 

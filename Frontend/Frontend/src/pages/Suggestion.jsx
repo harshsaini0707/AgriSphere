@@ -3,7 +3,7 @@ import Dashboard from "../components/Dashboard";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addCrop } from "../store/cropSlice";
-import { Info } from "lucide-react";
+import { Info, Leaf, Filter } from "lucide-react";
 import { useNavigate } from "react-router";
 import { selectSoil, selectState } from "../store/suggestionSlice";
 import useValidation from "../hooks/useValidation";
@@ -19,7 +19,7 @@ const Suggestion = () => {
 
   const [area, setArea] = useState(false);
   const [inputArea, setInputArea] = useState(1);
-  const [selectedCrop, setSelectedCrop] = useState(null); // Track selected crop
+  const [selectedCrop, setSelectedCrop] = useState(null);
 
   const [STATE, setState] = useState(selectedState === "" ? statee : selectedState);
   const [SOIL, setSoil] = useState(selectedSoil || "");
@@ -80,118 +80,181 @@ const Suggestion = () => {
   });
 
   return (
-    <div className="flex min-h-screen bg-[#2c2c2c]">
-      <Dashboard />
+    <Dashboard>
+    <div className="flex min-h-screen  bg-[#ece3e3e9]">
+      <div className="flex-1">
+        <div className="max-w-6xl mx-auto py-8 px-6">
+          <div className="mb-10">
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">Crop Suggestions</h1>
+            <p className="text-gray-600">Find the perfect crops for your soil and region</p>
+          </div>
 
-      {loading ? (
-        <div className="flex justify-center max-w-5xl mx-auto px-8 py-16">
-          <div className="h-36 w-36 mt-44 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
-        </div>
-      ) : (
-        <div className="max-w-5xl mx-auto py-10 ">
-          {/* Select Form */}
-          <form className="flex gap-4 cursor-pointer ml-10 justify-center mb-8 ">
-            <select
-              value={STATE}
-              onChange={(e) => setState(e.target.value)}
-              className="p-3 rounded-lg bg-white/70  hover:cursor-pointer   text-black focus:ring-0  shadow-md "
-            >
-              <option className="border-0 cursor-pointer  bg-gray-300 font-mono" value="">All State / Union Territory</option>
-              {[
-                "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
-                "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand",
-                "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
-                "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
-                "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
-                "Uttar Pradesh", "Uttarakhand", "West Bengal", "Delhi", "Jammu & Kashmir"
-              ].map((state) => (
-                <option  className="border-0 cursor-pointer  bg-gray-300 font-mono" key={state} value={state}>
-                  {state}
-                </option>
-              ))}
-            </select>
-
-            <select
-              value={SOIL}
-              onChange={(e) => setSoil(e.target.value)}
-              className="p-3  cursor-pointer  rounded-lg bg-white/70  text-black shadow-md focus:ring-2 focus:ring-green-500"
-            >
-              <option value="" className="border-0 cursor-pointer  bg-gray-300 font-mono">Select Soil Type</option>
-              {["Alluvial", "Black", "Red" ,"Yellow", "Laterite", "Arid", "Saline", "Forest"].map(
-                (soil) => (
-                  <option className=" cursor-pointer  border-0 bg-gray-300 font-mono" key={soil} value={soil}>
-                    {soil}
-                  </option>
-                )
-              )}
-            </select>
-          </form>
-
-          {/* Display Filtered Crops */}
-          {filteredCrops.length > 0 ? (
-            filteredCrops.map((crop) => (
-              <div
-                key={crop._id}
-                className="mb-6 px-3 border-2 ml-28 border-gray-400 rounded-xl overflow-hidden shadow-lg bg-white/73 hover:shadow-2xl transition-transform duration-300 transform hover:scale-102"
-              >
-                <div className="p-6 flex flex-col md:flex-row items-center gap-8">
-                  <img
-                    src={crop.cropPhoto}
-                    alt={crop.cropName}
-                    className="w-32 h-32 rounded-full object-cover border-2 border-gray-800 shadow-md"
-                  />
-                  <div className="text-center md:text-left w-2/3 space-y-3">
-                    <h2 className="text-3xl font-bold text-gray-900">{crop.cropName}</h2>
-                    <p className="text-lg text-gray-700">Duration: {crop.duration} days</p>
-                    <p className="text-lg text-gray-700 ">States: {crop.state.join(", ")}</p>
-                    <p className="text-gray-600 truncate ">About: {crop.about}</p>
-                  </div>
-                  <div className="flex flex-col gap-4 ">
-                    <button
-                      onClick={() => navigate(`/aboutCrop/${crop._id}`)}
-                      className="bg-blue-600 flex cursor-pointer text-white px-4 py-3 rounded-lg hover:bg-blue-700 transition hover:scale-103 duration-300"
-                    >
-                      <Info className="inline-block mr-2 " /> About
-                    </button>
-                    <button
-                      onClick={() => {
-                        setSelectedCrop(crop);
-                        setArea(true);
-                      }}
-                      className="bg-green-600 cursor-pointer text-white  py-3 rounded-lg hover:bg-green-700 transition hover:scale-103 duration-300"
-                    >
-                      🌱 Plant
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))
+          {loading ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="h-16 w-16 border-4 border-t-green-500 border-green-200 rounded-full animate-spin"></div>
+            </div>
           ) : (
-            <p className="text-gray-600 text-center mt-10 text-xl">
-              No crops found for the selected criteria.
-            </p>
+            <>
+              {/* Filter Section */}
+              <div className="bg-white p-6 rounded-xl shadow-lg mb-8">
+                <div className="flex items-center mb-4">
+                  <Filter size={20} className="text-green-600 mr-2" />
+                  <h2 className="text-lg font-semibold text-gray-800">Filter Crops</h2>
+                </div>
+                <form className="flex flex-col md:flex-row gap-4">
+                  <select
+                    value={STATE}
+                    onChange={(e) => setState(e.target.value)}
+                    className="flex-1 p-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-800 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 shadow-sm"
+                  >
+                    <option value="">All State / Union Territory</option>
+                    {[
+                      "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
+                      "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand",
+                      "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
+                      "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
+                      "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
+                      "Uttar Pradesh", "Uttarakhand", "West Bengal", "Delhi", "Jammu & Kashmir"
+                    ].map((state) => (
+                      <option key={state} value={state}>
+                        {state}
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    value={SOIL}
+                    onChange={(e) => setSoil(e.target.value)}
+                    className="flex-1 p-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-800 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 shadow-sm"
+                  >
+                    <option value="">Select Soil Type</option>
+                    {["Alluvial", "Black", "Red", "Yellow", "Laterite", "Arid", "Saline", "Forest"].map(
+                      (soil) => (
+                        <option key={soil} value={soil}>
+                          {soil}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </form>
+              </div>
+
+              {filteredCrops.length > 0 ? (
+                <div className="grid grid-cols-1 gap-6">
+                  {filteredCrops.map((crop) => (
+                    <div
+                      key={crop._id}
+                      className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                    >
+                      <div className="flex flex-col md:flex-row">
+                        <div className="md:w-48 lg:w-56 relative overflow-hidden">
+                          <div className="absolute top-0 left-0 bg-green-500 text-white px-3 py-1 rounded-br-lg font-medium z-10">
+                            {crop.duration} days
+                          </div>
+                          <img
+                            src={crop.cropPhoto}
+                            alt={crop.cropName}
+                            className="w-full h-full object-cover md:h-48 lg:h-56"
+                          />
+                        </div>
+                        
+                        <div className="flex-1 p-6">
+                          <div className="flex flex-col md:flex-row justify-between">
+                            <div>
+                              <h2 className="text-2xl font-bold text-gray-800 mb-2">{crop.cropName}</h2>
+                              
+                              <div className="flex flex-wrap gap-2 mb-3">
+                                {SOIL === "" && crop.soilType.map((soil, index) => (
+                                  <span key={index} className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                                    {soil}
+                                  </span>
+                                ))}
+                                {STATE === "" && crop.state.slice(0, 3).map((state, index) => (
+                                  <span key={index} className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+                                    {state}
+                                  </span>
+                                ))}
+                                {STATE === "" && crop.state.length > 3 && (
+                                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+                                    +{crop.state.length - 3} more
+                                  </span>
+                                )}
+                              </div>
+                              
+                              <p className="text-gray-600 mb-4 line-clamp-2">{crop.about}</p>
+                              
+                              <div className="text-sm text-gray-500">
+                                Seeds required: ~{crop.seedRequired} kg per Bigha
+                              </div>
+                            </div>
+                            
+                            <div className="flex md:flex-col gap-3 mt-4 md:mt-0">
+                              <button
+                                onClick={() => navigate(`/aboutCrop/${crop._id}`)}
+                                className="flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-sm"
+                              >
+                                <Info size={18} className="mr-2" /> Details
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setSelectedCrop(crop);
+                                  setArea(true);
+                                }}
+                                className="flex items-center justify-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-all duration-300 shadow-sm"
+                              >
+                                <Leaf size={18} className="mr-2" /> Plant
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="bg-white p-8 rounded-xl shadow-md text-center">
+                  <div className="text-5xl mb-4">🌱</div>
+                  <p className="text-gray-600 text-lg mb-2">No crops found for the selected criteria.</p>
+                  <p className="text-gray-500">Try adjusting your filters for more results.</p>
+                </div>
+              )}
+            </>
           )}
         </div>
-      )}
+      </div>
 
-      {/* Planting Area Modal */}
       {area && selectedCrop && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-80">
-            <h2 className="text-lg font-semibold mb-4 text-center">Enter Planting Area</h2>
+        <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50 backdrop-blur-sm">
+          <div className="bg-white p-8 rounded-xl shadow-2xl w-96 border border-gray-100">
+            <h2 className="text-xl font-bold mb-6 text-center text-gray-800">Enter Planting Area</h2>
+            
+            <div className="flex items-center justify-center mb-6">
+              <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center">
+                <Leaf size={30} className="text-green-600" />
+              </div>
+            </div>
+            
+            <label className="block text-sm font-medium text-gray-700 mb-2">Area (in Bigha)</label>
             <input
-              type="Number"
+              type="number"
               min="0"
-              placeholder="Area (in Bigha)"
+              placeholder="Enter area"
               value={inputArea}
               onChange={(e) => setInputArea(e.target.value)}
-              className="w-full p-3 border rounded-lg"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 mb-4"
             />
-            <h1 className="mt-2 font-semibold">
-              Seed Required: ~{selectedCrop.seedRequired * inputArea}kg in {inputArea} Bigha
-            </h1>
-            <div className="flex justify-between mt-4">
-              <button onClick={() => setArea(false)} className="bg-red-500  cursor-pointer text-white px-4 py-2 rounded-lg">
+            
+            <div className="bg-green-50 p-3 rounded-lg mb-6">
+              <h3 className="font-medium text-green-800">
+                Seed Required: <span className="font-bold">~{selectedCrop.seedRequired * inputArea} kg</span> for {inputArea} Bigha
+              </h3>
+            </div>
+            
+            <div className="flex justify-between gap-4">
+              <button
+                onClick={() => setArea(false)}
+                className="flex-1 bg-gray-100 text-gray-800 px-4 py-3 rounded-lg hover:bg-gray-200 transition-all duration-300 font-medium"
+              >
                 Cancel
               </button>
               <button
@@ -199,7 +262,7 @@ const Suggestion = () => {
                   plantCrop(selectedCrop._id);
                   setArea(false);
                 }}
-                className="bg-green-500  cursor-pointer text-white px-4 py-2 rounded-lg"
+                className="flex-1 bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 transition-all duration-300 font-medium"
               >
                 Confirm
               </button>
@@ -208,6 +271,7 @@ const Suggestion = () => {
         </div>
       )}
     </div>
+    </Dashboard>
   );
 };
 

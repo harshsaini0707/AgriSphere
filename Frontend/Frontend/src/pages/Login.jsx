@@ -39,11 +39,11 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex bg-white">
-      {/* Left Side - Login Form */}
+      
       <div className="w-full md:w-1/2 flex items-center justify-center p-8">
-        <div className="bg-white w-full max-w-md p-8 rounded-xl shadow-xl">
+        <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-xl border-1 border-gray-200">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Welcome back</h1>
+                        <h1 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">Welcome back</h1>
             <p className="text-gray-500 mt-2">Please enter your details</p>
           </div>
 
@@ -56,8 +56,8 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="email"
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
-                placeholder="Enter your email"
+                className="w-full px-4 py-3  rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150 font-mono"
+                placeholder="Enter email"
               />
             </div>
 
@@ -66,31 +66,33 @@ const Login = () => {
                 Password
               </label>
               <input
+              required
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
-                placeholder="Enter your password"
+                className="w-full px-4 py-3 rounded-lg font-mono border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150"
+                placeholder="Enter password"
               />
             </div>
 
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
+                required
                   type="checkbox"
                   className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
                 />
-                <label className="ml-2 text-sm text-gray-600">Remember me</label>
+                <label className="ml-2 text-sm text-gray-600 font-serif">Remember me</label>
               </div>
             </div>
 
-            {err ? <h1 className="text-center text-red-600 font-semibold">{err}</h1>:""}
+            {err ? <h1 className="text-center text-red-600 font-semibold font-mono" >{err}</h1>:""}
 
             {/* Login Button */}
             <button
               type="button" 
               onClick={login}
-              className="w-full bg-[#30bc6a] hover:bg-[#19a854] text-white py-3 px-4 rounded-lg focus:ring-4 focus:ring-blue-200 transition duration-150 font-medium"
+              className="w-full font-mono bg-[#30bc6a] hover:bg-[#19a854] text-white py-3 px-4 rounded-lg focus:ring-4 focus:ring-blue-200 transition duration-150 text-xl"
             >
               Login
             </button>

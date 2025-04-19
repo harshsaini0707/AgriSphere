@@ -46,7 +46,7 @@ function App() {
     <Route path="/task" element={<Task/>} />
     <Route path="/userHome" element={<UserHome/>} />
     <Route path="/community" element={<Community/>} />
-    <Route path="/market" element={<MarketDashBoard/> } />
+    <Route path="/marketplace" element={<MarketDashBoard/> } />
     <Route path="/aboutProduct/:ItemId" element={<AboutItem/>} />
     <Route path="/cart" element={<Cart/>} />
     <Route path="/seller" element={<Seller/>} />

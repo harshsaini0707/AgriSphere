@@ -4,28 +4,29 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import useValidation from "../hooks/useValidation";
 import { useSelector } from "react-redux";
+import { Sun, Thermometer, Droplets, Calendar } from "lucide-react";
 
 const UserHome = () => {
   useValidation();
   const [Data, setData] = useState("");
   const navigate = useNavigate();
   const user = useSelector((store) => store.user || " ");
-  const [weatherData, setWeatherData] = useState(user.Location || " ");
+  const location = user?.Location || "Delhi";
+  const [weatherData, setWeatherData] = useState(null);
 
   const getWeather = async () => {
     try {
       const response = await axios.get(
         `http://api.weatherapi.com/v1/current.json?key=${
           import.meta.env.VITE_Weather_Key
-        }&q=${user.Location || " "}&aqi=no`
+        }&q=${user.Location || "Delhi"}&aqi=no`
       );
-      //console.log(response?.data);
       setWeatherData(response?.data);
     } catch (error) {
       if (error.response?.status === 401) {
         navigate("/login");
       } else {
-        console.log(error.message);
+        console.error("Error fetching weather:", error.message);
       }
     }
   };
@@ -41,106 +42,111 @@ const UserHome = () => {
       if (error.response?.status === 401) {
         navigate("/login");
       }
-      console.log(error.message);
+      console.error("Error fetching home data:", error.message);
     }
   };
 
   useEffect(() => {
     getData();
-  }, []);
-
-  useEffect(() => {
     getWeather();
-  }, []);
+  }, [location]);
 
   return (
-    <div
-      className="flex min-h-screen bg-[#2c2c2c]
-"
-    >
+    <div className="flex min-h-screen bg-[#ece3e3e9]"> 
       <Dashboard />
       <div className="flex flex-col items-center justify-center w-full p-6">
-        <div className=" mb-5 bg-white/10 backdrop-blur-xl shadow-2xl border border-white/20 rounded-3xl  p-8 w-[80%] max-w-lg transition-all duration-300 hover:scale-105 ">
-          {weatherData ? (
-            <div className="flex flex-col  text-white">
-              <h1 className="font-extrabold text-4xl tracking-wide text-white/95">
+        {/* Weather Card */}
+        <div className="mb-8 bg-[#f3f4f6]/80 backdrop-blur-sm shadow-md border border-[#e5e7eb] rounded-xl p-8 w-[90%] max-w-md transition-all duration-300 hover:scale-105"> {/* Light gray */}
+          <div className="text-[#374151] flex flex-col space-y-5">
+            <div className="flex items-center space-x-3">
+              <Sun className="w-8 h-8 text-[#facc15]" />
+              <h1 className="font-extrabold text-3xl tracking-wide text-[#facc15]">
                 Weather
               </h1>
-              <p className="text-lg tracking-wider pt-2 opacity-80">
-                Today's Forecast
-              </p>
+            </div>
+            <p className="text-lg tracking-wider opacity-70 text-[#6b7280]">Current Conditions</p>
 
-              <div className="mt-6 flex flex-col items-center">
-                <h1 className="text-5xl font-bold">
+            {weatherData ? (
+              <div className="flex flex-col items-center">
+                <h1 className="text-5xl font-bold text-[#4b5563]">
                   {weatherData?.current?.temp_c}°C
                 </h1>
-
-                <div className="flex items-center mt-1 ">
+                <div className="flex items-center mt-2">
                   <img
-                    className="h-12 w-14 pt-1"
-                    src={weatherData?.current?.condition?.icon}
+                    className="h-12 w-14 object-contain"
+                    src={`https:${weatherData?.current?.condition?.icon}`}
                     alt="Weather Icon"
                   />
-                  <h2 className="text-xl font-medium pr-8">
+                  <h2 className="text-xl font-medium text-[#6b7280] ml-2">
                     {weatherData?.current?.condition?.text}
                   </h2>
                 </div>
-
-                <h2 className="text-lg font-medium pl-3">
-                  Humidity: {weatherData?.current?.humidity}%
-                </h2>
+                <div className="mt-4 flex items-center space-x-6">
+                  <div className="flex items-center text-sm opacity-70 text-[#6b7280]">
+                    <Droplets className="w-4 h-4 mr-1 text-[#60a5fa]" />
+                    <span>{weatherData?.current?.humidity}%</span>
+                  </div>
+                  <div className="flex items-center text-sm opacity-70 text-[#6b7280]">
+                    <Thermometer className="w-4 h-4 mr-1 text-[#ef4444]" />
+                    <span>Feels like {weatherData?.current?.feelslike_c}°C</span>
+                  </div>
+                </div>
               </div>
-              <div className="border-t justify-center items-center ml-28 pt-4 border-white  w-1/2 mt-4">
-                {" "}
+            ) : (
+              <div className="flex flex-col items-center justify-center text-[#4b5563]">
+                <p className="text-lg font-semibold opacity-70">Fetching Weather...</p>
+                <div className="h-8 w-8 border-4 border-t-transparent animate-spin border-[#facc15] rounded-full mt-2"></div>
               </div>
-              <h1
+            )}
+            <div className="mt-6 pt-4 border-t border-[#d1d5db] text-center">
+              <button
                 onClick={() => {
-                  const weather = document.getElementById("weather");
+                  const weather = document.getElementById("weekly-forecast");
                   weather?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="ml-36 hover:cursor-pointer"
+                className="text-[#facc15] hover:text-[#eab308] transition-colors duration-200"
               >
-                Weekly ForeCast -{" "}
-              </h1>
+                Weekly Forecast <Calendar className="inline-block w-4 h-4 ml-1 align-text-top" />
+              </button>
             </div>
-          ) : (
-            <div className="flex flex-col justify-center items-center text-white">
-              <p className="text-2xl font-semibold">Fetching Weather...</p>
-              <div className="h-10 w-10 border-5 border-t-transparent animate-spin border-white rounded-full mt-3"></div>
-            </div>
-          )}
+          </div>
         </div>
-        <div className="bg-white/10 backdrop-blur-xl shadow-2xl border border-white/20 rounded-3xl p-8 w-[80%] max-w-lg transition-transform duration-300 hover:scale-105">
-          {Data ? (
-            <>
-              <h1 className="text-white text-4xl font-extrabold  mb-6 tracking-wide">
-                Crop Status
-              </h1>
-              <div className="text-white space-y-4 text-lg">
-                <p className="flex justify-between border-b border-white/30 pb-3">
-                  <span className="font-bold text-green-100 ">
-                    Planted Crop:
-                  </span>
-                  <span className="font-bold">{Data.plantedCrop}</span>
-                </p>
-                <p className="flex justify-between">
-                  <span className="font-semibold ">Harvested Crop:</span>
-                  <span className="font-bold">{Data.harvestedCrop}</span>
-                </p>
+
+        {/* Crop Status Card */}
+        <div className="mb-8 bg-[#f3f4f6]/80 backdrop-blur-sm shadow-md border border-[#e5e7eb] rounded-xl p-8 w-[90%] max-w-md transition-transform duration-300 hover:scale-105"> {/* Light gray */}
+          <div className="text-[#374151] flex flex-col space-y-5">
+            <h1 className="text-3xl font-extrabold tracking-wide text-[#84cc16]">
+              Crop Status
+            </h1>
+            <p className="text-lg opacity-70 text-[#6b7280]">Your Current Farm Overview</p>
+            {Data ? (
+              <div className="space-y-3 text-lg">
+                <div className="flex justify-between items-center py-2 border-b border-[#d1d5db]">
+                  <span className="font-semibold text-[#a3e635]">Planted Crop:</span>
+                  <span className="font-bold text-[#84cc16]">{Data.plantedCrop}</span>
+                </div>
+                <div className="flex justify-between items-center py-2">
+                  <span className="font-semibold text-[#f59e0b]">Harvested Crop:</span>
+                  <span className="font-bold text-[#f97316]">{Data.harvestedCrop}</span>
+                </div>
               </div>
-            </>
-          ) : (
-            <div className="flex flex-col items-center justify-center text-white">
-              <p className="text-2xl font-semibold">Fetching Crop...</p>
-              <div className="w-10 h-10 border-5 border-white border-t-transparent rounded-full animate-spin mt-3"></div>
-            </div>
-          )}
+            ) : (
+              <div className="flex flex-col items-center justify-center text-[#4b5563]">
+                <p className="text-lg font-semibold opacity-70">Fetching Crop Data...</p>
+                <div className="w-8 h-8 border-4 border-t-transparent animate-spin border-[#84cc16] rounded-full mt-2"></div>
+              </div>
+            )}
+          </div>
         </div>
+
+        {/* Weekly Forecast Section */}
         <div
-          id="weather"
-          className="mt-7  bg-white/10 backdrop-blur-xl shadow-2xl border border-white/20 rounded-3xl p-8 w-[80%] max-w-lg transition-transform duration-300 hover:scale-105"
+          id="weekly-forecast"
+          className="mt-8 bg-[#f3f4f6]/80 backdrop-blur-sm shadow-md border border-[#e5e7eb] rounded-xl p-8 w-[90%] max-w-md transition-transform duration-300 hover:scale-105"
         >
-          <h1>Weekly Forecast</h1>
+          <h1 className="text-[#374151] text-2xl font-semibold mb-4">Weekly Forecast</h1>
+        
+         
         </div>
       </div>
     </div>
@@ -148,3 +154,4 @@ const UserHome = () => {
 };
 
 export default UserHome;
+
