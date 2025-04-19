@@ -25,10 +25,12 @@ const signup = async(req,res)=>{
         if(!token){
             return res.status(401).json({messgage:"Token not created!!"})
         }
-       res.cookie("token",token,{
-        httpOnly:true,
-        sameSite:"strict"
-       })
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,            // Important for HTTPS
+            sameSite: "None",        // Important for cross-origin
+            maxAge: 7 * 24 * 60 * 60 * 1000
+          });
 
        return res.status(200).json({
         messgage:"User Created Successfully!!",
@@ -61,9 +63,12 @@ try {
         if(!token){
             return res.status(401).json({messgage:"Token not created!!"})
         }
-        res.cookie("token",token,{
-            httpOnly:true,
-        })       
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: true,            // Important for HTTPS
+            sameSite: "None",        // Important for cross-origin
+            maxAge: 7 * 24 * 60 * 60 * 1000
+          });     
 
     }else{
        return res.status(400).json({message:"Incorrect Password!!"});   
