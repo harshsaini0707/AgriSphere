@@ -16,7 +16,7 @@ const MarketNavbar = () => {
   const navigate = useNavigate();
 
   const [click, setClick] = useState(false);
-  const [isBuyer, setIsBuyer] = useState(true); // Renamed for clarity
+  const [isBuyer, setIsBuyer] = useState(true); 
 
   const logout = async () => {
     try {
@@ -32,7 +32,7 @@ const MarketNavbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-emerald-600 shadow-md transition-colors duration-300">
       <div className="container mx-auto flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
-        {/* Left Section */}
+       
         <div className="flex items-center space-x-4 sm:space-x-6">
           <button
             onClick={() => navigate(-1)}
@@ -47,7 +47,7 @@ const MarketNavbar = () => {
           </button>
         </div>
 
-        {/* Middle Section (Hidden on smaller screens) */}
+
         <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
           <button
             onClick={() => {
@@ -81,7 +81,6 @@ const MarketNavbar = () => {
           </button>
         </div>
 
-        {/* Right Section (Profile Dropdown) */}
         <div className="relative">
           <button
             onClick={() => setClick(!click)}
@@ -119,13 +118,12 @@ const MarketNavbar = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation (Visible on smaller screens) */}
       <div className="md:hidden bg-emerald-700 py-2">
         <div className="container mx-auto flex justify-around px-4 sm:px-6 lg:px-8">
           <button
             onClick={() => {
               setIsBuyer(true);
-              navigate("/market");
+              navigate("/marketplace");
             }}
             className={`flex flex-col items-center text-white hover:text-emerald-200 focus:outline-none transition duration-200 font-medium text-sm ${isBuyer ? 'font-semibold' : ''}`}
           >

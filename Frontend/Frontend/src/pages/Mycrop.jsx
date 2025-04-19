@@ -61,7 +61,7 @@ const Mycrop = () => {
       
       </div>
       
-      <main className="flex-1 pl-[120px] pr-6 md:pr-10 py-10">
+      <main className="flex-1 pl-10 pr-6 md:pr-10 py-10">
         <div className="max-w-[1600px] mx-auto">
           <h1 className="text-4xl md:text-5xl font-extrabold text-green-800 text-center mb-12 tracking-wide">
             🌿 Your Planted Crops

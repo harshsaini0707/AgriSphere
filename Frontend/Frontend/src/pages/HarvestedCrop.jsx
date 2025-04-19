@@ -32,7 +32,7 @@ const HarvestedCrop = () => {
 
   return (
     <Dashboard>
-      <div className=" ml-20 py-10">
+      <div className=" ml-7 py-10">
         <h1 className="text-5xl font-extrabold text-gray-800 text-center mb-12 tracking-wide">
           🌾 Harvested Crops
         </h1>
