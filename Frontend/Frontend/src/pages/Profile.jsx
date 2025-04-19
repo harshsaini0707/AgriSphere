@@ -191,7 +191,7 @@ const Profile = () => {
                 <div className="relative group">
                   <div className="w-32 h-32 rounded-full border-4 border-green-200 shadow-lg overflow-hidden">
                     {photo ? (
-                      <img src={photo} alt="Profile" className="w-full h-full object-cover" />
+                      <img src={photo || "https://imgs.search.brave.com/E_nbvWjTC2Fyxm8-0Py_7cK43k9gFpmZseewFNp35xY/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dHMuc3RpY2twbmcu/Y29tL2ltYWdlcy81/ODVlNGJmM2NiMTFi/MjI3NDkxYzMzOWEu/cG5n" } alt="Profile" className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full bg-green-100 flex items-center justify-center">
                         <User className="w-16 h-16 text-green-400" />
@@ -241,6 +241,7 @@ const Profile = () => {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <input type='text' placeholder='Enter Image URL' value={photo} onChange={(e)=>setPhoto(e.target.value)} className='w-full px-4 py-3 border rounded-md outline-1' />
                   <input className="w-full px-4 py-3 border rounded-lg" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                   <input className="w-full px-4 py-3 border rounded-lg" value={lastName} onChange={(e) => setLastname(e.target.value)} />
                   <input className="w-full px-4 py-3 border rounded-lg" value={State} onChange={(e) => setState(e.target.value)} />

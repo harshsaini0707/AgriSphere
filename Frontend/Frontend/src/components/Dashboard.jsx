@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router';
 import { useLocation } from 'react-router-dom';
 
 const Dashboard = ({ children }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -64,7 +64,7 @@ const Dashboard = ({ children }) => {
             onClick={() => setIsCollapsed(!isCollapsed)}
             className="p-1 hover:bg-green-900 rounded-full text-white focus:outline-none"
           >
-            {isCollapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
+            {isCollapsed ? <ChevronRight className="w-5 h-5 border-2 rounded-full" /> : <ChevronLeft className="w-5 h-5 border-2 rounded-full" />}
           </button>
         </div>
 
@@ -94,7 +94,7 @@ const Dashboard = ({ children }) => {
         </nav>
 
        
-        <div className="p-4 flex items-center border-t border-gray-900 mb-0">
+        <div className="p-4 flex items-center border-t border-gray-900 mt-24 ">
           <img
             src={user?.profilePhoto}
             alt="User"

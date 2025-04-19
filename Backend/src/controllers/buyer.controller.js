@@ -112,6 +112,7 @@ const removeItem = async (req, res) => {
         }
 
         await cartModel.findByIdAndDelete(itemId);
+        await cartModel.save();
 
         return res.status(200).json({ message: "Item removed successfully!", data: item });
 

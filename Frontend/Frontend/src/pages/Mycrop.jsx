@@ -7,6 +7,8 @@ const Mycrop = () => {
   useValidation();
   const [PlantedCrop, setPlantedCrop] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [harvestingCropId, setHarvestingCropId] = useState(null);
+
 
   const myCrop = async () => {
     if (PlantedCrop.length > 0) {
@@ -31,6 +33,7 @@ const Mycrop = () => {
   }, []);
 
   const harvestCrop = async (plantedCropId) => {
+    setHarvestingCropId(plantedCropId);
     try {
       await axios.patch(
         import.meta.env.VITE_BASE_URL + "/hearvestCrop/" + plantedCropId,
@@ -40,6 +43,8 @@ const Mycrop = () => {
       myCrop();
     } catch (error) {
       console.log(error.message);
+    }finally{
+      setHarvestingCropId(null);
     }
   };
 
@@ -179,11 +184,17 @@ const Mycrop = () => {
 
                     
                     <button
-                      onClick={() => harvestCrop(crop._id)}
-                      className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg text-lg font-semibold transition duration-200"
-                    >
-                      🌾 Harvest
-                    </button>
+  onClick={() => harvestCrop(crop._id)}
+  disabled={harvestingCropId === crop._id}
+  className={`w-full py-3 rounded-lg text-lg font-semibold transition duration-200 
+    ${harvestingCropId === crop._id
+      ? "bg-green-400 cursor-not-allowed"
+      : "bg-green-600 hover:bg-green-700 text-white"
+    }`}
+>
+  {harvestingCropId === crop._id ? "⏳ Harvesting..." : "🌾 Harvest"}
+</button>
+
                   </div>
                 </div>
               ))}

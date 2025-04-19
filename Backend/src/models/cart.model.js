@@ -51,6 +51,10 @@ const cartSchema = new mongoose.Schema({
     },
     address: {
         type: String
+    },
+    removeItem:{
+        type:Boolean,
+        default:false
     }
 },{timestamps:true});
 

@@ -11,11 +11,13 @@ const Cart = () => {
 
   const[address , setAddress] = useState("");
   const[maxQty , setMaxqty] = useState(0);
+  const [buying, setBuying] = useState(false); 
   
   
   const navigate = useNavigate();
 
   const handleBuy = async()=>{
+    setBuying(true);
     try {
       const order = await axios.post(import.meta.env.VITE_BASE_URL+"/paymentCreate",{
         total
@@ -60,6 +62,8 @@ const Cart = () => {
 
       console.log(error);
       
+    }finally{
+      setLoading(false);
     }
   }
   const updatePaymentStatus = async(orderId, paymentId) => {
@@ -85,11 +89,13 @@ const Cart = () => {
         withCredentials: true
       });
       
-      console.log(response?.data?.data);
+      //console.log(response?.data?.data);
       setCart(response?.data?.data);
-      
-      const totalPrice = response?.data?.data.reduce((sum, item) => sum + item?.totalPrice, 0);
+
+      const filteredItems = allItems.filter(item => item.buyStatus === false);
+      const totalPrice = filteredItems.reduce((sum, item) => sum + item?.totalPrice, 0);
       setTotal(totalPrice);
+
       setMaxqty(response?.data?.data?.itemId?.quantity )
     } catch (error) {
       if(error.response?.status === 401){
@@ -205,14 +211,13 @@ const cartfilter = cart.filter((item)=>item.buyStatus === false)
                 ))}
               </div>
             </div>
-            
-            {/* Order Summary */}
+         
             <div className="bg-white rounded-lg shadow-md h-fit lg:w-80">
               <div className="p-6">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h2>
                 <div className="space-y-3 border-b border-gray-200 pb-4">
                   <div className="flex justify-between">
-                    <p className="text-gray-600">Price ({cart.length} {cart.length === 1 ? 'item' : 'items'})</p>
+                    <p className="text-gray-600">Price ({cartfilter.length} {cart.length === 1 ? 'item' : 'items'})</p>
                     <p className="font-medium">₹{total}</p>
                   </div>
                   <div className="flex justify-between">
@@ -225,19 +230,33 @@ const cartfilter = cart.filter((item)=>item.buyStatus === false)
                   </div>
                 </div>
                 <div >
-                <textarea  value={address} onChange={(e)=>setAddress(e.target.value)} placeholder='Please Enter Your Address'  className='p-3 w-full outline-1 outline-green-400 rounded-md min-h-10'>
+                <textarea  value={address} onChange={(e)=>setAddress(e.target.value)} placeholder='Please Enter Your Address'  className='p-3 w-full outline-1 outline-green-400 rounded-md min-h-10' required>
                 </textarea>
                 </div>
                 <div className="flex justify-between pt-4">
                   <p className="text-lg font-semibold">Total</p>
                   <p className="text-lg font-bold">₹{total}</p>
                 </div>
+
                 <button 
-                  onClick={()=>handleBuy()}
-                  className="mt-6 w-full bg-green-600 text-white py-3 px-4 rounded-md hover:bg-green-700 transition-colors font-semibold"
-                >
-                  Place Order
-                </button>
+  onClick={handleBuy}
+  disabled={buying || !address} 
+  className={`mt-6 w-full bg-green-600 text-white py-3 px-4 rounded-md transition-colors font-semibold
+    ${buying ? "opacity-60 cursor-not-allowed" : "hover:bg-green-700"}`}
+>
+  {buying ? (
+    <div className="flex items-center justify-center gap-2">
+      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
+      </svg>
+      Processing...
+    </div>
+  ) : (
+    "Place Order"
+  )}
+</button>
+
                 <button 
                   onClick={() => navigate("/marketplace")}
                   className="mt-3 w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 rounded-md hover:bg-gray-50 transition-colors font-medium"
