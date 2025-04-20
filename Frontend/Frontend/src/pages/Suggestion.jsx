@@ -135,7 +135,7 @@ const Suggestion = () => {
                       <option value="">Select Soil Type</option>
                       {[ 
                         "Alluvial", "Black", "Red", "Yellow", "Laterite", "Arid", "Saline",
-                        "Forest", "Loose", "Deep", "Well-drained", "Clay loamy", "Sandy loams"
+                        "Forest", "Loose", "Deep", "Well-drained", "Clay loamy", "Sandy loam","loamy"
                       ].map((soil) => (
                         <option key={soil} value={soil}>
                           {soil}
