@@ -75,6 +75,8 @@ const AboutCrop = () => {
     aboutCrop();
   }, [req]);
 
+  
+  
   return (
     <Dashboard>
       <div className="min-h-screen bg-[#f4f5f7] py-6 sm:py-12">
@@ -155,7 +157,7 @@ const AboutCrop = () => {
             <div className="bg-gradient-to-r from-green-500 to-green-600 py-8 px-6 sm:px-12 relative">
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,.1)_0%,transparent_70%)]"></div>
               <h1 className="text-white text-center font-bold mb-4 text-2xl sm:text-3xl relative z-10">
-                {about.cropName}
+                {about?.cropName}
               </h1>
               <p className="text-lg text-white text-center relative z-10">
                 {about?.about}

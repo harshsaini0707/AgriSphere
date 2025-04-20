@@ -68,11 +68,11 @@ const Suggestion = () => {
     }
   };
 
-  const filteredCrops = cropFeed.filter((crop) => {
+  const filteredCrops = cropFeed?.filter((crop) => {
     const selectedStateLower = STATE.trim().toLowerCase();
     const cropStates = crop?.state?.map((s) => s.trim().toLowerCase());
-    const selectedSoilLower = SOIL.trim().toLowerCase();
-    const cropSoilTypes = crop.soilType.map((s) => s.trim().toLowerCase());
+    const selectedSoilLower = SOIL?.trim().toLowerCase();
+    const cropSoilTypes = crop?.soilType.map((s) => s.trim().toLowerCase());
 
     const stateMatches = STATE === "" || cropStates.includes(selectedStateLower);
     const soilMatches = SOIL === "" || cropSoilTypes.includes(selectedSoilLower);
@@ -130,7 +130,7 @@ const Suggestion = () => {
                     className="flex-1 p-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-800 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 shadow-sm"
                   >
                     <option value="">Select Soil Type</option>
-                    {["Alluvial", "Black", "Red", "Yellow", "Laterite", "Arid", "Saline", "Forest"].map(
+                    {["Alluvial", "Black", "Red", "Yellow", "Laterite", "Arid", "Saline", "Forest" ,"Loose","Deep","Well-drained" ,"Clay loamy","Sandy loams"].map(
                       (soil) => (
                         <option key={soil} value={soil}>
                           {soil}

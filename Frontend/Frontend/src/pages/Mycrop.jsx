@@ -12,10 +12,9 @@ const Mycrop = () => {
 
 
   const myCrop = async () => {
-    if (PlantedCrop.length > 0) {
+   
       setLoading(false);
-      return;
-    }
+     
     try {
       const response = await axios.get(
         import.meta.env.VITE_BASE_URL + "/plantedCrop",
@@ -31,7 +30,7 @@ const Mycrop = () => {
 
   useEffect(() => {
     myCrop();
-  }, []);
+  }, [PlantedCrop]);
 
   const harvestCrop = async (plantedCropId) => {
     setHarvestingCropId(plantedCropId);
@@ -46,6 +45,7 @@ const Mycrop = () => {
       console.log(error.message);
     }finally{
       setHarvestingCropId(null);
+      myCrop();
     }
   };
 
@@ -98,26 +98,26 @@ const Mycrop = () => {
                
                   <div className="relative">
                     <img
-                      src={crop.cropId.cropPhoto}
-                      alt={crop.cropId.cropName}
+                      src={crop?.cropId?.cropPhoto}
+                      alt={crop?.cropId?.cropName}
                       className="w-full h-48 md:h-56 object-cover rounded-t-2xl"
                     />
                     <div className="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full shadow text-sm text-gray-700 font-medium">
-                      🌱 {new Date(crop.createdAt).toLocaleDateString()}
+                      🌱 {new Date(crop?.createdAt).toLocaleDateString()}
                     </div>
                   </div>
 
          
                   <div className="p-5 space-y-4">
                     <h2 className="text-2xl font-bold text-green-800">
-                      {crop.cropId.cropName}
+                      {crop?.cropId?.cropName}
                     </h2>
 
                     <div className="grid grid-cols-3 gap-3 text-center text-sm">
                       <div className="bg-green-100 p-3 rounded-lg">
                         <p className="text-gray-500">⏳ Duration</p>
                         <p className="text-green-800 font-semibold">
-                          {crop.cropId.duration} days
+                          {crop?.cropId?.duration} days
                         </p>
                       </div>
                       <div className="bg-green-100 p-3 rounded-lg">
@@ -127,7 +127,7 @@ const Mycrop = () => {
                       <div className="bg-yellow-100 p-3 rounded-lg">
                         <p className="text-yellow-600">💰 Price</p>
                         <p className="text-yellow-800 font-semibold">
-                          ₹{crop.cropId.market.currentPrice}
+                          ₹{crop?.cropId?.market?.currentPrice}
                         </p>
                       </div>
                     </div>
@@ -140,19 +140,19 @@ const Mycrop = () => {
                       <div className="grid grid-cols-2 gap-2 text-sm text-green-800">
                         <div>
                           <p className="text-green-600">🌡️ Temperature</p>
-                          <p>{crop.cropId.optimalConditions.temperature}</p>
+                          <p>{crop?.cropId?.optimalConditions?.temperature}</p>
                         </div>
                         <div>
                           <p className="text-green-600">💧 Humidity</p>
-                          <p>{crop.cropId.optimalConditions.humidity}</p>
+                          <p>{crop?.cropId?.optimalConditions?.humidity}</p>
                         </div>
                         <div>
                           <p className="text-green-600">🌧️ Rainfall</p>
-                          <p>{crop.cropId.optimalConditions.rainfall}</p>
+                          <p>{crop?.cropId?.optimalConditions?.rainfall}</p>
                         </div>
                         <div>
                           <p className="text-green-600">🚰 Water</p>
-                          <p>{crop.cropId.waterRequirement.join("-")} L / Bigha </p>
+                          <p>{crop?.cropId?.waterRequirement.join("-")} L / Bigha </p>
                         </div>
                       </div>
                     </div>
@@ -161,17 +161,17 @@ const Mycrop = () => {
                       <div className="bg-gray-100 p-3 rounded-lg">
                         <p className="text-gray-500">🌿 Planting Season</p>
                         <p className="font-medium">
-                          {crop.cropId.season.planting.join(", ")}
+                          {crop?.cropId?.season?.planting.join(", ")}
                         </p>
                       </div>
                       <div className="bg-gray-100 p-3 rounded-lg">
                         <p className="text-gray-500">🚜 Harvest Season</p>
-                        <p className="font-medium">{crop.cropId.season.harvesting}</p>
+                        <p className="font-medium">{crop?.cropId?.season?.harvesting}</p>
                       </div>
                       <div className="col-span-2 bg-gray-100 p-3 rounded-lg">
                         <p className="text-gray-500">🌾 Fertilizer</p>
                         <p className="font-medium">
-                          {crop.cropId.nutrition.join(", ")}
+                          {crop?.cropId?.nutrition.join(", ")}
                         </p>
                       </div>
                     </div>
@@ -179,7 +179,7 @@ const Mycrop = () => {
                 
                     <div className="bg-yellow-100 text-center p-3 rounded-lg">
                       <p className="font-bold text-yellow-900 text-lg">
-                        {calculateDaysLeft(crop.createdAt, crop.cropId.duration)}
+                        {calculateDaysLeft(crop?.createdAt, crop?.cropId?.duration)}
                       </p>
                     </div>
 
