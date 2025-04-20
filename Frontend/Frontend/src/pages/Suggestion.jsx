@@ -11,10 +11,10 @@ import Chatbot from "./Chat/Chatbot";
 
 const Suggestion = () => {
   useValidation();
-  const statee = useSelector((store) => store.user.State || "");
-  const cropFeed = useSelector((store) => store.crop);
-  const selectedSoil = useSelector((store) => store.suggestion.soil || " ");
-  const selectedState = useSelector((store) => store.suggestion.state || "");
+  const statee = useSelector((store) => store?.user?.State || "");
+  const cropFeed = useSelector((store) => store?.crop);
+  const selectedSoil = useSelector((store) => store?.suggestion?.soil || " ");
+  const selectedState = useSelector((store) => store?.suggestion?.state || "");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -70,7 +70,7 @@ const Suggestion = () => {
 
   const filteredCrops = cropFeed.filter((crop) => {
     const selectedStateLower = STATE.trim().toLowerCase();
-    const cropStates = crop.state.map((s) => s.trim().toLowerCase());
+    const cropStates = crop?.state?.map((s) => s.trim().toLowerCase());
     const selectedSoilLower = SOIL.trim().toLowerCase();
     const cropSoilTypes = crop.soilType.map((s) => s.trim().toLowerCase());
 
@@ -143,19 +143,19 @@ const Suggestion = () => {
 
               {filteredCrops.length > 0 ? (
                 <div className="grid grid-cols-1 gap-6">
-                  {filteredCrops.map((crop) => (
+                  {filteredCrops?.map((crop) => (
                     <div
-                      key={crop._id}
+                      key={crop?._id}
                       className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
                     >
                       <div className="flex flex-col md:flex-row">
                         <div className="md:w-48 lg:w-56 relative overflow-hidden">
                           <div className="absolute top-0 left-0 bg-green-500 text-white px-3 py-1 rounded-br-lg font-medium z-10">
-                            {crop.duration} days
+                            {crop?.duration} days
                           </div>
                           <img
-                            src={crop.cropPhoto}
-                            alt={crop.cropName}
+                            src={crop?.cropPhoto}
+                            alt={crop?.cropName}
                             className="w-full h-full object-cover md:h-48 lg:h-56"
                           />
                         </div>
@@ -163,36 +163,36 @@ const Suggestion = () => {
                         <div className="flex-1 p-6">
                           <div className="flex flex-col md:flex-row justify-between">
                             <div>
-                              <h2 className="text-2xl font-bold text-gray-800 mb-2">{crop.cropName}</h2>
+                              <h2 className="text-2xl font-bold text-gray-800 mb-2">{crop?.cropName}</h2>
                               
                               <div className="flex flex-wrap gap-2 mb-3">
-                                {SOIL === "" && crop.soilType.map((soil, index) => (
+                                {SOIL === "" && crop?.soilType?.map((soil, index) => (
                                   <span key={index} className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
                                     {soil}
                                   </span>
                                 ))}
-                                {STATE === "" && crop.state.slice(0, 3).map((state, index) => (
+                                {STATE === "" && crop?.state?.slice(0, 3).map((state, index) => (
                                   <span key={index} className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
                                     {state}
                                   </span>
                                 ))}
-                                {STATE === "" && crop.state.length > 3 && (
+                                {STATE === "" && crop?.state.length > 3 && (
                                   <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
-                                    +{crop.state.length - 3} more
+                                    +{crop?.state.length - 3} more
                                   </span>
                                 )}
                               </div>
                               
-                              <p className="text-gray-600 mb-4 line-clamp-2">{crop.about}</p>
+                              <p className="text-gray-600 mb-4 line-clamp-2">{crop?.about}</p>
                               
                               <div className="text-sm text-gray-500">
-                                Seeds required: ~{crop.seedRequired} kg per Bigha
+                                Seeds required: ~{crop?.seedRequired} kg per Bigha
                               </div>
                             </div>
                             
                             <div className="flex md:flex-col gap-3 mt-4 md:mt-0">
                               <button
-                                onClick={() => navigate(`/aboutCrop/${crop._id}`)}
+                                onClick={() => navigate(`/aboutCrop/${crop?._id}`)}
                                 className="flex items-center justify-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-sm"
                               >
                                 <Info size={18} className="mr-2" /> Details

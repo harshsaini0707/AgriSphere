@@ -63,7 +63,7 @@ const adminSchema = new mongoose.Schema({
         },
 
         waterRequirement:{
-            type:[Number],
+            type:[String],
             default:[]
         },
         market:{

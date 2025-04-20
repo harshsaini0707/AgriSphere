@@ -202,7 +202,7 @@ const AboutCrop = () => {
                         Duration
                       </p>
                       <p className="text-lg font-semibold text-blue-800">
-                        {about.duration} days
+                        {about?.duration} days
                       </p>
                     </div>
                   </div>
@@ -218,7 +218,7 @@ const AboutCrop = () => {
                         Water Requirement
                       </p>
                       <p className="text-lg font-semibold text-cyan-800">
-                        {about?.waterRequirement?.join("-")} Days
+                        {about?.waterRequirement} 
                       </p>
                     </div>
                   </div>
