@@ -69,7 +69,7 @@ const Chatbot = () => {
           <div className="flex items-center justify-between p-3 border-b border-gray-200 bg-blue-600 rounded-t-lg">
             <div className="flex items-center space-x-2 text-white">
               <ChatbotIcon />
-              <h2 className="font-semibold text-lg">Medical Chatbot</h2>
+              <h2 className="font-semibold text-lg">AgriHelp Chatbot</h2>
             </div>
             <button onClick={() => setShowChatbot(false)} className="text-white text-xl">
               ⬇
