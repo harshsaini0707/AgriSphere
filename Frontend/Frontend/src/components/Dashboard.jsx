@@ -54,7 +54,9 @@ const Dashboard = ({ children }) => {
   return (
     <div className="flex min-h-screen bg-gray-300">
      
-      <aside className={`fixed top-0 left-0 h-full bg-gradient-to-b from-green-800 to-green-950 shadow-lg transition-all duration-300 z-20 ${isCollapsed ? 'w-16' : 'w-64'}`}>
+      <aside className={`fixed top-0 left-0 h-full bg-gradient-to-b from-teal-700 to-green-950
+
+ shadow-lg transition-all duration-300 z-20 ${isCollapsed ? 'w-16' : 'w-64'}`}>
         
         <div className="p-4 flex items-center justify-between">
           {!isCollapsed && (
