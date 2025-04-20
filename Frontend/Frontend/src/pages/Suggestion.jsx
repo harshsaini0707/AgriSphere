@@ -27,8 +27,7 @@ const Suggestion = () => {
     if (!selectedState && statee) {
       dispatch(selectState(statee));
     }
-  }, [statee, selectedState, dispatch]);
-  
+  }, [statee, dispatch]);
 
   useEffect(() => {
     const fetchCrops = async () => {
@@ -67,13 +66,14 @@ const Suggestion = () => {
   const filteredCrops = cropFeed?.filter((crop) => {
     const selectedStateLower = selectedState.trim().toLowerCase();
     const cropStates = crop?.state?.map((s) => s.trim().toLowerCase());
-
+  
     const selectedSoilLower = selectedSoil.trim().toLowerCase();
     const cropSoilTypes = crop?.soilType.map((s) => s.trim().toLowerCase());
-
+  
+    // If selectedState is empty (meaning "All State / Union Territory" is selected), it should match all crops
     const stateMatches = selectedStateLower === "" || cropStates.includes(selectedStateLower);
     const soilMatches = selectedSoilLower === "" || cropSoilTypes.includes(selectedSoilLower);
-
+  
     return stateMatches && soilMatches;
   });
 
@@ -102,11 +102,18 @@ const Suggestion = () => {
                   <form className="flex flex-col md:flex-row gap-4">
                     <select
                       value={selectedState}
-                      onChange={(e) => dispatch(selectState(e.target.value))}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value === "") {
+                          dispatch(selectState("")); // Reset state selection when "All State / Union Territory" is chosen
+                        } else {
+                          dispatch(selectState(value)); // Otherwise, set the selected state
+                        }
+                      }}
                       className="flex-1 p-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-800 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 shadow-sm"
                     >
                       <option value="">All State / Union Territory</option>
-                      {[
+                      {[ 
                         "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
                         "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand",
                         "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur",
@@ -126,7 +133,7 @@ const Suggestion = () => {
                       className="flex-1 p-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-800 focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 shadow-sm"
                     >
                       <option value="">Select Soil Type</option>
-                      {[
+                      {[ 
                         "Alluvial", "Black", "Red", "Yellow", "Laterite", "Arid", "Saline",
                         "Forest", "Loose", "Deep", "Well-drained", "Clay loamy", "Sandy loams"
                       ].map((soil) => (
@@ -241,30 +248,17 @@ const Suggestion = () => {
                 placeholder="Enter area"
                 value={inputArea}
                 onChange={(e) => setInputArea(e.target.value)}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300 mb-4"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
               />
-
-              <div className="bg-green-50 p-3 rounded-lg mb-6">
-                <h3 className="font-medium text-green-800">
-                  Seed Required: <span className="font-bold">~{selectedCrop.seedRequired * inputArea} kg</span> for {inputArea} Bigha
-                </h3>
-              </div>
-
-              <div className="flex justify-between gap-4">
-                <button
-                  onClick={() => setArea(false)}
-                  className="flex-1 bg-gray-100 text-gray-800 px-4 py-3 rounded-lg hover:bg-gray-200 transition-all duration-300 font-medium"
-                >
-                  Cancel
-                </button>
+              <div className="flex justify-center mt-6">
                 <button
                   onClick={() => {
-                    plantCrop(selectedCrop._id);
+                    plantCrop(selectedCrop?._id);
                     setArea(false);
                   }}
-                  className="flex-1 bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 transition-all duration-300 font-medium"
+                  className="bg-green-600 text-white px-6 py-3 rounded-lg w-full hover:bg-green-700 transition-all duration-300"
                 >
-                  Confirm
+                  Plant Crop
                 </button>
               </div>
             </div>
