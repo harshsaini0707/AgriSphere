@@ -3,6 +3,7 @@ import Dashboard from "../components/Dashboard";
 import axios from "axios";
 import { Sprout, Tractor, Calendar, Clock } from "lucide-react";
 import useValidation from "../hooks/useValidation";
+import Chatbot from "./Chat/Chatbot";
 
 const HarvestedCrop = () => {
   useValidation();
@@ -33,6 +34,7 @@ const HarvestedCrop = () => {
   return (
     <Dashboard>
       <div className=" ml-7 py-10">
+        <Chatbot/>
         <h1 className="text-5xl font-extrabold text-gray-800 text-center mb-12 tracking-wide">
           🌾 Harvested Crops
         </h1>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Dashboard from "../components/Dashboard";
 import axios from "axios";
 import useValidation from "../hooks/useValidation";
+import Chatbot from "./Chat/Chatbot";
 
 const Mycrop = () => {
   useValidation();
@@ -61,7 +62,7 @@ const Mycrop = () => {
   return (
     <Dashboard>
     <div className="flex min-h-screen bg-gray-300">
-    
+    <Chatbot/>
       <div className="fixed left-0 top-0 h-full bg-gray-200 shadow-lg z-10">
       
       </div>

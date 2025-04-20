@@ -17,6 +17,7 @@ import {
   Bean,
 } from "lucide-react";
 import useValidation from "../hooks/useValidation";
+import Chatbot from "./Chat/Chatbot";
 
 const AboutCrop = () => {
   useValidation();
@@ -77,6 +78,7 @@ const AboutCrop = () => {
   return (
     <Dashboard>
       <div className="min-h-screen bg-[#f4f5f7] py-6 sm:py-12">
+        <Chatbot/>
         <div className="relative sm:px-6 lg:px-8 mx-auto">
           {toast && (
             <div className="fixed top-5 right-5 flex font-bold items-center bg-green-500 text-white px-4 py-2 rounded-md shadow-lg transition-all duration-300 ease-in-out animate-fade-in-down z-10">

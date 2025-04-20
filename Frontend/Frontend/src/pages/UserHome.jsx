@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import useValidation from "../hooks/useValidation";
 import { useSelector } from "react-redux";
 import { Sun, Thermometer, Droplets, Calendar } from "lucide-react";
+import Chatbot from "./Chat/Chatbot";
 
 const UserHome = () => {
   useValidation();
@@ -54,6 +55,7 @@ const UserHome = () => {
   return (
     <div className="flex min-h-screen bg-gray-300"> 
       <Dashboard />
+      <Chatbot/>
       <div className="flex flex-col items-center justify-center w-full p-6">
         {/* Weather Card */}
         <div className="mb-8 bg-[#f3f4f6]/80 backdrop-blur-sm shadow-md border border-[#e5e7eb] rounded-xl p-8 w-[90%] max-w-md transition-all duration-300 hover:scale-105"> {/* Light gray */}

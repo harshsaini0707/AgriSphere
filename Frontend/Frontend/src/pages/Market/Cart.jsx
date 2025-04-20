@@ -168,7 +168,7 @@ const cartfilter = cart.filter((item)=>item.buyStatus === false)
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
             <h2 className="text-xl font-medium text-gray-600 mb-4">Your cart is empty</h2>
             <button 
-              onClick={() => navigate("/market")}
+              onClick={() => navigate("/marketplace")}
               className="bg-green-600 text-white py-2 px-6 rounded-md hover:bg-green-700 transition-colors"
             >
               Browse Products

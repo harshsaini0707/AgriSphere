@@ -13,13 +13,11 @@ import HarvestedCrop from "./pages/HarvestedCrop";
 import AboutCrop from "./pages/AboutCrop";
 import Task from "./pages/Task";
 import UserHome from "./pages/UserHome";
-import Community from "./pages/Community";
 import LandingPage from "./pages/LandingPage";
 import MarketDashBoard from "./pages/Market/MarketDashBoard";
 import AboutItem from "./pages/Market/AboutItem";
 import Cart from "./pages/Market/Cart"
 import Seller from "./pages/Market/Seller";
-import Chat from "./pages/Chat";
 import ListCrop from "./pages/Market/ListCrop";
 import SellerListedCrop from "./pages/Market/SellerListedCrop";
 import SellerNewOrders from "./pages/Market/SellerNewOrders";

@@ -4,6 +4,7 @@ import Dashboard from '../components/Dashboard';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../store/UserSlice';
 import { Edit, Save, User, MapPin, Mail, Calendar } from 'lucide-react';
+import Chatbot from './Chat/Chatbot';
 
 
 const Profile = () => {
@@ -82,7 +83,7 @@ const Profile = () => {
   return (
     <Dashboard>
     <div className="flex min-h-screen bg-gray-300">
-      
+      <Chatbot/>
       {loading ? (
           <div className="flex justify-center w-full p-8 ml-10 animate-pulse">
           <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg overflow-hidden">

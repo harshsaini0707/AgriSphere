@@ -7,6 +7,7 @@ import { Info, Leaf, Filter } from "lucide-react";
 import { useNavigate } from "react-router";
 import { selectSoil, selectState } from "../store/suggestionSlice";
 import useValidation from "../hooks/useValidation";
+import Chatbot from "./Chat/Chatbot";
 
 const Suggestion = () => {
   useValidation();
@@ -81,6 +82,7 @@ const Suggestion = () => {
 
   return (
     <Dashboard>
+      <Chatbot/>
     <div className="flex min-h-screen  bg-gray-300">
       <div className="flex-1">
         <div className="max-w-6xl mx-auto py-8 px-6">

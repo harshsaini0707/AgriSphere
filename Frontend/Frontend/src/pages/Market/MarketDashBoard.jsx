@@ -5,6 +5,7 @@ import { IoCart, IoSearch } from 'react-icons/io5';
 import { useNavigate } from 'react-router';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Chatbot from '../Chat/Chatbot';
 
 const MarketDashBoard = () => {
   const [feed, setFeed] = useState([]);
@@ -85,6 +86,7 @@ const MarketDashBoard = () => {
     <div className="bg-gray-50 min-h-screen">
       <MarketNavbar />
       <ToastContainer />
+      <Chatbot/>
 
 
       <div className="bg-gradient-to-r  py-8 px-4 sm:px-6 lg:px-8 ">

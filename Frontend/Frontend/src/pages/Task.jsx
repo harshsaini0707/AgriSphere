@@ -4,6 +4,7 @@ import Dashboard from '../components/Dashboard';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import useValidation from '../hooks/useValidation';
+import Chatbot from './Chat/Chatbot';
 
 const Task = () => {
   useValidation();
@@ -152,6 +153,7 @@ const Task = () => {
   return (
     <div className="flex min-h-screen  bg-gray-300">
       <Dashboard />
+      <Chatbot/>
       <div className="flex-1 p-8 flex justify-center">
         <div className="w-full max-w-2xl space-y-4">
           {error && (

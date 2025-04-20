@@ -6,21 +6,13 @@ import { useNavigate } from 'react-router';
 const services = [
   {
     id: 1,
-    title: 'Community',
-    icon: <Users size={24} />,
-    color: 'bg-blue-500',
-    about:
-      "The Community feature in AGRISPHERE lets farmers create and join groups, connect with farmers worldwide, and share knowledge and experiences. It's a space for collaboration, where farmers discuss techniques, solve challenges, and grow together through collective wisdom.",
-  },
-  {
-    id: 2,
     title: 'AI Assistant',
     icon: <MessageSquare size={24} />,
     color: 'bg-green-500',
     about: "The AI Assistant in AgriSphere empowers farmers with instant, expert-level guidance. Farmers can receive personalized advice, get solutions to farming challenges, and access accurate, real-time support across a wide range of agricultural topics."
   },
   {
-    id: 3,
+    id: 2,
     title: 'Crop Suggestion',
     icon: <Sprout size={24} />,
     color: 'bg-yellow-500',
@@ -28,7 +20,7 @@ const services = [
       'The Crop Suggestion feature helps farmers choose the best crops based on their state, location, and soil type. It provides tailored recommendations, ensuring better yield and efficient resource use, empowering farmers to make informed planting decisions.',
   },
   {
-    id: 4,
+    id: 3,
     title: 'Task Management',
     icon: <ClipboardList size={24} />,
     color: 'bg-red-500',
@@ -36,7 +28,7 @@ const services = [
       'The Task Management feature helps farmers organize daily and weekly activities like planting, watering, fertilizing, and harvesting. It ensures timely completion of tasks, improving productivity and crop health through better planning and reminders.',
   },
   {
-    id: 5,
+    id: 4,
     title: 'Weather Forecast',
     icon: <CloudSun size={24} />,
     color: 'bg-purple-500',
@@ -44,7 +36,7 @@ const services = [
       'The Weather Forecast feature provides farmers with real-time weather updates and a seven-day forecast. It helps them plan agricultural activities like planting, watering, and harvesting based on accurate temperature, humidity, and rainfall predictions.',
   },
   {
-    id: 6,
+    id: 5,
     title: 'Crop Details',
     icon: <Info size={24} />,
     color: 'bg-teal-500',
@@ -52,7 +44,7 @@ const services = [
       'Get essential details about different crops, including harvest time, water needs, fertilizer recommendations, seeds, temperature and ideal planting seasons and more.',
   },
   {
-    id: 7,
+    id: 6,
     title: 'Marketplace',
     icon: <ShoppingCart size={24} />,
     color: 'bg-yellow-500',
