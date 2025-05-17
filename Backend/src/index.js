@@ -20,7 +20,10 @@ const allowedOrigins = [
     "http://localhost:8080",
     "https://agri-sphere-bnfc4zbdn-harsh-sainis-projects.vercel.app",
     "https://agri-sphere.vercel.app",
-    "https://agri-sphere-mu.vercel.app" 
+    "https://agri-sphere-mu.vercel.app",
+    "agri-sphere-7emu-cpi9tjfwx-harsh-sainis-projects.vercel.app",
+    "agri-sphere-7emu.vercel.app"
+
   ];
   
   app.use(cors({
