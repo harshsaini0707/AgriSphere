@@ -17,10 +17,15 @@ const adminLogin = async(req,res)=>{
             })
             if(!token) return res.status(400).send("Error While Genrating Token!!");
 
+
+
             res.cookie("adminToken",token,{
-                httpOnly:true,
-                secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+            httpOnly: true,
+            secure: true,            // Important for HTTPS
+            sameSite: "None",        // Important for cross-origin
+            maxAge: 7 * 24 * 60 * 60 * 1000
             })
+
             return res.status(200).json("Login Successfull!!")
         }else{
             return res.status(404).json({data:"Invalid Credentials"})
