@@ -10,6 +10,6 @@ sellerRoute.delete("/deleteItem/:itemId",userProtect,deleteItem);
 sellerRoute.get("/getItem",userProtect,getItem);
 
 sellerRoute.get("/allOrders", userProtect,allOrders);
-sellerRoute.patch("/orderStatus/:orderid",userProtect,updateOrder); {/*work*/}
+sellerRoute.patch("/orderStatus/:orderid",userProtect,updateOrder);
 
 module.exports = sellerRoute;

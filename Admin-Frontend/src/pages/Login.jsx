@@ -78,9 +78,9 @@ const Login = () => {
           </button>
         </div>
       </div>
-      {/* <h1>admin2342@gmail.com</h1>
+      <h1>admin2342@gmail.com</h1>
        
-      <h1>AdminDKM</h1> */}
+      <h1>AdminDKM</h1>
     </div>
   );
 };

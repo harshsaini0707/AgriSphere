@@ -6,7 +6,6 @@ import useValidation from "../hooks/useValidation";
 import { useSelector } from "react-redux";
 import { Sun, Thermometer, Droplets, Calendar } from "lucide-react";
 import Chatbot from "./Chat/Chatbot";
-
 const UserHome = () => {
   useValidation();
   const [Data, setData] = useState("");
