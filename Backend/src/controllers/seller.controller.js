@@ -1,9 +1,8 @@
-const { find, findById } = require("../models/crop.model");
-const { OrderModel } = require("../models/order.model");
-const { Seller } = require("../models/sellerItem.model");
-const { all } = require("../routes/seller.routes");
+const { OrderModel } = require("../models/order.model.js");
+const { Seller } = require("../models/sellerItem.model.js");
 
-//Self
+
+
 const listCrop = async(req,res)=>{
     try {
        if(!req.user || !req.user._id){
@@ -24,6 +23,10 @@ const listCrop = async(req,res)=>{
         demand
 
        }= req.body;
+
+        if (!cropName || !price || !cropType || !season || !quantity) {
+      return res.status(400).json({ message: "Please provide all required fields" });
+    }
 
 
        const product = await Seller({
@@ -118,7 +121,7 @@ const getItem  = async(req,res)=>{
         if (user.length === 0) return res.status(404).send(`No Item is Listed!!`);
       
       
-        const listedCrops = await Seller.find({ sellerId: loggedInUser }).sort({ createdAt: 1 });
+        const listedCrops = await Seller.find({ sellerId: loggedInUser }).sort({ createdAt: -1 });
       
         return res.status(201).json({
           message: `All Listed Item`,
@@ -131,30 +134,34 @@ const getItem  = async(req,res)=>{
 }
 
 
-const allOrders = async(req,res)=>{
-    try {
-        if(!req.user || !req.user._id){
-            return res.status(401).send(`Unauthorized User - Please Login!`)
-        }
-        const loggedInUser = req.user._id;
-
-        const order = await OrderModel.find({sellerId:loggedInUser})
-        .populate("buyerId","firstName lastName email profilePhoto ")
-        .populate("itemId","cropName cropPhoto cropType season")
-        .sort({orderDate:-1})
-
-        if(order.length === 0 ){
-            return res.json({data:`Currently no order placed!!`})
-        }
-
-        return res.status(200).json({message:"Placed Order",size:order.length,data:order});
-
-
-        
-    } catch (error) {
-        return res.status(500).send(error.message);
+const allOrders = async (req, res) => {
+  try {
+    if (!req.user || !req.user._id) {
+      return res.status(401).send(`Unauthorized User - Please Login!`);
     }
-}
+
+    const sellerId = req.user._id;
+
+    const orders = await OrderModel.find({ sellerId })
+      .populate("buyerId", "firstName lastName email profilePhoto")
+      .populate("itemId", "cropName cropPhoto cropType season")
+      .sort({ orderDate: -1 });
+
+    if (orders.length === 0) {
+      return res.json({ data: `Currently no order placed!!` });
+    }
+
+    return res.status(200).json({
+      message: "Placed Order",
+      size: orders.length,
+      data: orders
+    });
+
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
 
 const updateOrder = async(req,res)=>{
     try {
@@ -188,11 +195,5 @@ const updateOrder = async(req,res)=>{
         return res.status(500).send(error.meassge)
     }
 }
-
-
-
-
-
-
 
 module.exports = { listCrop , editListedItem ,deleteItem , getItem ,allOrders , updateOrder}
