@@ -2,26 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import ChatbotIcon from "./ChatbotIcon";
 import ChatForm from "./chatbotform";
 import ChatMessage from "./ChatMessage";
+import { sendChatMessage } from "../../lib/agriChatbot";
 
 const Chatbot = () => {
   const chatBodyRef = useRef();
   const [showChatbot, setShowChatbot] = useState(false);
-  const [chatHistory, setChatHistory] = useState([
-    {
-        role: "model",
-        text: `
-        You are a professional agriculture assistant built specifically for Indian farmers and agriculture experts.
-        - Always provide accurate, helpful, and region-specific answers related to agriculture in India only.
-        - Do not mention that you're an AI or assistant; just respond as a knowledgeable expert in Indian agriculture.
-        - You can answer queries about crops, soil, fertilizers, seasons, climate conditions, farming techniques, government schemes, etc., specific to any region in India.
-        - Only respond with information related to agriculture. For unrelated queries, politely decline.
-        - Treat each message as a new query unless the user explicitly refers to previous context.
-        `.trim(),
-        hideInChat: true,
-      }
-  ]);
+  const [chatHistory, setChatHistory] = useState([]);
 
-  const generateBotResponse = async (history) => {
+  const generateBotResponse = async (userMessage) => {
     const updateHistory = (text, isError = false) => {
       setChatHistory((prev) => [
         ...prev.filter((msg) => msg.text !== "Thinking..."),
@@ -29,22 +17,11 @@ const Chatbot = () => {
       ]);
     };
 
-    history = history.map(({ role, text }) => ({ role, parts: [{ text }] }));
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contents: history }),
-    };
-
     try {
-      const response = await fetch(import.meta.env.VITE_API_URL, requestOptions);
-      const data = await response.json();
-      if (!response.ok) throw new Error(data?.error?.message || "Something went wrong!");
-
-      const apiResponseText = data.candidates[0].content.parts[0].text.replace(/\*\*(.*?)\*\*/g, "$1").trim();
-      updateHistory(apiResponseText);
+      const botReply = await sendChatMessage(userMessage);
+      updateHistory(botReply);
     } catch (error) {
-      updateHistory(error.message, true);
+      updateHistory(error.message || "Failed to get chatbot response.", true);
     }
   };
 
@@ -95,7 +72,6 @@ const Chatbot = () => {
           {/* Footer */}
           <div className="p-3 border-t border-gray-200 bg-white">
             <ChatForm
-              chatHistory={chatHistory}
               setChatHistory={setChatHistory}
               generateBotResponse={generateBotResponse}
             />
